@@ -3,7 +3,7 @@ import "./globals.css";
 import "@/styles/tw-animate.css";
 import { NavigationDock } from "@/components/NavigationDock";
 import { Footer } from "@/components/Footer";
-import { TracingBeamWrapper } from "@/components/TracingBeamWrapper";
+
 import Portfolio from "@/components/portfolio-menu";
 import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -64,12 +64,10 @@ export default function RootLayout({
       <body className="bg-zinc-950 text-zinc-100 flex flex-col antialiased min-h-screen relative">
         <NavigationDock />
         <Portfolio />
-        <TracingBeamWrapper>
-          <main className="flex-1 flex flex-col min-h-screen relative pt-8">
-            {children}
-            <Footer />
-          </main>
-        </TracingBeamWrapper>
+        <main className="flex-1 flex flex-col min-h-screen relative pt-8">
+          {children}
+          <Footer />
+        </main>
       </body>
     </html>
   );
