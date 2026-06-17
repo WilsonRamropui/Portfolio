@@ -91,8 +91,6 @@ export default function Home() {
                 autoRotate={false}
                 enableMouseParallax={false}
                 enableHoverRotation={false}
-                placeholderSrc=""
-                onModelLoaded={() => {}}
               />
             </div>
 

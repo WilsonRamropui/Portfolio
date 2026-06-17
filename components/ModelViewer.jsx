@@ -348,12 +348,12 @@ const ModelViewer = ({
   rimLightIntensity = 0.8,
   environmentPreset = 'city',
   autoFrame = false,
-  placeholderSrc,
+  placeholderSrc = null,
   showScreenshotButton = false,
   fadeIn = false,
   autoRotate = false,
   autoRotateSpeed = 0.35,
-  onModelLoaded
+  onModelLoaded = null
 }) => {
   useEffect(() => void useGLTF.preload(url), [url]);
   const pivot = useRef(new THREE.Vector3()).current;
