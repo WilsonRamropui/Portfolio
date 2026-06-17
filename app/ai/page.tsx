@@ -7,8 +7,8 @@ import { Send, Bot, User, Sparkles } from "lucide-react";
 import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 
 export default function AIChatPage() {
-  const { messages, sendMessage, isLoading } = useChat();
-  const [input, setInput] = useState("");
+  const { messages, append, status, input, handleInputChange, handleSubmit } = useChat();
+  const isLoading = status === 'submitted' || status === 'streaming';
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom
@@ -16,15 +16,11 @@ export default function AIChatPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isLoading]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
-    sendMessage({ role: "user", content: input });
-    setInput("");
+    append({ role: "user", content: input });
   };
 
   return (
@@ -130,7 +126,7 @@ export default function AIChatPage() {
         {/* Input Area */}
         <div className="p-4 md:p-6 bg-black/40 border-t border-white/10 backdrop-blur-md">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={onSubmit}
             className="relative flex items-center w-full bg-white/5 border border-white/10 rounded-full focus-within:border-emerald-500/50 focus-within:bg-white/10 transition-all duration-300 shadow-inner overflow-hidden group"
           >
             <input
