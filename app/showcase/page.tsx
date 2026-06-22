@@ -1,4 +1,5 @@
 "use client";
+// Trigger recompile
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
@@ -283,7 +284,7 @@ export default function CinematicShowcasePage() {
           >
 
             {/* PROPOSED */}
-            <div style={{ overflow: "hidden", marginBottom: 0, marginTop: "auto" }} className="md:mt-0">
+            <div style={{ overflow: "hidden", marginBottom: 0, marginTop: "8vh" }} className="md:mt-0">
               <motion.h1
                 className="font-cormorant text-left uppercase text-[#1A1816]"
                 style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 0.95, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
@@ -295,7 +296,7 @@ export default function CinematicShowcasePage() {
               </motion.h1>
             </div>
 
-            {/* APARTMENT */}
+            {/* BUILDING */}
             <div style={{ overflow: "hidden", marginBottom: "clamp(4px, 1.5dvh, 12px)" }}>
               <motion.h1
                 className="font-cormorant text-left uppercase"
@@ -304,7 +305,7 @@ export default function CinematicShowcasePage() {
                 animate={{ y: 0 }}
                 transition={{ delay: 0.35, duration: 1.8, ease: CINEMATIC }}
               >
-                Apartment
+                Building
               </motion.h1>
             </div>
 
@@ -339,7 +340,7 @@ export default function CinematicShowcasePage() {
 
             {/* View buttons */}
             <motion.div
-              className="flex flex-col justify-end gap-[clamp(4px,1dvh,6px)] mt-auto md:mt-0 mb-2 md:mb-0 shrink-0"
+              className="flex flex-col justify-end gap-3 mt-auto md:mt-10 mb-4 md:mb-8 shrink-0"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.7, ease: CINEMATIC }}
@@ -348,11 +349,11 @@ export default function CinematicShowcasePage() {
                 <motion.button
                   key={view.id}
                   onClick={() => setActiveView(view)}
-                  className="group relative flex items-center justify-between text-left overflow-hidden w-full"
+                  className="group relative flex items-center justify-between text-left w-full overflow-hidden"
                   style={{
-                    padding: "clamp(6px, 1.2dvh, 10px) 14px",
-                    border: "1px solid rgba(26,24,22,0.12)",
-                    borderRadius: 6,
+                    padding: "16px 20px",
+                    border: "1px solid rgba(26,24,22,0.15)",
+                    borderRadius: 8,
                     background: "transparent",
                     cursor: "pointer",
                     willChange: "transform",
@@ -375,16 +376,16 @@ export default function CinematicShowcasePage() {
                   />
 
                   {/* Left: label + subtitle */}
-                  <span className="relative flex flex-col gap-[3px] z-10 min-w-0 flex-1 pr-3">
+                  <span className="relative flex flex-col gap-1 z-10 min-w-0 flex-1 pr-3">
                     <span
-                      className="font-cormorant uppercase text-[#1A1816] group-hover:text-[#F4F0E6] transition-colors duration-150 truncate"
-                      style={{ fontSize: "clamp(1.05rem, 3.5vw, 1.25rem)", fontWeight: 400, letterSpacing: "0.08em", lineHeight: 1 }}
+                      className="font-cormorant uppercase text-[#1A1816] group-hover:text-[#F4F0E6] transition-colors duration-200 truncate"
+                      style={{ fontSize: "clamp(1.15rem, 3.5vw, 1.35rem)", fontWeight: 400, letterSpacing: "0.08em", lineHeight: 1 }}
                     >
                       {view.label}
                     </span>
                     <span
-                      className="font-sans text-[#8B857A] group-hover:text-[#A09890] transition-colors duration-150 truncate"
-                      style={{ fontSize: 9.5, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}
+                      className="font-sans text-[#8B857A] group-hover:text-[#D0C8C0] transition-colors duration-200 truncate"
+                      style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase" }}
                     >
                       {view.subtitle}
                     </span>
