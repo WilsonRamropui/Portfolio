@@ -244,27 +244,27 @@ export default function CinematicShowcasePage() {
   return (
     <>
       <div
-        className="fixed inset-0 z-[100] w-full h-screen overflow-hidden bg-[#F4F0E6] font-sans text-[#1A1816] select-none touch-none overscroll-none"
+        className="fixed inset-0 z-[100] w-full h-[100dvh] bg-[#F4F0E6] font-sans text-[#1A1816] select-none overscroll-none overflow-hidden"
         style={{ contain: "strict" }}
       >
         {/* ── TOP NAV ─────────────────────────────────────────── */}
         <motion.div
-          className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-8 sm:px-12 lg:px-14 pt-8"
+          className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-12 lg:px-14 pt-4 md:pt-8"
           style={{ willChange: "transform, opacity", backfaceVisibility: "hidden" }}
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: CINEMATIC }}
         >
-          <div className="flex items-center gap-3">
-            <div className="relative w-[40px] h-[40px] shrink-0 flex items-center justify-center" style={{ filter: "invert(1)" }}>
-              <div className="preloader-monogram-wrapper absolute !mb-0 shrink-0" style={{ width: "110px", height: "110px", transform: "scale(0.36) translateZ(0)" }}>
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="relative w-[32px] h-[32px] md:w-[40px] md:h-[40px] shrink-0 flex items-center justify-center" style={{ filter: "invert(1)" }}>
+              <div className="preloader-monogram-wrapper absolute !mb-0 shrink-0" style={{ width: "110px", height: "110px", transform: "scale(0.3) translateZ(0)" }}>
                 <div className="preloader-ring-glow" />
                 <span className="preloader-monogram">W</span>
               </div>
             </div>
-            <div className="font-cormorant text-[14px] sm:text-[17px] tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#1A1816] leading-none whitespace-nowrap">Wilson Studio</div>
+            <div className="font-cormorant text-[13px] sm:text-[17px] tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#1A1816] leading-none whitespace-nowrap">Wilson Studio</div>
           </div>
-          <Link href="/" className="flex items-center justify-center font-mono text-[9px] tracking-[0.22em] uppercase text-[#5A554F] border border-[#5A554F]/25 hover:border-[#1A1816]/50 hover:text-[#1A1816] w-8 h-8 sm:w-auto sm:h-auto sm:px-4 sm:py-[7px] rounded-full transition-colors duration-200 whitespace-nowrap">
+          <Link href="/" className="flex items-center justify-center font-mono text-[9px] tracking-[0.22em] uppercase text-[#5A554F] border border-[#5A554F]/25 hover:border-[#1A1816]/50 hover:text-[#1A1816] w-8 h-8 sm:w-auto sm:h-auto sm:px-4 sm:py-[7px] rounded-full transition-colors duration-200 whitespace-nowrap bg-[#F4F0E6]/80 backdrop-blur-sm">
             {/* Mobile X Icon */}
             <svg className="sm:hidden" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4">
               <path d="M3 3L9 9M9 3L3 9" strokeLinecap="round" strokeLinejoin="round" />
@@ -282,15 +282,15 @@ export default function CinematicShowcasePage() {
 
           {/* LEFT PANEL */}
           <div
-            className="relative flex flex-col px-6 sm:px-10 md:px-12 lg:px-14 pt-28 md:pt-20 pb-6 w-full h-full md:h-auto md:w-[44%] md:flex-shrink-0 md:justify-center"
+            className="relative flex flex-col px-6 sm:px-10 md:px-12 lg:px-14 pt-16 sm:pt-20 pb-4 sm:pb-6 w-full h-full md:w-[44%] md:flex-shrink-0 md:justify-center overflow-hidden"
             style={{ minHeight: 0 }}
           >
 
             {/* PROPOSED */}
-            <div style={{ overflow: "hidden", marginBottom: 4 }}>
+            <div style={{ overflow: "hidden", marginBottom: 0, marginTop: "auto" }} className="md:mt-0">
               <motion.h1
                 className="font-cormorant text-left uppercase text-[#1A1816]"
-                style={{ fontSize: "clamp(2.6rem, 8vw, 5rem)", lineHeight: 0.88, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
+                style={{ fontSize: "clamp(2rem, min(8vw, 6dvh), 5rem)", lineHeight: 0.95, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.15, duration: 1.8, ease: CINEMATIC }}
@@ -300,10 +300,10 @@ export default function CinematicShowcasePage() {
             </div>
 
             {/* APARTMENT */}
-            <div style={{ overflow: "hidden", marginBottom: 20 }}>
+            <div style={{ overflow: "hidden", marginBottom: "clamp(4px, 1.5dvh, 12px)" }}>
               <motion.h1
                 className="font-cormorant text-left uppercase"
-                style={{ fontSize: "clamp(2.6rem, 8vw, 5rem)", lineHeight: 0.88, fontWeight: 300, fontStyle: "italic", color: "#7A746B", letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
+                style={{ fontSize: "clamp(2rem, min(8vw, 6dvh), 5rem)", lineHeight: 0.95, fontWeight: 300, fontStyle: "italic", color: "#7A746B", letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.35, duration: 1.8, ease: CINEMATIC }}
@@ -314,7 +314,7 @@ export default function CinematicShowcasePage() {
 
             {/* Divider */}
             <motion.div
-              style={{ height: 1, maxWidth: 260, background: "linear-gradient(90deg, rgba(26,24,22,0.2), transparent)", transformOrigin: "left", willChange: "transform, opacity", marginBottom: 14 }}
+              style={{ height: 1, maxWidth: 260, background: "linear-gradient(90deg, rgba(26,24,22,0.2), transparent)", transformOrigin: "left", willChange: "transform, opacity", marginBottom: "clamp(4px, 1.5dvh, 12px)" }}
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: 1 }}
               transition={{ delay: 0.9, duration: 1.0, ease: CINEMATIC }}
@@ -322,9 +322,8 @@ export default function CinematicShowcasePage() {
 
             {/* Blueprint — mobile only */}
             <motion.div
-              className="block md:hidden relative w-full my-auto"
+              className="block md:hidden relative w-full flex-1 min-h-0 my-1 md:my-2"
               style={{
-                height: "72vw",
                 transform: "translate3d(0,0,0)",
                 willChange: "transform",
                 backfaceVisibility: "hidden",
@@ -337,15 +336,15 @@ export default function CinematicShowcasePage() {
                 src="/images/blueprint_4k.png"
                 alt="Architectural Floor Plan"
                 fill
-                className="object-contain grayscale opacity-90 scale-[1.05] pointer-events-none"
+                className="object-contain grayscale opacity-90 pointer-events-none"
                 priority
                 sizes="100vw"
               />
             </motion.div>
 
-            {/* View buttons — mt-auto pushes to bottom of full-height panel */}
+            {/* View buttons */}
             <motion.div
-              className="flex flex-col gap-[6px] mt-auto md:mt-0 mb-8 md:mb-0"
+              className="flex flex-col justify-end gap-[clamp(4px,1dvh,6px)] mt-auto md:mt-0 mb-2 md:mb-0 shrink-0"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.7, ease: CINEMATIC }}
@@ -356,7 +355,7 @@ export default function CinematicShowcasePage() {
                   onClick={() => setActiveView(view)}
                   className="group relative flex items-center justify-between text-left overflow-hidden w-full"
                   style={{
-                    padding: "10px 14px",
+                    padding: "clamp(6px, 1.2dvh, 10px) 14px",
                     border: "1px solid rgba(26,24,22,0.12)",
                     borderRadius: 6,
                     background: "transparent",

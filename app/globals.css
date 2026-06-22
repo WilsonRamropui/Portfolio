@@ -145,10 +145,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
   }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
+    overscroll-behavior-y: none;
   }
 }
 
