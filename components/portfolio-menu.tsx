@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -71,6 +72,7 @@ export type Props = {
 };
 
 export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isBio, setIsBio] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
@@ -237,7 +239,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     ]);
 
     return (
-        <div ref={menuRef} className={cn('fixed bottom-8 right-8 z-[9999] flex justify-end items-center bg-transparent', inter.className)}>
+        <div ref={menuRef} className={cn('fixed bottom-8 right-8 z-[9999] justify-end items-center bg-transparent', inter.className, pathname?.startsWith('/showcase') ? 'hidden' : 'flex')}>
             <motion.div
                 variants={containerVariants}
                 initial="closed"

@@ -96,9 +96,10 @@ function DetailOverlay({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
     >
-      {/* Dark backdrop */}
+      {/* Light backdrop */}
       <motion.div
-        className="absolute inset-0 bg-[#1A1816]"
+        className="absolute inset-0"
+        style={{ backgroundColor: "#F4F0E6" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -108,36 +109,36 @@ function DetailOverlay({
 
       {/* Content panel — slides up from bottom */}
       <motion.div
-        className="relative w-full h-full flex flex-col lg:flex-row"
+        className="relative w-full h-full flex flex-col-reverse lg:flex-row"
         style={{ willChange: "transform", backfaceVisibility: "hidden" }}
         initial={{ y: "4%", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: "4%", opacity: 0 }}
         transition={{ duration: 0.55, ease: CINEMATIC }}
       >
-        {/* Left info panel */}
-        <div
-          className="relative flex flex-col justify-between px-10 sm:px-14 lg:px-16 pt-20 pb-12 bg-[#F4F0E6]"
-          style={{ width: "100%", maxWidth: "420px", flexShrink: 0 }}
+        {/* Back button (Fixed for mobile, absolute for desktop) */}
+        <motion.button
+          onClick={onClose}
+          className="fixed top-6 left-6 lg:absolute lg:top-8 lg:left-16 z-[210] flex items-center gap-2 font-mono text-[9px] tracking-[0.22em] uppercase text-[#1A1816] bg-[#F4F0E6] lg:bg-transparent border border-[#1A1816]/10 lg:border-[#5A554F]/25 hover:border-[#1A1816]/50 lg:text-[#5A554F] lg:hover:text-[#1A1816] px-4 py-[7px] rounded-full transition-colors duration-200 shadow-sm lg:shadow-none"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
         >
-          {/* Back button */}
-          <motion.button
-            onClick={onClose}
-            className="absolute top-8 left-10 sm:left-14 lg:left-16 flex items-center gap-2 font-mono text-[9px] tracking-[0.22em] uppercase text-[#5A554F] border border-[#5A554F]/25 hover:border-[#1A1816]/50 hover:text-[#1A1816] px-4 py-[7px] rounded-full transition-colors duration-200"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4">
-              <path d="M8 6H2M2 6L4.5 3.5M2 6L4.5 8.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Back
-          </motion.button>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4">
+            <path d="M8 6H2M2 6L4.5 3.5M2 6L4.5 8.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Back
+        </motion.button>
 
-          <div className="flex flex-col mt-16">
+        {/* Left info panel (Text) */}
+        <div
+          className="relative flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-8 lg:pt-28 pb-8 lg:pb-12 w-full lg:max-w-[420px] shrink-0 z-10"
+          style={{ height: "auto", backgroundColor: "#F4F0E6" }}
+        >
+          <div className="flex flex-col">
             {/* Tag */}
             <motion.span
-              className="font-mono text-[9px] tracking-[0.22em] uppercase text-[#8B857A] mb-6"
+              className="font-mono text-[9px] tracking-[0.22em] uppercase text-[#8B857A] mb-4 lg:mb-6"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.25, duration: 0.5 }}
@@ -149,7 +150,7 @@ function DetailOverlay({
             <div style={{ overflow: "hidden", marginBottom: 4 }}>
               <motion.h2
                 className="font-cormorant uppercase text-[#1A1816]"
-                style={{ fontSize: "clamp(2.2rem, 4vw, 3.8rem)", lineHeight: 0.88, fontWeight: 400 }}
+                style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)", lineHeight: 0.88, fontWeight: 400 }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.3, duration: 1.2, ease: CINEMATIC }}
@@ -157,10 +158,10 @@ function DetailOverlay({
                 {view.label}
               </motion.h2>
             </div>
-            <div style={{ overflow: "hidden", marginBottom: 28 }}>
+            <div style={{ overflow: "hidden", marginBottom: "clamp(12px, 3vh, 28px)" }}>
               <motion.h2
                 className="font-cormorant uppercase text-[#7A746B]"
-                style={{ fontSize: "clamp(2.2rem, 4vw, 3.8rem)", lineHeight: 0.88, fontWeight: 300, fontStyle: "italic" }}
+                style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)", lineHeight: 0.88, fontWeight: 300, fontStyle: "italic" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.42, duration: 1.2, ease: CINEMATIC }}
@@ -171,7 +172,7 @@ function DetailOverlay({
 
             {/* Divider */}
             <motion.div
-              style={{ height: 1, maxWidth: 200, background: "linear-gradient(90deg, rgba(26,24,22,0.2), transparent)", marginBottom: 24, transformOrigin: "left" }}
+              style={{ height: 1, maxWidth: 200, background: "linear-gradient(90deg, rgba(26,24,22,0.2), transparent)", marginBottom: "clamp(12px, 3vh, 24px)", transformOrigin: "left" }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 0.55, duration: 0.8, ease: CINEMATIC }}
@@ -179,7 +180,7 @@ function DetailOverlay({
 
             {/* Description */}
             <motion.p
-              className="text-[#6B665E] text-sm leading-relaxed font-light"
+              className="text-[#6B665E] text-xs sm:text-sm leading-relaxed font-light mb-6 lg:mb-0"
               style={{ maxWidth: 300 }}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -191,26 +192,26 @@ function DetailOverlay({
 
           {/* Meta footer */}
           <motion.div
-            className="flex items-center justify-between"
+            className="flex items-center justify-between mt-auto lg:mt-8 pt-4 lg:pt-0 border-t border-black/5 lg:border-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.5 }}
           >
             <div>
               <p className="font-mono text-[8px] tracking-[0.25em] uppercase text-[#8B857A] mb-1">Ref</p>
-              <p className="font-cormorant text-lg text-[#1A1816] font-light">{view.ref}</p>
+              <p className="font-cormorant text-base lg:text-lg text-[#1A1816] font-light">{view.ref}</p>
             </div>
             <div className="text-right">
               <p className="font-mono text-[8px] tracking-[0.25em] uppercase text-[#8B857A] mb-1">Scale</p>
-              <p className="font-cormorant text-lg text-[#1A1816] font-light">{view.scale}</p>
+              <p className="font-cormorant text-base lg:text-lg text-[#1A1816] font-light">{view.scale}</p>
             </div>
           </motion.div>
         </div>
 
-        {/* Right image panel — dark */}
+        {/* Right image panel */}
         <motion.div
-          className="relative flex-1 h-full bg-[#0E0E0C] flex items-center justify-center"
-          style={{ willChange: "transform", backfaceVisibility: "hidden" }}
+          className="relative flex-1 h-full flex items-center justify-center"
+          style={{ backgroundColor: "#F4F0E6", willChange: "transform", backfaceVisibility: "hidden" }}
           initial={{ x: "6%", opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: "6%", opacity: 0 }}
@@ -221,7 +222,7 @@ function DetailOverlay({
               src={view.image}
               alt={view.label}
               fill
-              className="object-contain opacity-90 pointer-events-none"
+              className="object-contain pointer-events-none"
               priority
               sizes="70vw"
             />
@@ -244,8 +245,8 @@ export default function CinematicShowcasePage() {
   return (
     <>
       <div
-        className="fixed inset-0 z-[100] w-full h-[100dvh] bg-[#F4F0E6] font-sans text-[#1A1816] select-none overscroll-none overflow-hidden"
-        style={{ contain: "strict" }}
+        className="fixed inset-0 z-[100] w-full h-[100dvh] font-sans text-[#1A1816] select-none overscroll-none overflow-hidden"
+        style={{ contain: "strict", backgroundColor: "#F4F0E6" }}
       >
         {/* ── TOP NAV ─────────────────────────────────────────── */}
         <motion.div
@@ -256,12 +257,7 @@ export default function CinematicShowcasePage() {
           transition={{ duration: 0.7, ease: CINEMATIC }}
         >
           <div className="flex items-center gap-2 md:gap-3">
-            <div className="relative w-[32px] h-[32px] md:w-[40px] md:h-[40px] shrink-0 flex items-center justify-center" style={{ filter: "invert(1)" }}>
-              <div className="preloader-monogram-wrapper absolute !mb-0 shrink-0" style={{ width: "110px", height: "110px", transform: "scale(0.3) translateZ(0)" }}>
-                <div className="preloader-ring-glow" />
-                <span className="preloader-monogram">W</span>
-              </div>
-            </div>
+
             <div className="font-cormorant text-[13px] sm:text-[17px] tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[#1A1816] leading-none whitespace-nowrap">Wilson Studio</div>
           </div>
           <Link href="/" className="flex items-center justify-center font-mono text-[9px] tracking-[0.22em] uppercase text-[#5A554F] border border-[#5A554F]/25 hover:border-[#1A1816]/50 hover:text-[#1A1816] w-8 h-8 sm:w-auto sm:h-auto sm:px-4 sm:py-[7px] rounded-full transition-colors duration-200 whitespace-nowrap bg-[#F4F0E6]/80 backdrop-blur-sm">
@@ -290,7 +286,7 @@ export default function CinematicShowcasePage() {
             <div style={{ overflow: "hidden", marginBottom: 0, marginTop: "auto" }} className="md:mt-0">
               <motion.h1
                 className="font-cormorant text-left uppercase text-[#1A1816]"
-                style={{ fontSize: "clamp(2rem, min(8vw, 6dvh), 5rem)", lineHeight: 0.95, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
+                style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 0.95, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.15, duration: 1.8, ease: CINEMATIC }}
@@ -303,7 +299,7 @@ export default function CinematicShowcasePage() {
             <div style={{ overflow: "hidden", marginBottom: "clamp(4px, 1.5dvh, 12px)" }}>
               <motion.h1
                 className="font-cormorant text-left uppercase"
-                style={{ fontSize: "clamp(2rem, min(8vw, 6dvh), 5rem)", lineHeight: 0.95, fontWeight: 300, fontStyle: "italic", color: "#7A746B", letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
+                style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 0.95, fontWeight: 300, fontStyle: "italic", color: "#7A746B", letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.35, duration: 1.8, ease: CINEMATIC }}
@@ -324,13 +320,12 @@ export default function CinematicShowcasePage() {
             <motion.div
               className="block md:hidden relative w-full flex-1 min-h-0 my-1 md:my-2"
               style={{
-                transform: "translate3d(0,0,0)",
-                willChange: "transform",
+                willChange: "transform, opacity",
                 backfaceVisibility: "hidden",
               }}
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              transition={{ delay: 0.5, duration: 1.2, ease: CINEMATIC }}
+              initial={{ x: 80, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 2.0, ease: [0.16, 1, 0.3, 1] }}
             >
               <Image
                 src="/images/blueprint_4k.png"
@@ -410,17 +405,17 @@ export default function CinematicShowcasePage() {
           {/* RIGHT PANEL — desktop only, slides in from right */}
           <motion.div
             className="relative hidden md:flex items-center justify-center h-full md:flex-1"
-            style={{ willChange: "transform, opacity", backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            transition={{ delay: 0.6, duration: 1.6, ease: CINEMATIC }}
+            style={{ willChange: "transform, opacity", backfaceVisibility: "hidden" }}
+            initial={{ x: 80, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6, duration: 2.0, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="relative" style={{ width: "80%", height: "75%", transform: "translateZ(0)" }}>
               <Image
                 src="/images/blueprint_4k.png"
                 alt="Architectural Floor Plan"
                 fill
-                className="object-contain grayscale opacity-90 pointer-events-none"
+                className="object-contain pointer-events-none"
                 priority
                 sizes="60vw"
               />

@@ -22,6 +22,11 @@ export const PinContainer = ({
   const [transform, setTransform] = useState(
     "translate(-50%,-50%) rotateX(0deg)"
   );
+  const [mounted, setMounted] = useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const onMouseEnter = () => {
     setTransform("translate(-50%,-50%) rotateX(40deg) scale(0.8)");
@@ -30,9 +35,14 @@ export const PinContainer = ({
     setTransform("translate(-50%,-50%) rotateX(0deg) scale(1)");
   };
 
+  if (!mounted) {
+    return null;
+  }
+
   const Tag = href ? "a" : ("div" as any);
   return (
     <Tag
+      suppressHydrationWarning
       className={cn(
         "relative group/pin z-50  cursor-pointer select-none",
         containerClassName
