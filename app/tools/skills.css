@@ -1,0 +1,790 @@
+/* ═══════════════════════════════════════════════════════════════
+   SKILLS & EXPERTISE — Gothic Victorian Compendium Style
+   Palette: Void Black · Frosted White · Silver · Glassmorphism
+   Mirrors: projects/gothic.css
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=IM+Fell+English:ital@0;1&display=swap');
+
+/* ── Variables (mirrors gothic.css) ────────────────────────── */
+:root {
+  --sk-void:      #000000;
+  --sk-abyss:     #030303;
+  --sk-deep:      #050505;
+  --sk-dark:      #080808;
+  --sk-stone:     #2a2a2a;
+  --sk-sage:      #404040;
+  --sk-fern:      #555555;
+  --sk-parchment: #999999;
+  --sk-aged:      #bbbbbb;
+  --sk-vellum:    #dddddd;
+  --sk-cream:     #f0f0f0;
+  --sk-ivory:     #fafafa;
+  --sk-gold:      #ffffff;
+  --sk-gold-dim:  #888888;
+
+  --sk-border-ornate: rgba(255, 255, 255, 0.25);
+  --sk-border-dim:    rgba(255, 255, 255, 0.12);
+  --sk-border-subtle: rgba(255, 255, 255, 0.05);
+  --sk-glow:          rgba(255, 255, 255, 0.12);
+
+  --sk-glass-bg:  rgba(10, 10, 10, 0.45);
+  --sk-glass-blur: blur(16px);
+
+  --sk-font-display: 'Cinzel Decorative', 'Cinzel', serif;
+  --sk-font-heading: 'Cinzel', serif;
+  --sk-font-body:    'Crimson Text', 'IM Fell English', Georgia, serif;
+
+  --sk-transition: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── PAGE ROOT ──────────────────────────────────────────────── */
+.skills-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  font-family: var(--sk-font-body);
+  color: var(--sk-aged);
+  overflow-x: hidden;
+  margin-top: -32px;
+  padding-top: 20px;
+  padding-bottom: 80px;
+}
+
+/* ── CINEMATIC FIXED BACKGROUND (mirrors experience page) ─────── */
+.skills-bg-image {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/home-bg-4k.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Vignette over cinematic image */
+.skills-bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.8) 100%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%);
+}
+
+/* ── OBSIDIAN GLASS BACKGROUND ──────────────────────────────── */
+.skills-blueprint-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Base void gradient — transparent overlays only, cinematic bg shows through */
+.skills-blueprint-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%,   rgba(255,255,255,0.03) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 80% at 100% 100%, rgba(255,255,255,0.02) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 60% at 0% 100%,  rgba(255,255,255,0.01) 0%, transparent 60%);
+}
+
+/* Noise texture — same as gothic.css */
+.skills-blueprint-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+}
+
+/* Animated map-line cartography grid — same as gothic.css */
+.skills-map-lines {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 40px 40px, 40px 40px;
+  animation: sk-map-drift 40s linear infinite;
+}
+
+@keyframes sk-map-drift {
+  0%   { background-position: 0 0, 0 0, 0 0, 0 0; }
+  100% { background-position: 120px 120px, 120px 120px, 40px 40px, 40px 40px; }
+}
+
+/* Corner vignette — same as gothic.css */
+.skills-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.95) 100%);
+}
+
+/* ── CONTENT WRAPPER ────────────────────────────────────────── */
+.skills-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: calc(100vh - 80px);
+}
+
+/* ── GLASS PANEL WRAP (mirrors experience .exp-panel) ─────────── */
+.sk-glass-wrap {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 0;
+  flex: 1;
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(30px) saturate(1.2);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  border-radius: 28px 28px 0 0;
+  padding: 40px 40px 80px;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+/* Inner shimmer overlay — identical to exp-panel::before */
+.sk-glass-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 50%, rgba(0,0,0,0.3) 100%);
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sk-glass-wrap > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── HERO HEADER ────────────────────────────────────────────── */
+.skills-hero {
+  text-align: center;
+  margin-bottom: 28px;
+  position: relative;
+  padding-top: 60px;
+}
+
+.skills-hero-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: #d4d4d4;
+  opacity: 0.8;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.skills-hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: var(--sk-ivory);
+  margin: 0 0 12px;
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.08), 0 0 40px rgba(255, 255, 255, 0.04);
+}
+
+.skills-hero-sub {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 15px;
+  color: var(--sk-parchment);
+  letter-spacing: 0.02em;
+  font-style: italic;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.85;
+}
+
+/* Ornamental rule under title — matches gothic.css */
+.skills-hero-rule {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem auto 0;
+  width: fit-content;
+}
+
+.skills-hero-rule-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sk-border-ornate));
+}
+
+.skills-hero-rule-line.right {
+  background: linear-gradient(90deg, var(--sk-border-ornate), transparent);
+}
+
+.skills-hero-rule-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sk-gold-dim);
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+/* ── SECTION LABELS ─────────────────────────────────────────── */
+.skills-section-label {
+  font-family: var(--sk-font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--sk-gold-dim);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.7;
+}
+
+.skills-section-label::before {
+  content: '—';
+  opacity: 0.5;
+}
+
+.skills-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--sk-border-dim), transparent);
+}
+
+.skills-section-title {
+  font-family: var(--sk-font-heading);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--sk-ivory);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 2.5rem;
+  text-shadow: 0 0 20px rgba(255,255,255,0.06);
+}
+
+/* ── DIVIDER ────────────────────────────────────────────────── */
+.skills-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sk-border-ornate), transparent);
+  margin: 48px 0;
+}
+
+/* ================================================================
+   SOFTWARE GRID — gothic glass card grid
+   ================================================================ */
+.skills-software-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  perspective: 1200px;
+  perspective-origin: 50% 30%;
+  margin-bottom: 5rem;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+}
+
+/* ── SKILL CARD ─────────────────────────────────────────────── */
+.skill-card {
+  position: relative;
+  /* Experience page glass formula */
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(30px) saturate(1.2);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  padding: 1.75rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  overflow: hidden;
+  cursor: default;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.45s cubic-bezier(0.23, 1, 0.32, 1),
+    box-shadow 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Top glass sheen */
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top-left corner shine */
+.skill-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 55%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 60%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Hover 3D lift */
+.skill-card:hover {
+  transform: perspective(1000px) translateY(-8px) rotateX(5deg);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.8),
+    inset 3px 3px 6px rgba(255, 255, 255, 0.2),
+    inset -3px -3px 8px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 20px rgba(255, 255, 255, 0.04);
+}
+
+
+/* ── Icon wrap ───────────────────────────────────────────────── */
+.skill-card-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--sk-border-dim);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.06) inset;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s ease;
+}
+
+.skill-card:hover .skill-card-icon-wrap {
+  transform: translateY(-2px) translateZ(16px);
+  border-color: var(--sk-border-ornate);
+}
+
+.skill-card-icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.skill-card-icon-fallback {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* ── Name & type ─────────────────────────────────────────────── */
+.skill-card-name {
+  position: relative;
+  z-index: 2;
+  font-family: var(--sk-font-heading);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sk-cream);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+  transition: color 0.3s ease;
+}
+
+.skill-card:hover .skill-card-name {
+  color: var(--sk-gold);
+}
+
+.skill-card-type {
+  position: relative;
+  z-index: 2;
+  font-family: var(--sk-font-body);
+  font-size: 14px;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--sk-fern);
+  margin-bottom: 1.25rem;
+}
+
+/* ── Proficiency bar ─────────────────────────────────────────── */
+.skill-card-bar-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: auto;
+}
+
+.skill-card-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.45rem;
+}
+
+.skill-card-bar-label {
+  font-family: var(--sk-font-heading);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+}
+
+.skill-card-bar-pct {
+  font-family: var(--sk-font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--sk-parchment);
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-card-bar-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-card-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.2) 0%,
+    rgba(255,255,255,0.8) 70%,
+    rgba(255,255,255,0.95) 100%
+  );
+  box-shadow: 0 0 8px rgba(255,255,255,0.25);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: barFill 1.1s cubic-bezier(0.22, 1, 0.36, 1) var(--bar-delay, 0s) both;
+}
+
+@keyframes barFill {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(var(--bar-pct, 0.85)); }
+}
+
+/* Right-edge accent line */
+.skill-card-accent-line {
+  position: absolute;
+  top: 15%; bottom: 15%;
+  right: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.12) 60%, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.skill-card:hover .skill-card-accent-line {
+  opacity: 1;
+}
+
+/* ================================================================
+   STATS STRIP — gothic glass container
+   ================================================================ */
+.skills-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 5rem;
+  /* Experience page glass formula */
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(30px) saturate(1.2);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+/* Top ornate line */
+.skills-stats-strip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sk-border-ornate), transparent);
+}
+
+.stat-item {
+  padding: 2rem 1rem;
+  text-align: center;
+  border-right: 1px solid var(--sk-border-subtle);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-item:hover {
+  background: rgba(255,255,255,0.03);
+}
+
+.stat-number {
+  font-family: var(--sk-font-heading);
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--sk-ivory);
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
+.stat-number span {
+  color: var(--sk-gold-dim);
+}
+
+.stat-label {
+  font-family: var(--sk-font-heading);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--sk-fern);
+  margin-top: 0.5rem;
+}
+
+/* ================================================================
+   WORKFLOW STEPS — gothic ornamental flow
+   ================================================================ */
+.skills-workflow-steps {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+/* Connecting line */
+.skills-workflow-steps::before {
+  content: '';
+  position: absolute;
+  top: 27px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--sk-border-dim) 15%,
+    var(--sk-border-dim) 85%,
+    transparent
+  );
+  z-index: 0;
+}
+
+.workflow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 0.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-step-dot {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  /* Experience page glass formula */
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(30px) saturate(1.2);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,0.05);
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.workflow-step:hover .workflow-step-dot {
+  border-color: var(--sk-border-ornate);
+  background: linear-gradient(145deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+  transform: translateY(-3px);
+}
+
+.workflow-step-label {
+  font-family: var(--sk-font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sk-fern);
+  line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.workflow-step:hover .workflow-step-label {
+  color: var(--sk-parchment);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — fluid from 1440px → 360px
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Tablet: 1024px ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .sk-glass-wrap {
+    padding: 32px 28px 44px;
+    border-radius: 20px 20px 0 0;
+  }
+  .skills-container { padding: 0 20px; }
+  .skills-software-grid { grid-template-columns: repeat(3, 1fr); }
+  .skills-stats-strip    { grid-template-columns: repeat(3, 1fr); }
+  .stat-item:nth-child(3) { border-right: none; }
+  .skills-workflow-steps { grid-template-columns: repeat(3, 1fr); }
+  .skills-workflow-steps::before { display: none; }
+}
+
+/* ── Large Mobile: 768px ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .skills-page { padding-bottom: 4rem; }
+  .skills-container { padding: 0 14px; }
+
+  .sk-glass-wrap {
+    padding: 24px 18px 36px;
+    border-radius: 12px 12px 0 0;
+    margin: 0 0 0;
+  }
+
+  /* Hero */
+  .skills-hero-title {
+    font-size: clamp(20px, 8vw, 32px);
+    word-break: break-word;
+  }
+  .skills-hero-sub {
+    max-width: 100%;
+  }
+
+  /* Section headers */
+  .skills-section-label { font-size: 10px; }
+  .skills-section-title {
+    font-size: 22px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Software grid: 2 col */
+  .skills-software-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+  }
+  .skill-card { padding: 1.25rem 1rem 1rem; }
+  .skill-card-icon-wrap { width: 42px; height: 42px; margin-bottom: 0.7rem; }
+  .skill-card-icon-img  { width: 28px; height: 28px; }
+  .skill-card-name  { font-size: 16px; }
+  .skill-card-type  { font-size: 14px; margin-bottom: 0.9rem; }
+  .skill-card-bar-label { font-size: 8px; }
+  .skill-card-bar-pct   { font-size: 10px; }
+
+  /* Stats: 2 col */
+  .skills-stats-strip {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 3rem;
+  }
+  .stat-item { border-right: 1px solid var(--sk-border-subtle); padding: 1.5rem 0.75rem; }
+  .stat-item:nth-child(2n) { border-right: none; }
+  .stat-number { font-size: 28px; }
+  .stat-label  { font-size: 8px; }
+
+  /* Workflow: 3 col */
+  .skills-workflow-steps { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .workflow-step-dot { width: 44px; height: 44px; font-size: 1.1rem; }
+  .workflow-step-label { font-size: 8px; }
+}
+
+/* ── Small Mobile: 480px ─────────────────────────────────────── */
+@media (max-width: 480px) {
+  .skills-container { padding: 0 10px; }
+
+  .sk-glass-wrap {
+    padding: 20px 14px 28px;
+    border-radius: 8px 8px 0 0;
+  }
+
+  /* Hero */
+  .skills-hero-rule-line { width: 50px; }
+
+  /* Section */
+  .skills-section-label { font-size: 8px; letter-spacing: 0.3em; }
+  .skills-section-title { font-size: 18px; }
+
+  /* Software grid: 2 col, tighter cards */
+  .skills-software-grid { gap: 1px; }
+  .skill-card { padding: 1rem 0.85rem 0.9rem; }
+  .skill-card-icon-wrap { width: 38px; height: 38px; }
+  .skill-card-icon-img  { width: 24px; height: 24px; }
+  .skill-card-name  { font-size: 14px; }
+  .skill-card-type  { font-size: 12px; margin-bottom: 0.75rem; }
+
+  /* Stats: 2 col tighter */
+  .skills-stats-strip { margin-bottom: 2.5rem; }
+  .stat-item { padding: 1.2rem 0.5rem; }
+  .stat-number { font-size: 24px; }
+  .stat-label  { font-size: 8px; letter-spacing: 0.2em; }
+
+  /* Workflow: 2 col */
+  .skills-workflow-steps { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .workflow-step { padding: 0 0.25rem 1rem; }
+  .workflow-step-dot { width: 40px; height: 40px; font-size: 1rem; }
+  .workflow-step-label { font-size: 8px; }
+}
+
+/* ── XS Mobile: 360px ────────────────────────────────────────── */
+@media (max-width: 360px) {
+  .sk-glass-wrap { padding: 16px 10px 24px; }
+  .skill-card { padding: 0.85rem 0.7rem 0.8rem; }
+  .skill-card-name { font-size: 12px; }
+  .stat-number { font-size: 20px; }
+}
+

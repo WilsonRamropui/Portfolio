@@ -2,34 +2,30 @@
   width: 100%;
   height: auto;
   max-height: 500px;
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .animated-stroke-text {
   text-transform: uppercase;
   font-family: "Times New Roman", Times, serif;
-  font-weight: bold;
-  font-size: 132px;
+  font-weight: normal;
+  font-size: 180px;
   fill: transparent;
-  animation: stroke 5s infinite alternate;
+  stroke: white;
+  stroke-width: 1.5px;
+  will-change: stroke-dashoffset, stroke-dasharray;
+  animation: stroke 5s infinite alternate linear;
 }
 
 @keyframes stroke {
   0% {
-    stroke: white;
-    stroke-width: 0;
     stroke-dashoffset: 25%;
     stroke-dasharray: 0 50%;
   }
-  70% {
-    stroke: white;
-  }
-  80% {
-    stroke: white;
-    stroke-width: 3;
-  }
   100% {
-    stroke: white;
-    stroke-width: 0;
     stroke-dashoffset: -25%;
     stroke-dasharray: 50% 0;
   }

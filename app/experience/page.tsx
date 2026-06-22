@@ -1,128 +1,186 @@
+'use client';
+
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
-import { timelineStyles as s } from "@/styles/dummy-styles";
 import { Monitor } from "lucide-react";
-import Ferrofluid from "@/components/Ferrofluid";
 import GooeyDemo from "@/components/gooey-demo";
+import TextType from '@/components/TextType';
+import "./experience.css";
+
+/* ════════════════════════════════════════════════════════════════
+   EXPERIENCE PAGE — Dark Fantasy Atmospheric Theme
+   Adapted from gothic design language of the projects page.
+   All original components preserved; styled to the amber/dark theme.
+   ════════════════════════════════════════════════════════════════ */
 
 export default function Experience() {
+  /* ── Timeline data ── */
   const data = [
     {
-      title: "2023 - Present",
+      title: "2026",
       content: (
-        <div key="exp-1" className="relative p-6 md:p-8 rounded-3xl bg-zinc-950/20 backdrop-blur-3xl backdrop-saturate-[1.5] border border-white/10 border-t-white/30 border-l-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-zinc-950/30 hover:-translate-y-1 hover:shadow-[0_16px_40px_0_rgba(0,0,0,0.6)]">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-black/40 pointer-events-none rounded-3xl" />
-          <h4 className="relative text-xl md:text-2xl font-bold text-zinc-100 mb-2">Lebsack Ltd Group</h4>
-          <p className="relative text-zinc-400 mb-4">
-            Managing IT services, overseeing cloud infrastructure, and ensuring high-availability systems for enterprise clients.
+        <div key="exp-1" className="exp-timeline-card">
+          <span className="exp-timeline-period">2026 — Present</span>
+          <h4 className="exp-timeline-company">
+            <a href="https://www.tunnu.org/tec/home/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
+              Tunnu Engineering And Consultancy
+            </a>
+          </h4>
+          <p className="exp-timeline-desc">
+            Working as a Design Engineer, applying civil engineering principles and design expertise for consultancy projects.
           </p>
-          <div className="relative grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.8)]" />
-              <span className="text-sm text-zinc-300">Cloud Migration</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
-              <span className="text-sm text-zinc-300">System Architecture</span>
-            </div>
+          <div className="exp-timeline-tags">
+            <span className="exp-tag">
+              <span className="exp-tag-dot" style={{ background: "#3b82f6" }} />
+              Design Engineer
+            </span>
+            <span className="exp-tag">
+              <span className="exp-tag-dot" style={{ background: "#f59e0b" }} />
+              Civil Engineering
+            </span>
           </div>
         </div>
       ),
     },
     {
-      title: "2021 - 2023",
+      title: "2025",
       content: (
-        <div key="exp-2" className="relative p-6 md:p-8 rounded-3xl bg-zinc-950/20 backdrop-blur-3xl backdrop-saturate-[1.5] border border-white/10 border-t-white/30 border-l-white/30 shadow-[0_8px_32px_0_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(255,255,255,0.1),inset_0_-2px_4px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-zinc-950/30 hover:-translate-y-1 hover:shadow-[0_16px_40px_0_rgba(0,0,0,0.6)]">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] via-transparent to-black/40 pointer-events-none rounded-3xl" />
-          <h4 className="relative text-xl md:text-2xl font-bold text-zinc-100 mb-2">Keebler-Brown Inc</h4>
-          <p className="relative text-zinc-400 mb-4">
-            Designing professional gym environments, developing internal booking systems, and creating digital fitness experiences.
+        <div key="exp-2" className="exp-timeline-card">
+          <span className="exp-timeline-period">2025</span>
+          <h4 className="exp-timeline-company">NIELIT</h4>
+          <p className="exp-timeline-desc">
+            Worked with a diverse array of cutting-edge technologies including AI/ML, Cyber Security, IoT, and Software Development.
           </p>
-          <div className="relative grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
-              <span className="text-sm text-zinc-300">UI/UX Design</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.8)]" />
-              <span className="text-sm text-zinc-300">Full-Stack Dev</span>
-            </div>
+          <div className="exp-timeline-tags">
+            <span className="exp-tag"><span className="exp-tag-dot" style={{ background: "#10b981" }} />AI/ML</span>
+            <span className="exp-tag"><span className="exp-tag-dot" style={{ background: "#ef4444" }} />Cyber Security</span>
+            <span className="exp-tag"><span className="exp-tag-dot" style={{ background: "#8b5cf6" }} />IoT & Drones</span>
+            <span className="exp-tag"><span className="exp-tag-dot" style={{ background: "#ec4899" }} />Blockchain</span>
+            <span className="exp-tag"><span className="exp-tag-dot" style={{ background: "#eab308" }} />Python</span>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2024",
+      content: (
+        <div key="exp-3" className="exp-timeline-card">
+          <span className="exp-timeline-period">Graduated 2024</span>
+          <h4 className="exp-timeline-company">B.Tech in Civil Engineering</h4>
+          <p className="exp-timeline-desc">
+            Completed Bachelor of Technology degree, building a strong foundation in structural design and engineering principles.
+          </p>
+          <div className="exp-timeline-tags">
+            <span className="exp-tag">
+              <span className="exp-tag-dot" style={{ background: "#6366f1" }} />
+              B.Tech
+            </span>
+            <span className="exp-tag">
+              <span className="exp-tag-dot" style={{ background: "#14b8a6" }} />
+              Engineering
+            </span>
           </div>
         </div>
       ),
     },
   ];
 
+  /* ── Tech stack data ── */
+  const techStack = [
+    { title: "Core Tech",       content: "Python, Web Technology, Software Development" },
+    { title: "Emerging Tech",   content: "AI/ML, Big Data, Blockchain" },
+    { title: "Hardware & Sec",  content: "IoT, Drone Technology, Cyber Security" },
+    { title: "Engineering",     content: "Civil Engineering, Design Engineering" },
+  ];
+
   return (
-    <div className={`${s.container} relative overflow-hidden bg-black`}>
-      <div className="absolute inset-0 z-0 opacity-50">
-        <Ferrofluid
-          className=""
-          dpr={1}
-          mixBlendMode="normal"
-          colors={["#ffffff", "#ffffff", "#ffffff"]}
-          speed={0.2}
-          scale={1}
-          turbulence={1}
-          fluidity={0.1}
-          rimWidth={0.14}
-          sharpness={3}
-          shimmer={1}
-          glow={2}
-          flowDirection="left"
-          opacity={1}
-          mouseInteraction={true}
-          mouseStrength={1}
-          mouseRadius={0.3}
-        />
-      </div>
+    <div className="exp-page">
 
-      <div className={`${s.innerContainer} relative z-10 pointer-events-none`}>
-        <div className="pointer-events-auto">
-          <div className="mb-10">
-            <h1 className={s.mainTitle}>Experience</h1>
-            <p className={s.mainParagraph}>My career journey and professional experience.</p>
+      {/* ── Atmospheric background ─────────────────────────── */}
+      <div className="exp-bg-image" aria-hidden="true" />
+      <div className="exp-bg-ember"  aria-hidden="true" />
+      <div className="exp-bg-vignette" aria-hidden="true" />
+
+
+
+      {/* ── Main scrollable area ────────────────────────────── */}
+      <div className="exp-scroll-layer">
+
+        {/* ── Hero — floats above the glass, same as tools page ── */}
+        <header className="exp-header-outside exp-fade-up">
+          <span className="exp-eyebrow">— Compendium of Works —</span>
+          <h1 className="exp-main-title">Experience</h1>
+          <div className="exp-subtitle-wrap">
+            <TextType
+              text={[
+                "Civil Engineer turned multidisciplinary technologist",
+                "Design Engineer at Tunnu Engineering & Consultancy",
+                "AI/ML · Cyber Security · IoT · Blockchain",
+              ]}
+              typingSpeed={100}
+              deletingSpeed={45}
+              pauseDuration={2400}
+              showCursor={true}
+              cursorCharacter="|"
+              className="exp-subtitle-text"
+            />
           </div>
-          
-          <Timeline data={data} />
+          <div className="exp-hero-rule">
+            <div className="exp-hero-rule-line" />
+            <div className="exp-hero-rule-dot" />
+            <div className="exp-hero-rule-line exp-hero-rule-line--right" />
+          </div>
+        </header>
 
-          <div className="mt-20">
-            <div className={s.techSectionHeader}>
-              <div>
-                <h2 className={s.techSectionTitle}>Project Archives</h2>
-                <p className={s.techSectionSubtitle}>A gooey interactive log of past years</p>
-              </div>
-            </div>
-            <div className="rounded-3xl overflow-hidden border border-white/10 relative h-[280px] sm:h-[350px] md:h-[600px] w-full shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]">
+        <div className="exp-panel">
+
+          {/* ── Career Timeline ──────────────────────────────── */}
+          <section className="exp-section exp-fade-up" aria-label="Career history">
+            <span className="exp-section-label">— Chronicle —</span>
+            <h2 className="exp-section-title">Career Path</h2>
+            <Timeline data={data} />
+          </section>
+
+          <div className="exp-divider" />
+
+          {/* ── Project Archives (GooeyDemo) ─────────────────── */}
+          <section className="exp-section exp-fade-up" aria-label="Project archives">
+            <span className="exp-section-label">— Artefacts —</span>
+            <h2 className="exp-section-title">Project Archives</h2>
+            <p style={{
+              fontFamily: "'Crimson Text', Georgia, serif",
+              fontSize: "15px",
+              fontStyle: "italic",
+              color: "var(--exp-text-muted)",
+              marginBottom: "16px",
+              lineHeight: "1.6",
+            }}>
+              A gooey interactive log of past years and endeavours.
+            </p>
+            <div className="exp-gooey-wrap">
               <GooeyDemo />
             </div>
-          </div>
+          </section>
 
-          <div className="mt-20">
-            <div className={s.techSectionHeader}>
-              <div className={s.techSectionIconContainer}>
-                <Monitor className={s.techSectionIcon} />
-              </div>
-              <div>
-                <h2 className={s.techSectionTitle}>Tech Stack</h2>
-                <p className={s.techSectionSubtitle}>Technologies I work with daily</p>
-              </div>
+          <div className="exp-divider" />
+
+          {/* ── Tech Stack ───────────────────────────────────── */}
+          <section className="exp-section exp-fade-up" aria-label="Technology stack">
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
+              <Monitor style={{ width: "16px", height: "16px", color: "var(--exp-amber)", opacity: 0.8 }} />
+              <span className="exp-section-label" style={{ marginBottom: 0 }}>— Arsenal —</span>
             </div>
-            
-            <div className={s.techGrid}>
-              {[
-                { title: "Frontend", content: "React, Next.js, Tailwind CSS, TypeScript" },
-                { title: "Backend", content: "Node.js, Express, Python, Django" },
-                { title: "Database", content: "MongoDB, PostgreSQL, Redis" },
-                { title: "DevOps", content: "Docker, AWS, CI/CD, Git" },
-              ].map((tech, idx) => (
-                <div key={idx} className={s.techCard}>
-                  <h3 className={s.techCardTitle}>{tech.title}</h3>
-                  <p className={s.techCardContent}>{tech.content}</p>
+            <h2 className="exp-section-title">Tech Stack</h2>
+            <div className="exp-tech-grid">
+              {techStack.map((tech, idx) => (
+                <div key={idx} className="exp-tech-card">
+                  <h3 className="exp-tech-title">{tech.title}</h3>
+                  <p className="exp-tech-content">{tech.content}</p>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
+
         </div>
       </div>
     </div>

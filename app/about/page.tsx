@@ -1,9 +1,8 @@
 import React from "react";
 import Link from "next/link";
-import { BackgroundBeamsWithCollision } from "@/components/ui/background-beams-with-collision";
 import { aboutPageStyles as s } from "@/styles/dummy-styles";
+import "../projects/gothic.css";
 import { Mail, FileText } from "lucide-react";
-import MagicBento from "@/components/MagicBento";
 import { MetallicCard } from "@/components/MetallicCard";
 import { SweepButton } from "@/components/SweepButton";
 import LogoLoop from "@/components/LogoLoop";
@@ -38,16 +37,16 @@ export default function About() {
 
   return (
     <div className={s.pageContainer}>
-      <div className={s.backgroundContainer}>
-        <BackgroundBeamsWithCollision className={s.backgroundEffect} />
-      </div>
+      <div className="gv-bg" aria-hidden="true" />
+      <div className="gv-map-lines" aria-hidden="true" />
+      <div className="gv-vignette" aria-hidden="true" />
 
       <div className={`${s.contentWrapper} w-full max-w-6xl mx-auto`}>
         <div className="z-10 relative">
           
           {/* Header Section */}
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-6 mb-4 lg:mb-0">
-            <h1 className={`${s.mainHeading} text-center lg:text-left`}>About Me</h1>
+            <h1 className="text-5xl font-bold tracking-tight text-zinc-100 font-cinzel text-center lg:w-[380px]">About Me</h1>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-end gap-3 w-full lg:w-auto">
               <Link href="/resume.pdf" target="_blank" className={`${s.primaryButton} flex items-center justify-center gap-2`}>
@@ -81,26 +80,23 @@ export default function About() {
             {/* Right Side: Text Content */}
             <div className="flex-1 space-y-10 lg:space-y-12 w-full px-2 sm:px-0">
               <section>
-                <h2 className={`${s.sectionHeading} text-center lg:text-left`}>Who I am</h2>
+                <h2 className={`${s.sectionHeading} font-cinzel text-center lg:text-left`}>Who I am</h2>
                 <p className={`${s.paragraph} text-center lg:text-left mx-auto lg:mx-0`}>
-                  I'm Wilson Ramropui, a passionate software engineer focused on building robust, scalable digital products. 
-                  With a background spanning both design and systems architecture, I strive to create seamless user experiences backed by solid engineering.
+                  I'm Wilson Ramropui. I'm a civil engineer by trade, but I also have a deep passion for computer science and software development. I've always been fascinated by how things are built, whether it's a physical structure or a complex codebase.
                 </p>
               </section>
 
               <section>
-                <h2 className={`${s.sectionHeading} text-center lg:text-left`}>What I do</h2>
+                <h2 className={`${s.sectionHeading} font-cinzel text-center lg:text-left`}>What I do</h2>
                 <p className={`${s.paragraph} text-center lg:text-left mx-auto lg:mx-0`}>
-                  Currently, I'm working as a Founding Engineer, where I specialize in bringing zero-to-one ideas to life. 
-                  I focus heavily on the intersection of AI, design, and full-stack development to build modern software solutions that solve real problems.
+                  Currently, I work as a Design Engineer. My day-to-day involves drafting floor plans and creating structural designs. But my work doesn't stop there—I also write code. I love taking the same detail-oriented, logical approach I use in architecture and applying it to building software.
                 </p>
               </section>
 
               <section>
-                <h2 className={`${s.sectionHeading} text-center lg:text-left`}>My Journey</h2>
+                <h2 className={`${s.sectionHeading} font-cinzel text-center lg:text-left`}>My Journey</h2>
                 <p className={`${s.paragraph} text-center lg:text-left mx-auto lg:mx-0`}>
-                  My coding journey started years ago with simple web pages, which quickly snowballed into building full-fledged applications. 
-                  Over the past 5 years, I've had the opportunity to build products from scratch, raise funding, and scale applications for enterprise clients.
+                  My background is rooted in civil engineering, where I learned the fundamentals of structural design. Along the way, I started teaching myself programming languages because I was drawn to technology. What started as a curiosity quickly grew into a serious skill set. Today, I do a bit of both—designing real-world structures and writing code for the digital one.
                 </p>
               </section>
             </div>
@@ -108,7 +104,7 @@ export default function About() {
 
           {/* Tech Stack Section */}
           <div className="mt-16 lg:mt-24 w-full">
-            <h2 className={`${s.sectionHeading} text-center lg:text-left`}>Tech Stack</h2>
+
             <div className="w-full relative overflow-hidden mt-6" style={{ height: '100px' }}>
               <LogoLoop
                 logos={techLogos}
@@ -116,8 +112,7 @@ export default function About() {
                 direction="left"
                 logoHeight={48}
                 gap={80}
-                hoverSpeed={0}
-                fadeOut
+                pauseOnHover={false}
                 ariaLabel="Technology stack logos"
               />
             </div>
@@ -138,26 +133,6 @@ export default function About() {
             </div>
           </div>
 
-          {/* What I Offer Section */}
-          <div className="mt-16 lg:mt-24 mb-12">
-            <h2 className={`${s.sectionHeading} text-center`}>What I Offer</h2>
-            <div className="mt-8 flex justify-center w-full overflow-hidden px-2 sm:px-0">
-              <div className="w-full transform scale-[0.85] sm:scale-100 origin-top transition-transform">
-                <MagicBento 
-                  textAutoHide={true}
-                  enableStars={true}
-                  enableSpotlight={true}
-                  enableBorderGlow={true}
-                  enableTilt={true}
-                  enableMagnetism
-                  clickEffect={true}
-                  spotlightRadius={500}
-                  particleCount={12}
-                  glowColor="132, 0, 255"
-                />
-              </div>
-            </div>
-          </div>
 
         </div>
       </div>

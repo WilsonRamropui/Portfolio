@@ -1,0 +1,444 @@
+/* ═══════════════════════════════════════════════════════════════
+   EXPERIENCE PAGE — Elegant Monochrome Theme
+   Palette: Pure Black · Silver White · Charcoal · Ghost
+   ═══════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=IM+Fell+English:ital@0;1&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ── Custom Properties ─────────────────────────────────────── */
+:root {
+  --exp-amber:        #d4d4d4;
+  --exp-amber-light:  #f5f5f5;
+  --exp-amber-glow:   rgba(255, 255, 255, 0.15);
+  --exp-amber-dim:    rgba(255, 255, 255, 0.06);
+  --exp-amber-border: rgba(255, 255, 255, 0.2);
+  --exp-glass-bg:     rgba(4, 4, 4, 0.65);
+  --exp-glass-light:  rgba(10, 10, 10, 0.55);
+  --exp-border:       rgba(255, 255, 255, 0.1);
+  --exp-border-bright:rgba(255, 255, 255, 0.35);
+  --exp-text-primary: #f2f2f2;
+  --exp-text-muted:   #888888;
+  --exp-text-faint:   #555555;
+  --exp-ember-glow:   rgba(255, 255, 255, 0.2);
+}
+
+/* ── PAGE ROOT ─────────────────────────────────────────────── */
+.exp-page {
+  position: relative;
+  min-height: 100vh;
+  background-color: #020406;
+  overflow-x: hidden;
+  margin-top: -32px;
+}
+
+/* ── FULL PAGE BACKGROUND IMAGE ────────────────────────────── */
+.exp-bg-image {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/home-bg-4k.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Ember glow is hidden for the cinematic minimalist theme */
+.exp-bg-ember {
+  display: none;
+}
+
+/* Top vignette */
+.exp-bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.8) 100%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%);
+}
+
+/* ── SCROLLABLE CONTENT LAYER ──────────────────────────────── */
+.exp-scroll-layer {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 16px 60px;
+}
+
+/* ── MAIN GLASS PANEL ──────────────────────────────────────── */
+.exp-panel {
+  width: 100%;
+  max-width: 840px;
+  background-color: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(30px) saturate(1.2);
+  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  border: none;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.6),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  border-radius: 36px;
+  padding: 40px 36px 48px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inner shimmer overlay */
+.exp-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 50%, rgba(0,0,0,0.3) 100%);
+  border-radius: 36px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── PANEL HEADER (original, kept for reference) ───────────── */
+.exp-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--exp-border);
+}
+
+/* ── FREE-FLOATING HERO (outside glass, mirrors tools page) ── */
+.exp-header-outside {
+  width: 100%;
+  max-width: 840px;
+  text-align: center;
+  padding: 0;
+  margin-bottom: 28px;
+}
+
+/* Ornamental rule under hero — mirrors .skills-hero-rule */
+.exp-hero-rule {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem auto 0;
+  width: fit-content;
+}
+
+.exp-hero-rule-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25));
+}
+
+.exp-hero-rule-line--right {
+  background: linear-gradient(90deg, rgba(255,255,255,0.25), transparent);
+}
+
+.exp-hero-rule-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.exp-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--exp-amber);
+  opacity: 0.8;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.exp-main-title {
+  font-family: 'Cinzel', serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--exp-text-primary);
+  line-height: 1.1;
+  margin: 0 0 12px;
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.08), 0 0 40px rgba(255, 255, 255, 0.04);
+  letter-spacing: 0.02em;
+}
+
+.exp-subtitle-wrap {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exp-subtitle-text {
+  font-family: 'IM Fell English', Georgia, serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--exp-text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ── SECTION WRAPPER ───────────────────────────────────────── */
+.exp-section {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 40px;
+}
+
+.exp-section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--exp-amber);
+  opacity: 0.7;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.exp-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--exp-text-primary);
+  margin: 0 0 20px;
+  text-shadow: 0 1px 10px rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.02em;
+}
+
+.exp-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--exp-border-bright), transparent);
+  margin: 32px 0;
+}
+
+/* ── TIMELINE CARDS — Premium Dark Glassmorphism ───────────────────────── */
+.exp-timeline-card {
+  position: relative;
+  /* Dark translucent base */
+  background-color: rgba(20, 20, 20, 0.45);
+  background-image: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.12) 0%, 
+    rgba(255, 255, 255, 0.01) 35%, 
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  
+  /* Very strong blur like the reference image */
+  backdrop-filter: blur(40px) saturate(1.2);
+  -webkit-backdrop-filter: blur(40px) saturate(1.2);
+  
+  /* Large app-icon style radius */
+  border-radius: 36px;
+  border: none; /* Removed the thin border, using inset shadow instead */
+  padding: 36px;
+  margin-bottom: 16px;
+  
+  /* The "Thick Edge" bevel effect from the image */
+  box-shadow:
+    /* Deep outer drop shadow */
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    /* Top & Left bright inner highlight for 3D glass thickness */
+    inset 2px 2px 4px rgba(255, 255, 255, 0.25),
+    /* Bottom & Right dark inner shadow for depth */
+    inset -3px -3px 6px rgba(0, 0, 0, 0.6),
+    /* Soft 1px outer rim */
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+
+  /* Responsive Fixed Square */
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, background-color 0.4s ease;
+}
+
+.exp-timeline-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  background-color: rgba(30, 30, 30, 0.5);
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.8),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.35),
+    inset -3px -3px 6px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.exp-timeline-period {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--exp-amber);
+  margin-bottom: 8px;
+  display: block;
+  opacity: 0.85;
+}
+
+.exp-timeline-company {
+  font-family: 'Cinzel', serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--exp-text-primary);
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.exp-timeline-desc {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--exp-text-muted);
+  margin: 0 0 16px;
+  font-style: italic;
+}
+
+.exp-timeline-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.exp-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  background: var(--exp-amber-dim);
+  border: 1px solid var(--exp-border);
+  color: var(--exp-amber-light);
+  border-radius: 2px;
+}
+
+.exp-tag-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* ── TECH GRID ─────────────────────────────────────────────── */
+.exp-tech-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.exp-tech-card {
+  background: var(--exp-glass-light);
+  border: 1px solid var(--exp-border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.exp-tech-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--exp-amber-light), transparent);
+  opacity: 0.4;
+}
+
+.exp-tech-card:hover {
+  border-color: var(--exp-amber-border);
+  box-shadow: 0 0 20px var(--exp-amber-dim);
+}
+
+.exp-tech-title {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--exp-amber-light);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.exp-tech-content {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--exp-text-muted);
+}
+
+/* ── GOOEY CONTAINER ───────────────────────────────────────── */
+.exp-gooey-wrap {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(28px) saturate(1.8);
+  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  height: auto;
+}
+
+
+/* ── FADE-IN ANIMATIONS ────────────────────────────────────── */
+.exp-fade-up {
+  opacity: 0;
+  animation: exp-fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes exp-fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.exp-fade-up:nth-child(1) { animation-delay: 0.1s; }
+.exp-fade-up:nth-child(2) { animation-delay: 0.2s; }
+.exp-fade-up:nth-child(3) { animation-delay: 0.3s; }
+.exp-fade-up:nth-child(4) { animation-delay: 0.4s; }
+.exp-fade-up:nth-child(5) { animation-delay: 0.5s; }
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .exp-panel {
+    padding: 28px 16px 36px;
+    border-radius: 16px;
+    margin: 0 4px;
+  }
+  .exp-main-title {
+    font-size: 28px;
+  }
+  .exp-tech-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Timeline square fitting for mobile */
+  .exp-timeline-card {
+    padding: 24px 20px;
+  }
+  .exp-timeline-company {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  .exp-timeline-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .exp-tag {
+    font-size: 8px;
+    padding: 3px 8px;
+  }
+}

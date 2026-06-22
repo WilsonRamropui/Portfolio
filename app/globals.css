@@ -142,9 +142,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
   }
 }
 
@@ -157,4 +161,13 @@
   .font-cinzel { font-family: var(--font-cinzel), serif !important; }
   .font-saira-stencil { font-family: var(--font-saira-stencil), sans-serif !important; }
   .font-raleway-dots { font-family: var(--font-raleway-dots), cursive !important; }
+}
+
+/* AI Gradient Card specific mask */
+.ai-glow-spill-mask {
+  mask-image: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 50%,
+    black 100%
+  );
 }

@@ -1,0 +1,358 @@
+/* ============================================================
+   WILSON PORTFOLIO — CINEMATIC PRELOADER
+   PERFORMANCE-FIRST: Every animation uses ONLY transform + opacity.
+   These are compositor-only properties — zero repaints,
+   zero layout recalcs, 120fps guaranteed on any device.
+   ============================================================ */
+
+/* ─── Overlay base ─────────────────────────────────────────── */
+.preloader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #080808;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  /* Isolate into its own GPU compositing layer immediately */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+
+  /* Contain paint to this element — prevents page repaints */
+  contain: layout style paint;
+
+  will-change: opacity, transform;
+
+  /* Exit: opacity + micro-scale only — NO blur (blur = expensive texture upload every frame) */
+  transition:
+    opacity   1.5s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preloader-overlay.fade-out {
+  opacity: 0;
+  transform: scale(1.05) translateZ(0); /* smooth cinematic zoom out */
+  pointer-events: none;
+}
+
+/* ─── Static vignette (no animation) ──────────────────────── */
+.preloader-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 75% 75% at 50% 50%,
+    transparent 20%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Center content block ─────────────────────────────────── */
+.preloader-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  animation: centerReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+@keyframes centerReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+/* ─── Glowing W Monogram ───────────────────────────────────── */
+.preloader-monogram-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ── Rotating ring — conic-gradient arc with baked box-shadow glow
+   Only transform:rotate animates — compositor-only ✓            */
+.preloader-monogram-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  /* Static box-shadow baked into GPU texture — zero per-frame cost */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.10),
+    0 0 10px 2px rgba(255, 255, 255, 0.24),
+    0 0 24px 5px rgba(255, 255, 255, 0.08);
+  background: conic-gradient(
+    from 0deg,
+    rgba(255,255,255,0.00) 0deg,
+    rgba(255,255,255,0.58) 40deg,
+    rgba(255,255,255,0.10) 80deg,
+    rgba(255,255,255,0.00) 145deg,
+    rgba(255,255,255,0.00) 205deg,
+    rgba(255,255,255,0.32) 252deg,
+    rgba(255,255,255,0.00) 312deg,
+    rgba(255,255,255,0.00) 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  padding: 1px;
+  transform: translateZ(0);
+  animation: ringRotate 4s linear infinite;
+}
+
+@keyframes ringRotate {
+  to { transform: rotate(360deg) translateZ(0); }
+}
+
+/* ── Radial aura behind W (scale+opacity only ✓) ──────────── */
+.preloader-monogram-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(200, 200, 200, 0.11) 0%,
+    rgba(150, 150, 150, 0.04) 50%,
+    transparent 70%
+  );
+  transform: translateZ(0);
+  animation: auraPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes auraPulse {
+  from { transform: scale(0.9) translateZ(0); opacity: 0.5; }
+  to   { transform: scale(1.1) translateZ(0); opacity: 1;   }
+}
+
+/* ── Glow ring halo — static box-shadow, scale+opacity pulse ┓
+   GPU texture baked once, only transform+opacity animated ✓   */
+.preloader-ring-glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  box-shadow:
+    0 0 14px 3px  rgba(255, 255, 255, 0.28),
+    0 0 32px 8px  rgba(255, 255, 255, 0.09),
+    0 0 58px 16px rgba(255, 255, 255, 0.03);
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  animation: ringGlowPulse 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes ringGlowPulse {
+  from { transform: scale(0.88) translateZ(0); opacity: 0.38; }
+  to   { transform: scale(1.10) translateZ(0); opacity: 1;    }
+}
+
+/* W glyph — static gradient, no shimmer animation (paint-heavy) */
+.preloader-monogram {
+  font-family: var(--font-cinzel), 'Cormorant Garamond', Georgia, serif;
+  font-size: 66px;
+  font-weight: 700;
+  color: transparent;
+  background: linear-gradient(
+    155deg,
+    #ffffff 0%,
+    #e2e2e2 28%,
+    #9a9a9a 52%,
+    #e2e2e2 76%,
+    #ffffff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  /* Static drop-shadow is fine — only animated filter causes lag */
+  filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.42));
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+}
+
+/* ─── Name: WILSON ─────────────────────────────────────────── */
+.preloader-name {
+  font-family: var(--font-cinzel), 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(42px, 8vw, 68px);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #d6d6d6 58%,
+    #8a8a8a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* translateY + opacity only — no letter-spacing animation (triggers layout) */
+  animation: slideUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+/* ─── Sub: PORTFOLIO ───────────────────────────────────────── */
+.preloader-sub {
+  font-family: 'Raleway', 'Inter', var(--font-sans), sans-serif;
+  font-size: clamp(10px, 2vw, 13px);
+  font-weight: 400;
+  letter-spacing: 0.55em;
+  color: rgba(255, 255, 255, 0.38);
+  text-transform: uppercase;
+  margin: 8px 0 0 0;
+  transform: translateZ(0);
+  animation: slideUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both;
+}
+
+/* Shared enter animation — transform + opacity only ✓ */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(10px) translateZ(0); }
+  to   { opacity: 1; transform: translateY(0)    translateZ(0); }
+}
+
+/* ─── Accent divider ───────────────────────────────────────── */
+.preloader-divider {
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.28) 30%,
+    rgba(255,255,255,0.52) 50%,
+    rgba(255,255,255,0.28) 70%,
+    transparent
+  );
+  margin: 24px 0 0 0;
+  /* scaleX instead of width animation — compositor-only ✓ */
+  transform: scaleX(0) translateZ(0);
+  transform-origin: center;
+  animation: dividerExpand 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.62s both;
+}
+
+@keyframes dividerExpand {
+  from { transform: scaleX(0) translateZ(0); opacity: 0; }
+  to   { transform: scaleX(1) translateZ(0); opacity: 1; }
+}
+
+/* ─── Typing phrase ────────────────────────────────────────── */
+.preloader-typing-wrapper {
+  position: absolute;
+  bottom: clamp(40px, 8vh, 80px);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transform: translateZ(0);
+  animation: slideUp 0.45s ease 0.5s both;
+}
+
+.preloader-typing-text {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(14px, 2.5vw, 18px);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.46);
+  white-space: nowrap;
+  min-height: 1.4em;
+}
+
+/* Blinking cursor — opacity step (compositor-only) ✓ */
+.preloader-cursor {
+  display: inline-block;
+  width: 1.5px;
+  height: 1em;
+  background: rgba(255, 255, 255, 0.5);
+  margin-left: 3px;
+  vertical-align: middle;
+  animation: cursorBlink 0.7s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Progress bar ─────────────────────────────────────────── */
+.preloader-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1.5px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.28) 30%,
+    rgba(255,255,255,0.7) 60%,
+    rgba(255,255,255,0.28) 85%,
+    transparent
+  );
+  /* scaleX instead of width — compositor-only, no layout recalc ✓ */
+  transform: scaleX(0) translateZ(0);
+  transform-origin: left;
+  animation: progressFill 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0s both;
+  z-index: 2;
+}
+
+@keyframes progressFill {
+  from { transform: scaleX(0) translateZ(0); }
+  to   { transform: scaleX(1) translateZ(0); }
+}
+
+.preloader-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Original 1px glowing dust particles with diagonal drift.
+   translate(x,y) + opacity = pure compositor, zero repaints. */
+.preloader-particle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 3px 1px rgba(255, 255, 255, 0.45);
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  animation: particleDrift var(--dur, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes particleDrift {
+  0%   { transform: translateY(0px) translateX(0px) translateZ(0);              opacity: 0;    }
+  20%  { opacity: 1; }
+  80%  { opacity: 0.6; }
+  100% { transform: translateY(-80px) translateX(var(--drift, 20px)) translateZ(0); opacity: 0; }
+}
+

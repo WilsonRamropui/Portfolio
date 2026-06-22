@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 
 export const homePageStyles = {
   // Layout and container styles
-  container: "relative z-10 bg-zinc-950 flex-1 flex flex-col justify-center px-6 pb-6 pt-0 md:px-20 md:pb-20 md:pt-10",
+  container: "relative z-10 bg-zinc-950 flex-1 flex flex-col justify-center px-6 pb-6 pt-0 md:px-20 md:pb-20 md:pt-10 overflow-x-hidden",
 
   // Background grid pattern
   backgroundGrid: {
@@ -41,7 +41,7 @@ export const homePageStyles = {
 
   // Article/Video card — cinematic glass box
   article: {
-    wrapper: "rounded-3xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-2xl shadow-[0_0_80px_-20px_rgba(255,255,255,0.04)] overflow-hidden max-w-[720px] w-full relative",
+    wrapper: "rounded-3xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-2xl shadow-[0_0_80px_-20px_rgba(255,255,255,0.04)] overflow-hidden max-w-[400px] w-full relative",
     videoContainer: "relative w-full h-auto overflow-hidden",
     video: "w-full h-auto max-h-[400px] object-cover",
     videoStyles: {
@@ -49,10 +49,10 @@ export const homePageStyles = {
       userSelect: 'none',
       pointerEvents: 'none'
     } satisfies CSSProperties,
-    content: "p-6 md:p-8 flex flex-col items-center text-center relative",
-    header: "flex items-center justify-center gap-3 text-[11px] text-zinc-500 uppercase tracking-[0.25em] mb-4 w-full font-medium",
+    content: "p-3 md:p-4 flex flex-col items-center text-center relative",
+    header: "flex items-center justify-center gap-3 text-[11px] text-zinc-500 uppercase tracking-[0.25em] mb-2 w-full font-medium",
     headerIcon: "w-3.5 h-3.5 text-emerald-400/60",
-    title: "font-semibold text-xl md:text-2xl text-zinc-100 mb-2",
+    title: "font-semibold text-xl md:text-2xl text-zinc-100 mb-1",
     description: "text-sm text-zinc-300",
     linkContainer: "mt-6 flex justify-center w-full",
     link: "inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-all duration-300 group",
@@ -235,12 +235,12 @@ export const contactPageStyles = {
   contentContainer: "w-full max-w-2xl",
 
   // Form container with boxes background
-  formOuterContainer: "relative w-full overflow-hidden bg-zinc-950 flex flex-col items-center justify-center rounded-lg",
-  backgroundOverlay: "absolute inset-0 w-full h-full bg-zinc-950/30 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none",
+  formOuterContainer: "relative w-full overflow-hidden bg-white/[0.02] backdrop-blur-xl border border-white/[0.05] flex flex-col items-center justify-center rounded-3xl shadow-2xl",
+  backgroundOverlay: "absolute inset-0 w-full h-full bg-gradient-to-b from-white/[0.03] to-transparent z-20 pointer-events-none",
 
   // Header
   headerContainer: "mb-12 z-10",
-  headerTitle: "text-5xl md:whitespace-nowrap z-30 font-bold tracking-tight text-zinc-100 md:text-6xl lg:text-7xl",
+  headerTitle: "text-3xl sm:text-4xl md:text-5xl lg:text-5xl md:whitespace-nowrap z-30 font-bold tracking-tight text-zinc-100",
   headerSubtitle: "mt-4 text-lg text-zinc-400",
 
   // Contact methods grid

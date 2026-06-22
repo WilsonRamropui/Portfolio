@@ -2,23 +2,30 @@ import React from 'react';
 import Link from 'next/link';
 import { homePageStyles, spotlightStyles } from '@/styles/dummy-styles';
 import { Spotlight } from '@/components/ui/spotlight';
-import TextType from '@/components/TextType';
-import ModelViewer from '@/components/ModelViewer';
-import LayoutTextFlipDemo from '@/components/layout-text-flip-demo';
 import GlowingEffectDemo from '@/components/glowing-effect-demo';
-import { SplineSceneBasic } from '@/components/spline-scene-demo';
+import { NavigationDock } from '@/components/NavigationDock';
+import FloorPlan3D from '@/components/FloorPlan3D';
+
+import LayoutTextFlipDemo from '@/components/layout-text-flip-demo';
+import "./tools/skills.css";
 import { AnimatedStrokeText } from '@/components/AnimatedStrokeText';
+import { SweepButton } from "@/components/SweepButton";
+import { LayoutGrid } from "lucide-react";
 
 export default function Home() {
   return (
     <div className={homePageStyles.container}>
-      <Spotlight className={spotlightStyles.position} fill="#065a3eff" />
-      <div className={homePageStyles.backgroundGrid.wrapper}>
+      <Spotlight className="-top-40 left-0 md:-top-20 md:left-60 z-[10]" fill="rgba(255, 255, 255, 0.5)" />
+      {/* ── CINEMATIC BACKGROUND ── */}
+      <div className="skills-bg-image" aria-hidden="true" />
+      <div className="skills-bg-vignette" aria-hidden="true" />
+
+      {/* ── GRID OVERLAY ── */}
+      <div className={`${homePageStyles.backgroundGrid.wrapper} !z-[2]`}>
         <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
       </div>
-      <div className={homePageStyles.gradientOverlay} />
 
-      <div className="w-full flex justify-center mx-auto -mt-12 md:-mt-24 -mb-4 z-10">
+      <div className="w-full flex justify-center mx-auto -mt-4 md:-mt-16 -mb-4 z-10 relative">
         <div className="w-full max-w-md px-4 sm:px-6">
           <AnimatedStrokeText
             text="Wilson"
@@ -27,75 +34,41 @@ export default function Home() {
         </div>
       </div>
 
-      <main className={homePageStyles.heroSection}>
+      <main className={`${homePageStyles.heroSection} !max-w-none w-full relative z-10`}>
 
-        <div className="flex flex-col items-center md:items-start justify-center md:justify-start mb-2 h-[32px] md:h-[40px]">
-          <TextType
-            text={["I'm Wilson Ramropui", "A Design Engineer", "Building Cool Products"]}
-            typingSpeed={120}
-            deletingSpeed={50}
-            pauseDuration={2000}
-            showCursor={true}
-            cursorCharacter="|"
-            className="font-raleway-dots text-lg md:text-2xl font-bold tracking-wide text-zinc-300"
-          />
-        </div>
 
-        <h1 className={homePageStyles.h1}>
-          Building Design Products
-        </h1>
+        <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 md:gap-8 lg:gap-8">
+          
+          {/* Left Column: Text Content */}
+          <div className="flex flex-col items-center text-center md:items-start md:text-left max-w-2xl mt-6 md:mt-8 lg:mt-12">
+            <h1 className="skills-hero-title uppercase">
+              Building Design Products
+            </h1>
 
-        <h2 className={homePageStyles.h2}>
-          Engineering • Design • AI
-        </h2>
+            <h2 className={homePageStyles.h2}>
+              Engineering • Design
+            </h2>
 
-        <div className="w-full flex justify-center md:justify-start mb-8 -mt-2">
-          <LayoutTextFlipDemo />
-        </div>
-
-        <div className={homePageStyles.calloutCard.wrapper}>
-          <div className={homePageStyles.calloutCard.innerContainer}>
-            <div className={homePageStyles.calloutCard.textContainer}>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2" />
-              <span className={homePageStyles.calloutCard.text}>Available for new opportunities</span>
-            </div>
-          </div>
-        </div>
-
-        <p className={homePageStyles.paragraph}>
-          I turn fuzzy ideas into live Products (<em>quickly</em>) — full-stack AI Builder. Currently working as a Founding Engineer at{" "}
-          <a className={homePageStyles.link} href="#">
-            Invoice-AI
-          </a>
-          . I have built multiple products in past 5 years; raised $100K funding for my startup.
-        </p>
-
-        <div className={homePageStyles.article.wrapper}>
-          <div className={homePageStyles.article.content}>
-            <div className={homePageStyles.article.header}>
-              <svg className={homePageStyles.article.headerIcon} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
-              <span>Featured Work</span>
+            <div className="w-full flex justify-center md:justify-start mb-8 -mt-2">
+              <LayoutTextFlipDemo />
             </div>
 
-            <div className="mt-6 w-full rounded-2xl overflow-hidden relative border border-white/[0.06] bg-gradient-to-b from-white/[0.04] to-transparent backdrop-blur-3xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-1px_0_rgba(0,0,0,0.3),0_20px_60px_-15px_rgba(0,0,0,0.6)] transition-all duration-700 ease-out hover:-translate-y-2 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_0_rgba(0,0,0,0.3),0_40px_80px_-20px_rgba(0,0,0,0.8)] hover:border-white/[0.1]">
-              {/* Top glass reflection */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-              {/* Bottom subtle glow */}
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-              <ModelViewer
-                url="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/ToyCar/glTF-Binary/ToyCar.glb"
-                width="100%"
-                height="400"
-                autoRotate={false}
-                enableMouseParallax={false}
-                enableHoverRotation={false}
-              />
+            <div className={homePageStyles.calloutCard.wrapper}>
+              <div className={homePageStyles.calloutCard.innerContainer}>
+                <div className={homePageStyles.calloutCard.textContainer}>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-2" />
+                  <span className={homePageStyles.calloutCard.text}>Available for new opportunities</span>
+                </div>
+              </div>
             </div>
 
-            <div className={homePageStyles.article.linkContainer}>
-              <Link href="/projects" className={homePageStyles.article.link}>
+            <p className={homePageStyles.paragraph}>
+              I’m an end-to-end civil engineer. I turn conceptual designs ideas and thoughts into a complete master plans and blueprints (structural and architectural plans) to standing structures. Currently serving as a Design Engineer at{" "}
+              TEC
+              . I have successfully delivered over 15 residential, commercial and institutional building during my working time.
+            </p>
+            <div className={`${homePageStyles.article.linkContainer} mt-8`}>
+              <Link href="/showcase" className={homePageStyles.article.link}>
                 View Projects
                 <svg className={homePageStyles.article.linkIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -103,14 +76,21 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </div>
-
-        <div className="w-full mx-auto mt-12 mb-16">
-          <GlowingEffectDemo />
-        </div>
-
-        <div className="w-full max-w-5xl mx-auto mt-12 mb-16 relative z-10">
-          <SplineSceneBasic />
+          
+          {/* Right Column: 3D Floor Plan */}
+          <div className="flex-1 w-full mt-0 lg:mt-0 flex justify-center lg:justify-end items-center lg:pr-4">
+            <div className="flex flex-col-reverse lg:flex-col items-center">
+              <FloorPlan3D />
+              <div className="mb-6 sm:mb-10 lg:mb-0 lg:mt-12 w-full flex justify-center z-20">
+                <Link href="/showcase" className="flex w-full sm:w-auto">
+                  <SweepButton className="w-full flex items-center justify-center gap-2 px-8">
+                    <LayoutGrid className="w-4 h-4" />
+                    View Showcase
+                  </SweepButton>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
       </main >

@@ -33,19 +33,27 @@ export const LayoutTextFlip = ({
 
       <motion.span
         layout
-        className="relative w-fit overflow-hidden rounded-md border border-transparent bg-white px-3 py-1.5 font-cormorant-base text-xl font-medium tracking-wide text-black shadow-sm ring shadow-black/10 ring-black/10 drop-shadow-sm md:text-2xl dark:bg-neutral-900 dark:text-white dark:shadow-sm dark:ring-1 dark:shadow-white/10 dark:ring-white/10"
+        transition={{ type: "spring", stiffness: 300, damping: 24 }}
+        className="relative inline-flex items-center justify-center overflow-hidden px-5 py-2 font-cormorant-base text-xl font-medium tracking-wide text-zinc-100 md:text-3xl"
+        style={{
+          backgroundColor: "rgba(20, 20, 20, 0.45)",
+          backgroundImage: "linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.01) 35%, rgba(0, 0, 0, 0.5) 100%)",
+          backdropFilter: "blur(12px) saturate(1.2)",
+          WebkitBackdropFilter: "blur(12px) saturate(1.2)",
+          borderRadius: "12px",
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.6), inset 2px 2px 4px rgba(255, 255, 255, 0.25), inset -3px -3px 6px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05)"
+        }}
       >
         <AnimatePresence mode="popLayout">
           <motion.span
             key={currentIndex}
-            initial={{ y: -40, filter: "blur(10px)" }}
-            animate={{
-              y: 0,
-              filter: "blur(0px)",
-            }}
-            exit={{ y: 50, filter: "blur(10px)", opacity: 0 }}
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -30, opacity: 0 }}
             transition={{
-              duration: 0.5,
+              type: "spring",
+              stiffness: 300,
+              damping: 24,
             }}
             className={cn("inline-block whitespace-nowrap")}
           >

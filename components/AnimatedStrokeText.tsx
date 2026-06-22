@@ -24,14 +24,14 @@ export function AnimatedStrokeText({
 }: AnimatedStrokeTextProps) {
   return (
     <svg
-      viewBox="0 0 1500 500"
+      viewBox="0 0 1200 350"
       className={cn("animated-stroke-svg", svgClassName)}
     >
       <text
         x="50%"
-        y="50%"
-        textAnchor="middle"
+        y="55%"
         dominantBaseline="middle"
+        textAnchor="middle"
         className={cn("animated-stroke-text", className)}
       >
         {text}

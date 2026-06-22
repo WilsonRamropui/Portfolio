@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeftIcon, BookText, Layers3, PlusIcon } from 'lucide-react';
+import { ArrowLeftIcon, BookText, Layers3 } from 'lucide-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import { Inter } from 'next/font/google';
@@ -44,15 +44,15 @@ export type PortfolioConfig = {
 export const defaultPortfolioConfig: PortfolioConfig = {
     firstName: 'Wilson',
     experience: 5,
-    domain: 'development',
-    role: 'developers',
+    domain: 'building AI products',
+    role: 'AI builder',
 
     bioText: {
-        prefix: "It's been",
-        emphasis1: 'years',
-        midText: 'since I got into development. I now have clear principles, the main one being',
-        emphasis2: 'value instead of mindless execution',
-        suffix: ". It's easy to print generic solutions, but what we developers are hired for is our unique point of view and creative thinking. Usability combined with clean architecture is the key to memorable and enjoyable products.",
+        prefix: "I am a Full-Stack Design Engineer with",
+        emphasis1: 'years of experience',
+        midText: "building structural and architectural plans and shipping products that matter.",
+        emphasis2: 'turning complex tasks into simple, magical user experiences',
+        suffix: ".",
     },
 
     colors: {
@@ -75,6 +75,21 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     const [isBio, setIsBio] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
     const isAnimatingRef = useRef(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+                if (!isAnimatingRef.current) {
+                    setIsOpen(false);
+                    setIsBio(false);
+                    setIsMenu(false);
+                }
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const controls = useAnimation();
     const imageControls = useAnimation();
@@ -85,10 +100,10 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     const menuControls = useAnimation();
 
     const containerVariants = {
-        closed: { width: '3.75rem', height: '2rem', minWidth: '3.75rem' },
-        open: { width: '16rem', height: '3.5rem', minWidth: '16rem' },
-        bio: { width: '22.8rem', height: '11.9rem', minWidth: '22rem' },
-        menu: { width: '10.25rem', height: '2rem', minWidth: '10.25rem' },
+        closed: { width: '2.5rem', height: '2.5rem', minWidth: '2.5rem', minHeight: '2.5rem' },
+        open: { width: '16rem', height: '3.5rem', minWidth: '16rem', minHeight: '3.5rem' },
+        bio: { width: 'min(22.8rem, calc(100vw - 4rem))', height: '14.5rem', minHeight: '14.5rem', minWidth: 'min(22rem, calc(100vw - 4rem))' },
+        menu: { width: '10.25rem', height: '2rem', minWidth: '10.25rem', minHeight: '2rem' },
     };
 
     const aboutVariants = {
@@ -132,7 +147,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
         },
         open: {
             scale: 1,
-            left: '3.25rem',
+            left: '60px',
             opacity: 1,
             filter: 'blur(0)',
             y: '-50%',
@@ -153,14 +168,14 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                 isOpen && !isBio
                     ? 'openButBioClosed'
                     : isOpen && isBio
-                      ? 'openButBioOpen'
-                      : isMenu && !isOpen && !isBio
-                        ? 'menuOpened'
-                        : !isOpen && !isBio
-                          ? 'closedButBioClosed'
-                          : !isOpen && isBio
-                            ? 'closedButBioOpen'
-                            : null;
+                        ? 'openButBioOpen'
+                        : isMenu && !isOpen && !isBio
+                            ? 'menuOpened'
+                            : !isOpen && !isBio
+                                ? 'closedButBioClosed'
+                                : !isOpen && isBio
+                                    ? 'closedButBioOpen'
+                                    : null;
 
             switch (state) {
                 case 'openButBioClosed': {
@@ -168,42 +183,42 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                     plusControls.start('open');
                     imageControls.start('open');
                     menuControls.start('closed');
-                    await controls.start('open');
-                    await Promise.all([iconsControls.start('open'), profileControls.start('open')]);
+                    controls.start('open');
+                    iconsControls.start('open');
+                    profileControls.start('open');
                     break;
                 }
                 case 'closedButBioClosed': {
-                    await aboutControls.start('closed');
+                    aboutControls.start('closed');
                     menuControls.start('closed');
-                    await Promise.all([profileControls.start('closed'), iconsControls.start('closed')]);
-                    await Promise.all([
-                        controls.start('closed'),
-                        imageControls.start('closed'),
-                        plusControls.start('closed'),
-                    ]);
+                    profileControls.start('closed');
+                    iconsControls.start('closed');
+                    controls.start('closed');
+                    imageControls.start('closed');
+                    plusControls.start('closed');
                     break;
                 }
                 case 'openButBioOpen': {
                     imageControls.start('bio');
                     menuControls.start('closed');
-                    await Promise.all([
-                        plusControls.start('open'),
-                        profileControls.start('closed'),
-                        iconsControls.start('closed'),
-                    ]);
-                    await Promise.all([controls.start('bio'), aboutControls.start('bio')]);
+                    plusControls.start('open');
+                    profileControls.start('closed');
+                    iconsControls.start('closed');
+                    controls.start('bio');
+                    aboutControls.start('bio');
                     break;
                 }
                 case 'menuOpened': {
-                    await Promise.all([
-                        imageControls.start('bio'),
-                        profileControls.start('closed'),
-                        iconsControls.start('closed'),
-                    ]);
-                    await Promise.all([controls.start('menu'), menuControls.start('menu')]);
+                    imageControls.start('bio');
+                    profileControls.start('closed');
+                    iconsControls.start('closed');
+                    controls.start('menu');
+                    menuControls.start('menu');
                     break;
                 }
             }
+            // Add a small artificial delay just to debounce rapid clicks if needed, 
+            // or just unlock immediately. Let's unlock immediately.
             isAnimatingRef.current = false;
         };
 
@@ -222,15 +237,15 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     ]);
 
     return (
-        <div className={cn('fixed bottom-8 right-8 z-[9999] flex justify-end items-center bg-transparent', inter.className)}>
+        <div ref={menuRef} className={cn('fixed bottom-8 right-8 z-[9999] flex justify-end items-center bg-transparent', inter.className)}>
             <motion.div
                 variants={containerVariants}
                 initial="closed"
                 animate={controls}
-                transition={{ duration: 0.35, ease: 'easeOut' }}
-                className="relative flex justify-center items-center bg-zinc-900 border border-white/10 p-3 rounded-[30px] w-[3.75rem] h-8 cursor-pointer shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                className="relative overflow-hidden flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 border-t-white/30 border-l-white/20 p-3 rounded-[30px] w-[2.5rem] h-[2.5rem] cursor-pointer shadow-[0_16px_32px_-8px_rgba(0,0,0,0.5),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_0_rgba(0,0,0,0.1)]"
             >
-                <div className="top-1/2 left-1 z-[9999] absolute flex justify-center items-center origin-left transition-all -translate-y-1/2 duration-350 ease-out">
+                <div className="top-1/2 left-[8px] z-[9999] absolute flex justify-center items-center origin-left transition-all -translate-y-1/2 duration-350 ease-out">
                     <motion.div
                         variants={imageVariants}
                         initial="closed"
@@ -241,32 +256,15 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                             }
                         }}
                     >
-                        {config?.image ? (
-                            <Image
-                                alt="me"
-                                src={config?.image}
-                                width={42}
-                                height={42}
-                                className="m-0 rounded-full w-full h-full object-cover"
-                            />
-                        ) : (
-                            <div className="flex justify-center items-center bg-white rounded-full w-full h-full">
-                                <h1 className="m-0 text-black text-sm select-none">
-                                    {config?.firstName?.substring(0, 1)}
-                                </h1>
-                            </div>
-                        )}
+                        <div className="flex flex-col justify-center items-center gap-[4px] bg-transparent w-full h-full">
+                            <span className="bg-white/80 rounded-full w-[16px] h-[1.5px]" />
+                            <span className="bg-white/80 rounded-full w-[16px] h-[1.5px]" />
+                            <span className="bg-white/80 rounded-full w-[16px] h-[1.5px]" />
+                        </div>
                     </motion.div>
                 </div>
 
-                <motion.div
-                    variants={plusVariants}
-                    initial="closed"
-                    animate={plusControls}
-                    className="top-1/2 right-1 z-[9999] absolute flex justify-center items-center bg-green-600 opacity-1 rounded-full w-6 h-6 transition-all -translate-y-1/2 duration-350 ease-out hover:rotate-[720deg]"
-                >
-                    <PlusIcon className="text-white" size={16} />
-                </motion.div>
+
 
                 <motion.div
                     variants={iconsVariants}
@@ -316,7 +314,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                             duration: 0.35,
                             ease: 'easeOut',
                         }}
-                        className="top-1/2 z-[50] absolute flex flex-col origin-left"
+                        className="top-1/2 z-[50] absolute flex flex-col items-start origin-left"
                     >
                         <span className="text-gray-400 text-sm select-none">{"Hello, I'm"}</span>
                         <h1 className="m-0 font-normal text-base text-white leading-[16px] select-none">
@@ -333,16 +331,13 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                             setIsBio(false);
                         }
                     }}
-                    className="relative flex min-w-[372px] max-sm:min-w-calc max-w-[372px] max-sm:max-w-calc h-[100%] origin-center transition-all duration-350 overflow-hidden ease-out"
+                    className="relative flex w-full max-w-[372px] h-[100%] origin-center transition-all duration-350 overflow-hidden ease-out"
                 >
-                    <div className="px-4 w-full h-full overflow-hidden">
-                        <p className="relative m-0 text-base text-zinc-400 select-none">
-                            It&apos;s been <span className="text-white">{config?.experience} years</span> since I got
-                            into {config?.domain}. I&nbsp;now have clear principles, the main one being{' '}
-                            <span className="text-white">“value instead of mindless execution”</span>. It&apos;s easy to
-                            print generic solutions, but what we {config?.role} are hired for is our unique point of
-                            view and creative thinking. Usability combined with clean architecture is the key to memorable
-                            and&nbsp;enjoyable products.
+                    <div className="px-4 py-6 w-full h-full overflow-hidden flex items-center justify-center">
+                        <p className="relative m-0 text-[14.5px] leading-relaxed text-zinc-400 select-none">
+                            {config?.bioText?.prefix} <span className="text-white">{config?.experience} {config?.bioText?.emphasis1}</span>{' '}
+                            {config?.bioText?.midText}{' '}
+                            <span className="text-white">“{config?.bioText?.emphasis2}”</span>{config?.bioText?.suffix}
                         </p>
                     </div>
                 </motion.div>
@@ -362,19 +357,19 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                             }}
                             className="cursor-pointer"
                         >
-                            <ArrowLeftIcon size={16} color="white" />
+                            <ArrowLeftIcon size={16} color="white" suppressHydrationWarning />
                         </div>
                         <Link href={config?.cvLink || '#'}>
-                            <BookText size={16} color="white" className="rotate-[30deg] hover:text-orange-400 transition-colors" />
+                            <BookText size={16} color="white" className="rotate-[30deg] hover:text-orange-400 transition-colors" suppressHydrationWarning />
                         </Link>
                         <Link href={config?.twitterUrl || '#'}>
-                            <FaTwitter size={16} color="white" className="hover:text-blue-400 transition-colors" />
+                            <FaTwitter size={16} color="white" className="hover:text-blue-400 transition-colors" suppressHydrationWarning />
                         </Link>
                         <Link href={config?.layersLink || '#'}>
-                            <Layers3 size={16} className="rotate-[30deg] hover:text-green-400 transition-colors" color="white" />
+                            <Layers3 size={16} className="rotate-[30deg] hover:text-green-400 transition-colors" color="white" suppressHydrationWarning />
                         </Link>
                         <Link href={config?.githubLink || '#'}>
-                            <FaGithub size={16} color="white" className="hover:text-purple-400 transition-colors" />
+                            <FaGithub size={16} color="white" className="hover:text-purple-400 transition-colors" suppressHydrationWarning />
                         </Link>
                     </div>
                 </motion.div>

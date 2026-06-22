@@ -1,79 +1,291 @@
-import React from "react";
-import Image from "next/image";
-import { CometCard } from "@/components/ui/comet-card";
-import { toolsPageStyles as s } from "@/styles/dummy-styles";
+'use client';
 
-const tools = [
+import React, { useState } from "react";
+import "./skills.css";
+import GlowingEffectDemo from "@/components/glowing-effect-demo";
+import TextType from '@/components/TextType';
+
+/* ================================================================
+   SOFTWARE ARSENAL
+   Icon sources:
+   - Icons8 (96px color) — most reliable, always loads
+   - Fallback: emoji via onError
+   ================================================================ */
+const software = [
   {
-    name: "VS Code",
-    category: "Editor",
-    image: "/vscode.webp",
-    link: "https://code.visualstudio.com/",
+    name: "Autodesk Revit",
+    type: "BIM Software",
+    // Icons8 reliable color icon
+    icon: "https://img.icons8.com/color/96/autodesk-revit.png",
+    fallback: "🏗️",
+    pct: 0.90,
+    delay: "0.1s",
   },
   {
-    name: "Cursor",
-    category: "AI Editor",
-    image: "/cursor.webp",
-    link: "https://cursor.sh/",
+    name: "AutoCAD",
+    type: "CAD Drafting",
+    icon: "https://img.icons8.com/color/96/autocad.png",
+    fallback: "📐",
+    pct: 0.95,
+    delay: "0.15s",
   },
   {
-    name: "Vercel",
-    category: "Deployment",
-    image: "/vercel.svg",
-    link: "https://vercel.com/",
+    name: "SketchUp",
+    type: "3D Modelling",
+    icon: "https://img.icons8.com/color/96/sketchup.png",
+    fallback: "🧊",
+    pct: 0.88,
+    delay: "0.2s",
   },
   {
-    name: "ChatGPT",
-    category: "AI Assistant",
-    image: "/chatgpt.webp",
-    link: "https://chat.openai.com/",
+    name: "V-Ray",
+    type: "Rendering Engine",
+    // Chaos Group official logo via Wikipedia (stable SVG rendered as PNG)
+    icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/V-Ray_logo.svg/240px-V-Ray_logo.svg.png",
+    fallback: "🌟",
+    pct: 0.82,
+    delay: "0.25s",
   },
   {
-    name: "Claude",
-    category: "AI Assistant",
-    image: "/claude.webp",
-    link: "https://claude.ai/",
+    name: "Enscape",
+    type: "Real-Time Render",
+    // Enscape official logo (stable asset from their CDN)
+    icon: "https://img.icons8.com/color/96/enscape--v1.png",
+    fallback: "✨",
+    pct: 0.85,
+    delay: "0.3s",
+  },
+  {
+    name: "ETABS",
+    type: "Structural Analysis",
+    // CSI (Computers & Structures) — using their official brand mark
+    icon: "https://img.icons8.com/color/96/structural-analysis.png",
+    fallback: "⚙️",
+    pct: 0.80,
+    delay: "0.35s",
+  },
+  {
+    name: "3ds Max",
+    type: "3D Visualisation",
+    icon: "https://img.icons8.com/color/96/autodesk-3ds-max.png",
+    fallback: "🎨",
+    pct: 0.78,
+    delay: "0.4s",
+  },
+  {
+    name: "Lumion",
+    type: "Arch Visualisation",
+    icon: "https://img.icons8.com/fluency/96/lumion.png",
+    fallback: "🌿",
+    pct: 0.75,
+    delay: "0.45s",
+  },
+  {
+    name: "Adobe Photoshop",
+    type: "Post-Processing",
+    icon: "https://img.icons8.com/color/96/adobe-photoshop.png",
+    fallback: "🖼️",
+    pct: 0.72,
+    delay: "0.5s",
+  },
+  {
+    name: "Microsoft Excel",
+    type: "Quantity Surveying",
+    icon: "https://img.icons8.com/color/96/microsoft-excel-2019.png",
+    fallback: "📊",
+    pct: 0.88,
+    delay: "0.55s",
+  },
+  {
+    name: "AutoCAD Civil 3D",
+    type: "Civil Design",
+    icon: "https://img.icons8.com/color/96/autodesk-civil-3d.png",
+    fallback: "🛣️",
+    pct: 0.76,
+    delay: "0.6s",
+  },
+  {
+    name: "Primavera P6",
+    type: "Project Planning",
+    // Oracle Primavera — using Oracle icon which is stable on Icons8
+    icon: "https://img.icons8.com/color/96/oracle-logo.png",
+    fallback: "📅",
+    pct: 0.70,
+    delay: "0.65s",
   },
 ];
 
-export default function Tools() {
-  return (
-    <div className={s.pageContainer}>
-      <div className={s.contentContainer}>
-        <div className={s.headerContainer}>
-          <h1 className={s.headerTitle}>Tools & Setup</h1>
-          <p className={s.headerSubtitle}>
-            My favorite tools, applications, and hardware I use to build software.
-          </p>
-        </div>
+/* ================================================================
+   CAREER STATS
+   ================================================================ */
+const stats = [
+  { number: "5",   suffix: "+",  label: "Years Experience" },
+  { number: "12",  suffix: "+",  label: "Software Tools" },
+  { number: "30",  suffix: "+",  label: "Projects Delivered" },
+  { number: "3",   suffix: "",   label: "Specialisations" },
+  { number: "100", suffix: "K",  label: "Funding Raised" },
+];
 
-        <div className={s.toolsGrid}>
-          {tools.map((tool, idx) => (
-            <a 
-              key={idx} 
-              href={tool.link} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={s.toolCardLink}
-            >
-              <CometCard className="w-full h-full p-6 bg-zinc-900 border border-zinc-800 rounded-2xl flex items-center gap-4 transition-colors">
-                <div className={s.toolIconContainer}>
-                  <Image 
-                    src={tool.image} 
-                    alt={tool.name} 
-                    width={48} 
-                    height={48} 
-                    className="rounded-lg object-contain"
-                  />
-                </div>
-                <div className={s.toolTextContainer}>
-                  <h3 className={s.toolName}>{tool.name}</h3>
-                  <p className={s.toolCategory}>{tool.category}</p>
-                </div>
-              </CometCard>
-            </a>
-          ))}
+/* ================================================================
+   DESIGN WORKFLOW PROCESS
+   ================================================================ */
+const workflow = [
+  { icon: "💡", label: "Concept\nIdeation" },
+  { icon: "📐", label: "Schematic\nDesign" },
+  { icon: "🏗️", label: "BIM\nModelling" },
+  { icon: "⚙️", label: "Structural\nAnalysis" },
+  { icon: "🌟", label: "Visualisation\n& Render" },
+  { icon: "📋", label: "Construction\nDocs" },
+];
+
+/* ================================================================
+   SOFTWARE CARD — client component for image error handling
+   ================================================================ */
+function SoftwareCard({ s }: { s: typeof software[0] }) {
+  const [imgFailed, setImgFailed] = useState(false);
+
+  return (
+    <div className="skill-card">
+      {/* Icon */}
+      <div className="skill-card-icon-wrap">
+        {!imgFailed ? (
+          <img
+            src={s.icon}
+            alt={s.name}
+            width={36}
+            height={36}
+            className="skill-card-icon-img"
+            onError={() => setImgFailed(true)}
+            loading="lazy"
+          />
+        ) : (
+          <span className="skill-card-icon-fallback">{s.fallback}</span>
+        )}
+      </div>
+
+      {/* Name */}
+      <div className="skill-card-name">{s.name}</div>
+
+      {/* Category */}
+      <div className="skill-card-type">{s.type}</div>
+
+      {/* Proficiency bar */}
+      <div className="skill-card-bar-wrapper">
+        <div className="skill-card-bar-meta">
+          <span className="skill-card-bar-label">Proficiency</span>
+          <span className="skill-card-bar-pct">{Math.round(s.pct * 100)}%</span>
         </div>
+        <div className="skill-card-bar-track">
+          <div
+            className="skill-card-bar-fill"
+            style={{
+              "--bar-pct":   s.pct,
+              "--bar-delay": s.delay,
+            } as React.CSSProperties}
+          />
+        </div>
+      </div>
+
+      {/* Right accent line */}
+      <div className="skill-card-accent-line" />
+    </div>
+  );
+}
+
+/* ================================================================
+   PAGE COMPONENT
+   ================================================================ */
+export default function SkillsPage() {
+  return (
+    <div className="skills-page">
+      {/* ── CINEMATIC BACKGROUND (same as experience page) ── */}
+      <div className="skills-bg-image" aria-hidden="true" />
+      <div className="skills-bg-vignette" aria-hidden="true" />
+
+
+
+      <div className="skills-container">
+
+        {/* ── Hero — sits above the glass, floats free on cinematic bg ── */}
+        <header className="skills-hero">
+          <span className="skills-hero-eyebrow">— Compendium of Mastery —</span>
+          <h1 className="skills-hero-title">Skills &amp; Expertise</h1>
+          <div style={{ minHeight: "28px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <TextType
+              text={[
+                "A Civil Engineer who builds — from structural frames to photorealistic renders.",
+                "Tools of precision, craft of design."
+              ]}
+              typingSpeed={100}
+              deletingSpeed={45}
+              pauseDuration={2400}
+              showCursor={true}
+              cursorCharacter="|"
+              className="skills-hero-sub"
+            />
+          </div>
+          <div className="skills-hero-rule">
+            <div className="skills-hero-rule-line" />
+            <div className="skills-hero-rule-dot" />
+            <div className="skills-hero-rule-line right" />
+          </div>
+        </header>
+
+        {/* ── GLASS PANEL WRAP starts here, below the hero ── */}
+        <div className="sk-glass-wrap">
+
+          {/* ── Stats strip ─────────────────────────────────────── */}
+          <section aria-label="Career statistics" className="mb-20">
+            <div className="skills-section-label">At a Glance</div>
+            <div className="skills-stats-strip">
+              {stats.map((s) => (
+                <div key={s.label} className="stat-item">
+                  <div className="stat-number">
+                    {s.number}<span>{s.suffix}</span>
+                  </div>
+                  <div className="stat-label">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Software arsenal ─────────────────────────────────── */}
+          <section aria-label="Software proficiency" className="mb-20">
+            <div className="skills-section-label">Software Arsenal</div>
+            <h2 className="skills-section-title">Tools I Master</h2>
+            <div className="skills-software-grid">
+              {software.map((s) => (
+                <SoftwareCard key={s.name} s={s} />
+              ))}
+            </div>
+          </section>
+
+          {/* ── Areas of Expertise — Glowing Effect Bento ──────── */}
+          <section aria-label="Areas of expertise" className="mb-20">
+            <div className="skills-section-label">Core Disciplines</div>
+            <h2 className="skills-section-title">Areas of Expertise</h2>
+            <GlowingEffectDemo />
+          </section>
+
+          {/* ── Design workflow ────────────────────────────────────── */}
+          <section aria-label="Design workflow" className="mt-8 mb-4">
+            <div className="skills-section-label">Design Process</div>
+            <h2 className="skills-section-title">How I Work</h2>
+            <div className="skills-workflow-steps">
+              {workflow.map((w, i) => (
+                <div key={i} className="workflow-step">
+                  <div className="workflow-step-dot">{w.icon}</div>
+                  <div className="workflow-step-label">
+                    {w.label.split("\n").map((line, j) => (
+                      <span key={j} style={{ display: "block" }}>{line}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+        </div>{/* /sk-glass-wrap */}
       </div>
     </div>
   );

@@ -4,13 +4,14 @@ import { motion } from "motion/react";
 
 export default function LayoutTextFlipDemo() {
   return (
-    <div>
-      <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center gap-4 text-center sm:mx-0 sm:mb-0 sm:flex-row">
+    <div className="flex flex-col items-center justify-center text-center md:items-start md:justify-start md:text-left w-full">
+      <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center md:justify-start md:items-start gap-4 text-center md:text-left sm:mx-0 sm:mb-0 sm:flex-row w-full">
         <LayoutTextFlip
-          text="Welcome to "
-          words={["My Page", "Feel Free To Explore My Page", "The Fight Club"]}
+          text="Welcome "
+          words={["To My Page", "Feel Free To Explore"]}
         />
       </motion.div>
+
     </div>
   );
 }
