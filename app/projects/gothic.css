@@ -1005,15 +1005,6 @@
     text-align: center;
   }
 
-  /* Performance overrides for mobile */
-  .gv-glass-wrap, .gv-card, .gv-info-panel, .gv-pill, .gv-hero-label, .gv-reel-icon-btn {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-  .gv-glass-wrap { background-color: rgba(12, 12, 12, 0.85); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-  .gv-card, .gv-info-panel { background-color: rgba(20, 20, 20, 0.95); box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
-  .gv-pill { background-color: rgba(30, 30, 30, 0.9); }
-  
   .gv-bg::after { display: none; } /* Disable noise overlay */
   .gv-map-lines { animation: none; opacity: 0.3; } /* Disable map drift */
 }
