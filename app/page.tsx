@@ -5,8 +5,6 @@ import { Spotlight } from '@/components/ui/spotlight';
 import GlowingEffectDemo from '@/components/glowing-effect-demo';
 import { NavigationDock } from '@/components/NavigationDock';
 import FloorPlan3D from '@/components/FloorPlan3D';
-
-import LayoutTextFlipDemo from '@/components/layout-text-flip-demo';
 import "./tools/skills.css";
 import { AnimatedStrokeText } from '@/components/AnimatedStrokeText';
 import { SweepButton } from "@/components/SweepButton";
@@ -41,7 +39,7 @@ export default function Home() {
           
           {/* Left Column: Text Content */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left max-w-2xl mt-6 md:mt-8 lg:mt-12">
-            <h1 className="skills-hero-title uppercase">
+            <h1 className="skills-hero-title">
               Building Design Products
             </h1>
 
@@ -49,9 +47,7 @@ export default function Home() {
               Engineering • Design
             </h2>
 
-            <div className="w-full flex justify-center md:justify-start mb-8 -mt-2">
-              <LayoutTextFlipDemo />
-            </div>
+
 
             <div className={homePageStyles.calloutCard.wrapper}>
               <div className={homePageStyles.calloutCard.innerContainer}>

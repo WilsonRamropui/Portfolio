@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 
 export const homePageStyles = {
   // Layout and container styles
-  container: "relative z-10 bg-zinc-950 flex-1 flex flex-col justify-center px-6 pb-6 pt-0 md:px-20 md:pb-20 md:pt-10 overflow-x-hidden",
+  container: "relative z-10 bg-zinc-950 flex-1 flex flex-col justify-center px-6 pb-6 pt-0 md:px-20 md:pb-20 md:pt-10 overflow-x-clip",
 
   // Background grid pattern
   backgroundGrid: {

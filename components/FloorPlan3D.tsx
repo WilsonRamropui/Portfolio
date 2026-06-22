@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { Compass, Ruler, X } from "lucide-react";
 import Image from "next/image";
@@ -7,6 +7,17 @@ import { motion, AnimatePresence } from "motion/react";
 
 export default function FloorPlan3D() {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    if (isExpanded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isExpanded]);
 
   return (
     <>

@@ -76,9 +76,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="en" className={cn("dark", "font-sans", "overflow-x-hidden", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable)}>
-      <body className="bg-zinc-950 text-zinc-100 antialiased overflow-x-hidden">
-        <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-hidden">
+    <html suppressHydrationWarning lang="en" className={cn("dark", "font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable)}>
+      <body className="bg-zinc-950 text-zinc-100 antialiased">
+        <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-clip">
           <PreLoader />
           <NavigationDock />
           <Portfolio />

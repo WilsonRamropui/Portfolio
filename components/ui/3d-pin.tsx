@@ -30,18 +30,20 @@ export const PinContainer = ({
     setTransform("translate(-50%,-50%) rotateX(0deg) scale(1)");
   };
 
+  const Tag = href ? "a" : ("div" as any);
   return (
-    <a
+    <Tag
       className={cn(
-        "relative group/pin z-50  cursor-pointer",
+        "relative group/pin z-50  cursor-pointer select-none",
         containerClassName
       )}
+      style={{ WebkitTouchCallout: "none" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onTouchStart={onMouseEnter}
       onTouchEnd={onMouseLeave}
       onTouchCancel={onMouseLeave}
-      href={href || "/"}
+      {...(href ? { href } : {})}
     >
       <div
         style={{
@@ -60,7 +62,7 @@ export const PinContainer = ({
         </div>
       </div>
       <PinPerspective title={title} href={href} pinClassName={pinClassName} />
-    </a>
+    </Tag>
   );
 };
 

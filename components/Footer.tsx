@@ -37,15 +37,15 @@ export function Footer() {
                   </div>
                 </div>
               </div>
-              <span className="text-zinc-100 font-cormorant text-base md:text-lg font-medium tracking-widest uppercase">WILSTUDIO</span>
+              <span className="text-zinc-100 font-cormorant text-base md:text-lg font-medium tracking-widest uppercase">WILSON STUDIO</span>
             </div>
 
             {/* Links */}
-            <div className="flex flex-row justify-center items-center flex-nowrap gap-x-2 md:gap-x-8 text-[9px] sm:text-xs md:text-sm text-zinc-300 mb-3 md:mb-4 w-full max-w-full">
-              <Link href="/projects" className="hover:text-white transition-colors whitespace-nowrap">Products</Link>
-              <Link href="/blog" className="hover:text-white transition-colors whitespace-nowrap">Blog</Link>
-              <Link href="/privacy" className="hover:text-white transition-colors whitespace-nowrap">Privacy</Link>
-              <Link href="/terms" className="hover:text-white transition-colors whitespace-nowrap">Terms</Link>
+            <div className="flex flex-row justify-center items-center flex-nowrap gap-x-1 md:gap-x-6 text-xs sm:text-sm md:text-base text-zinc-300 mb-2 md:mb-4 w-full max-w-full">
+              <Link href="/projects" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Products</Link>
+              <Link href="/blog" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Blog</Link>
+              <Link href="/privacy" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Privacy</Link>
+              <Link href="/terms" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Terms</Link>
             </div>
           </>
         )}

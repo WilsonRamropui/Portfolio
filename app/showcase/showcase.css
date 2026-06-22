@@ -7,10 +7,13 @@
 /* ── Grain Texture Overlay ──────────────────────────────────── */
 .sc-grain {
   position: fixed;
+  top: -10vh;
   top: -10lvh;
   left: -10vw;
   width: 120vw;
+  height: 120vh;
   height: 120lvh;
+  pointer-events: none;
   pointer-events: none;
   z-index: 200;
   opacity: 0.035;

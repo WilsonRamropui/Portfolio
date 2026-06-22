@@ -221,7 +221,7 @@ function DetailOverlay({
               src={view.image}
               alt={view.label}
               fill
-              className="object-contain opacity-90"
+              className="object-contain opacity-90 pointer-events-none"
               priority
               sizes="70vw"
             />
@@ -244,7 +244,7 @@ export default function CinematicShowcasePage() {
   return (
     <>
       <div
-        className="fixed inset-0 z-[100] w-full h-[100dvh] overflow-hidden bg-[#F4F0E6] font-sans text-[#1A1816] select-none"
+        className="fixed inset-0 z-[100] w-full h-screen overflow-hidden bg-[#F4F0E6] font-sans text-[#1A1816] select-none touch-none overscroll-none"
         style={{ contain: "strict" }}
       >
         {/* ── TOP NAV ─────────────────────────────────────────── */}
@@ -337,7 +337,7 @@ export default function CinematicShowcasePage() {
                 src="/images/blueprint_4k.png"
                 alt="Architectural Floor Plan"
                 fill
-                className="object-contain grayscale opacity-90 scale-[1.05]"
+                className="object-contain grayscale opacity-90 scale-[1.05] pointer-events-none"
                 priority
                 sizes="100vw"
               />
@@ -421,7 +421,7 @@ export default function CinematicShowcasePage() {
                 src="/images/blueprint_4k.png"
                 alt="Architectural Floor Plan"
                 fill
-                className="object-contain grayscale opacity-90"
+                className="object-contain grayscale opacity-90 pointer-events-none"
                 priority
                 sizes="60vw"
               />

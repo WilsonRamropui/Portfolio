@@ -94,12 +94,12 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
   const animationLoop = useCallback(() => {
     if (!isDragging.current && !isHovered.current) {
-      if (Math.abs(vel.current) > 0.4) {
-        vel.current *= 0.95;
+      if (Math.abs(vel.current) > 0.1) {
+        vel.current *= 0.92;
+        rotY.set(rotY.get() + vel.current);
       } else {
-        vel.current += (0.25 - vel.current) * 0.05; // Auto-spin speed
+        vel.current = 0;
       }
-      rotY.set(rotY.get() + vel.current);
       
       const currentX = rotX.get();
       if (Math.abs(currentX) > 0.1) {

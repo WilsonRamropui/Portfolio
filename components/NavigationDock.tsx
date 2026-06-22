@@ -21,13 +21,13 @@ export function NavigationDock() {
       <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
 
       {/* Navigation - Right side */}
-      <nav className="flex w-full gap-5 md:gap-8 items-center relative z-10 overflow-x-auto justify-start md:justify-end [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <nav className="flex w-full justify-between sm:justify-center md:justify-end sm:gap-6 md:gap-8 items-center relative z-10 overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {items.map((item) => (
           <Link
             key={item.href}
             href={item.href}
             prefetch={true}
-            className={`text-sm font-medium whitespace-nowrap transition-colors hover:text-white ${
+            className={`text-[10px] min-[375px]:text-[11px] sm:text-xs md:text-sm font-medium whitespace-nowrap transition-colors hover:text-white px-0.5 sm:px-0 ${
               pathname === item.href ? 'text-white drop-shadow-[0_0_4px_rgba(255,255,255,0.4)]' : 'text-zinc-400'
             }`}
           >
