@@ -8,7 +8,10 @@
 /* ─── Overlay base ─────────────────────────────────────────── */
 .preloader-overlay {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 99999;
   background: #080808;
   display: flex;

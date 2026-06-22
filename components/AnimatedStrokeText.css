@@ -2,10 +2,7 @@
   width: 100%;
   height: auto;
   max-height: 500px;
-  /* Force GPU acceleration */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
+  /* Removed transform: translateZ(0) to prevent bitmap rasterization blurriness */
 }
 
 .animated-stroke-text {
@@ -15,9 +12,26 @@
   font-size: 180px;
   fill: transparent;
   stroke: white;
-  stroke-width: 1.5px;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   will-change: stroke-dashoffset, stroke-dasharray;
   animation: stroke 5s infinite alternate linear;
+}
+
+/* Ensure the stroke doesn't become too thin when the SVG scales down on mobile */
+@media (max-width: 768px) {
+  .animated-stroke-text {
+    stroke-width: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .animated-stroke-text {
+    stroke-width: 5px;
+  }
 }
 
 @keyframes stroke {

@@ -34,7 +34,10 @@
 /* ── FULL PAGE BACKGROUND IMAGE ────────────────────────────── */
 .exp-bg-image {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 0;
   background-image: url('/home-bg-4k.png');
   background-size: cover;
@@ -50,7 +53,10 @@
 /* Top vignette */
 .exp-bg-vignette {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 1;
   pointer-events: none;
   background:

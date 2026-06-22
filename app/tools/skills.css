@@ -56,7 +56,10 @@
 /* ── CINEMATIC FIXED BACKGROUND (mirrors experience page) ─────── */
 .skills-bg-image {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 0;
   background-image: url('/home-bg-4k.png');
   background-size: cover;
@@ -67,7 +70,10 @@
 /* Vignette over cinematic image */
 .skills-bg-vignette {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 1;
   pointer-events: none;
   background:
@@ -78,7 +84,10 @@
 /* ── OBSIDIAN GLASS BACKGROUND ──────────────────────────────── */
 .skills-blueprint-grid {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 2;
   pointer-events: none;
   overflow: hidden;
@@ -110,7 +119,10 @@
 /* Animated map-line cartography grid — same as gothic.css */
 .skills-map-lines {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 3;
   pointer-events: none;
   background-image:
@@ -130,7 +142,10 @@
 /* Corner vignette — same as gothic.css */
 .skills-vignette {
   position: fixed;
-  inset: 0;
+  top: -10lvh;
+  left: -10vw;
+  width: 120vw;
+  height: 120lvh;
   z-index: 3;
   pointer-events: none;
   background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, rgba(0,0,0,0.95) 100%);
