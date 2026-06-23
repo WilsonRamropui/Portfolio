@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import "./skills.css";
-import GlowingEffectDemo from "@/components/glowing-effect-demo";
-import TextType from '@/components/TextType';
+import dynamic from "next/dynamic";
+
+const GlowingEffectDemo = dynamic(() => import("@/components/glowing-effect-demo"), { ssr: false });
+const TextType = dynamic(() => import('@/components/TextType'), { ssr: false });
 
 /* ================================================================
    SOFTWARE ARSENAL
