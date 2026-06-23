@@ -45,7 +45,7 @@ export default function About() {
         <div className="z-10 relative">
           
           {/* Header Section */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-6 mb-4 lg:mb-0">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 lg:gap-6 mb-4 lg:mb-0 -mt-12 md:mt-0">
             <h1 className="text-5xl font-bold tracking-tight text-zinc-100 font-cinzel text-center lg:w-[380px]">About Me</h1>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-end gap-3 w-full lg:w-auto">

@@ -24,10 +24,10 @@ export default function Home() {
       </div>
 
       <div className="w-full flex justify-center mx-auto -mt-4 md:-mt-16 -mb-4 z-10 relative">
-        <div className="w-full max-w-md px-4 sm:px-6">
+        <div className="w-full max-w-md px-4 sm:px-6 select-none">
           <AnimatedStrokeText
             text="Wilson"
-            className="text-white mx-auto"
+            className="text-white mx-auto select-none pointer-events-none"
           />
         </div>
       </div>

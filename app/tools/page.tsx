@@ -115,16 +115,6 @@ const software = [
   },
 ];
 
-/* ================================================================
-   CAREER STATS
-   ================================================================ */
-const stats = [
-  { number: "5",   suffix: "+",  label: "Years Experience" },
-  { number: "12",  suffix: "+",  label: "Software Tools" },
-  { number: "30",  suffix: "+",  label: "Projects Delivered" },
-  { number: "3",   suffix: "",   label: "Specialisations" },
-  { number: "100", suffix: "K",  label: "Funding Raised" },
-];
 
 /* ================================================================
    DESIGN WORKFLOW PROCESS
@@ -234,20 +224,6 @@ export default function SkillsPage() {
         {/* ── GLASS PANEL WRAP starts here, below the hero ── */}
         <div className="sk-glass-wrap">
 
-          {/* ── Stats strip ─────────────────────────────────────── */}
-          <section aria-label="Career statistics" className="mb-20">
-            <div className="skills-section-label">At a Glance</div>
-            <div className="skills-stats-strip">
-              {stats.map((s) => (
-                <div key={s.label} className="stat-item">
-                  <div className="stat-number">
-                    {s.number}<span>{s.suffix}</span>
-                  </div>
-                  <div className="stat-label">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </section>
 
           {/* ── Software arsenal ─────────────────────────────────── */}
           <section aria-label="Software proficiency" className="mb-20">

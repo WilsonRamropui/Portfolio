@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import useDetectBrowser from "@/hooks/use-detect-browser"
 import useScreenSize from "@/hooks/use-screen-size"
@@ -46,12 +46,17 @@ const TAB_CONTENT = [
 export default function GooeyDemo() {
   const [activeTab, setActiveTab] = useState(0)
   const screenSize = useScreenSize()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <div className="relative w-full h-full font-sans bg-transparent">
       <GooeySvgFilter
         id="gooey-filter"
-        strength={screenSize.lessThan("md") ? 8 : 15}
+        strength={mounted && screenSize.lessThan("md") ? 8 : 15}
       />
 
       <div className="w-full relative h-full">

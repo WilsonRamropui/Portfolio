@@ -14,14 +14,14 @@
   --sk-dark:      #080808;
   --sk-stone:     #2a2a2a;
   --sk-sage:      #404040;
-  --sk-fern:      #555555;
-  --sk-parchment: #999999;
-  --sk-aged:      #bbbbbb;
-  --sk-vellum:    #dddddd;
-  --sk-cream:     #f0f0f0;
-  --sk-ivory:     #fafafa;
+  --sk-fern:      #71717a;
+  --sk-parchment: #a1a1aa;
+  --sk-aged:      #a1a1aa;
+  --sk-vellum:    #e4e4e7;
+  --sk-cream:     #ffffff;
+  --sk-ivory:     #ffffff;
   --sk-gold:      #ffffff;
-  --sk-gold-dim:  #888888;
+  --sk-gold-dim:  #e4e4e7;
 
   --sk-border-ornate: rgba(255, 255, 255, 0.25);
   --sk-border-dim:    rgba(255, 255, 255, 0.12);

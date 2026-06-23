@@ -84,43 +84,20 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     return () => c.stop();
   }, [shimmer]);
 
-  // ── Drag & Auto-spin ──────────────────────────────────────────────────────
+  // ── Drag & Reset (No continuous rAF loop for better mobile performance) ──
   const isDragging = useRef(false);
   const isHovered = useRef(false);
   const lastX = useRef(0);
   const lastY = useRef(0);
-  const vel = useRef(0);
-  const rafRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    function animationLoop() {
-      if (!isDragging.current && !isHovered.current) {
-        if (Math.abs(vel.current) > 0.1) {
-          vel.current *= 0.92;
-          rotY.set(rotY.get() + vel.current);
-        } else {
-          vel.current = 0;
-        }
-        
-        const currentX = rotX.get();
-        if (Math.abs(currentX) > 0.1) {
-          rotX.set(currentX * 0.92);
-        } else {
-          rotX.set(0);
-        }
-      }
-      rafRef.current = requestAnimationFrame(animationLoop);
-    }
-
-    rafRef.current = requestAnimationFrame(animationLoop);
-    return () => {
-      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
-    };
-  }, [rotY, rotX]);
+  const resetRotation = useCallback(() => {
+    isDragging.current = false;
+    isHovered.current = false;
+  }, []);
 
   const onDown = useCallback((e: MouseEvent) => {
     isDragging.current = true;
-    lastX.current = e.clientX; lastY.current = e.clientY; vel.current = 0;
+    lastX.current = e.clientX; lastY.current = e.clientY;
   }, []);
 
   const onEnter = useCallback(() => {
@@ -147,20 +124,18 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     }
     const dx = e.clientX - lastX.current;
     const dy = e.clientY - lastY.current;
-    vel.current = dx * 1.0;
     rotY.set(rotY.get() + dx * 1.0);
     rotX.set(Math.max(-30, Math.min(30, rotX.get() + dy * 0.5)));
     lastX.current = e.clientX; lastY.current = e.clientY;
   }, [rotX, rotY]);
 
   const onUp = useCallback(() => {
-    isDragging.current = false;
-  }, []);
+    resetRotation();
+  }, [resetRotation]);
 
   const onLeave = useCallback(() => {
-    isHovered.current = false;
-    isDragging.current = false;
-  }, []);
+    resetRotation();
+  }, [resetRotation]);
 
   useEffect(() => {
     const el = cardWrapperRef.current;
@@ -186,28 +161,26 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
   // Mobile touch
   const tLastX = useRef<number | null>(null);
   const tLastY = useRef<number | null>(null);
-  const tVel = useRef(0);
   useEffect(() => {
     const el = cardWrapperRef.current;
     if (!el) return;
     const onTS = (e: TouchEvent) => {
       e.preventDefault(); isDragging.current = true;
-      tLastX.current = e.touches[0].clientX; tLastY.current = e.touches[0].clientY; tVel.current = 0;
+      tLastX.current = e.touches[0].clientX; tLastY.current = e.touches[0].clientY;
     };
     const onTM = (e: TouchEvent) => {
       if (!isDragging.current || tLastX.current === null) return;
       e.preventDefault();
       const dx = e.touches[0].clientX - tLastX.current;
       const dy = e.touches[0].clientY - (tLastY.current ?? 0);
-      tVel.current = dx * 1.4;
       rotY.set(rotY.get() + dx * 1.4);
       rotX.set(Math.max(-30, Math.min(30, rotX.get() + dy * 0.7)));
       tLastX.current = e.touches[0].clientX; tLastY.current = e.touches[0].clientY;
     };
     const onTE = (e: TouchEvent) => {
-      e.preventDefault(); isDragging.current = false;
+      e.preventDefault();
       tLastX.current = null; tLastY.current = null;
-      vel.current = tVel.current;
+      resetRotation();
     };
     el.addEventListener("touchstart", onTS, { passive: false });
     el.addEventListener("touchmove", onTM, { passive: false });
@@ -228,7 +201,6 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     isDragging.current = true;
     tLastX.current = e.clientX;
     tLastY.current = e.clientY;
-    tVel.current = 0;
   }, []);
 
   const onPointerMove = useCallback((e: React.PointerEvent) => {
@@ -236,7 +208,6 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     if (!isDragging.current || tLastX.current === null) return;
     const dx = e.clientX - tLastX.current;
     const dy = e.clientY - (tLastY.current ?? 0);
-    tVel.current = dx * 1.4;
     rotY.set(rotY.get() + dx * 1.4);
     rotX.set(Math.max(-30, Math.min(30, rotX.get() + dy * 0.7)));
     tLastX.current = e.clientX;
@@ -245,34 +216,38 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
   const onPointerUp = useCallback((e: React.PointerEvent) => {
     if (e.pointerType === "mouse") return;
-    isDragging.current = false;
     tLastX.current = null;
     tLastY.current = null;
-    vel.current = tVel.current;
-  }, []);
+    resetRotation();
+  }, [resetRotation]);
 
   return (
     <div
-      ref={cardWrapperRef}
-      className="flex items-center justify-center p-8 w-full"
+      className="flex items-center justify-center p-4 w-full"
       style={{
         perspective: "900px",
         perspectiveOrigin: "50% 50%",
-        cursor: "grab",
-        userSelect: "none",
-        touchAction: "none",          // prevents browser scroll hijack on mobile
-        WebkitUserSelect: "none",
       }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
     >
-      {/* ── Rotating 3D container ── */}
-      <motion.div
-        style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d", willChange: "transform" }}
+      <div
+        ref={cardWrapperRef}
         className="relative w-full max-w-[360px] aspect-[1/1.58]"
+        style={{
+          cursor: "grab",
+          userSelect: "none",
+          touchAction: "none",          // prevents browser scroll hijack on mobile inside the card area
+          WebkitUserSelect: "none",
+        }}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
       >
+        {/* ── Rotating 3D container ── */}
+        <motion.div
+          style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d", willChange: "transform" }}
+          className="absolute inset-0 w-full h-full"
+        >
         {/* ══════════════ FRONT FACE ══════════════ */}
         <div
           className="absolute inset-0 overflow-hidden flex flex-col justify-between"
@@ -459,7 +434,8 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
             }}
           />
         ))}
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 };
