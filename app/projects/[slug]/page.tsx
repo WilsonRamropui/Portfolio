@@ -7,6 +7,9 @@ import { projectDetailStyles as s } from "@/styles/dummy-styles";
 import { projects, getProjectBySlug } from "@/lib/projects-data";
 
 export function generateStaticParams() {
+  if (projects.length === 0) {
+    return [{ slug: 'empty-project' }];
+  }
   return projects.map((project) => ({
     slug: project.slug,
   }));

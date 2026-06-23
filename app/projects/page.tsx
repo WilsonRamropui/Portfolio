@@ -14,12 +14,10 @@ import "./gothic.css";
 const ALL_TAGS = ["All", ...Array.from(new Set(projects.flatMap((p) => p.tags)))];
 
 /* Circular reel items — top 4 featured projects mapped to gothic thumbnails */
-const REEL_THUMBS = [
-  { src: "/gothic-thumb-1.png", project: projects[0] },
-  { src: "/gothic-thumb-2.png", project: projects[1] },
-  { src: "/gothic-thumb-3.png", project: projects[2] },
-  { src: "/gothic-thumb-4.png", project: projects[3] },
-];
+const REEL_THUMBS = projects.slice(0, 4).map((p, i) => ({
+  src: `/gothic-thumb-${i + 1}.png`,
+  project: p,
+}));
 
 /* ── Corner ornament helper ─────────────────────────────────── */
 function CornerOrnaments({ cls = "gv-card-corner" }: { cls?: string }) {
@@ -34,7 +32,8 @@ function CornerOrnaments({ cls = "gv-card-corner" }: { cls?: string }) {
 }
 
 /* ── RIGHT INFO PANEL ────────────────────────────────────────── */
-function InfoPanel({ project }: { project: typeof projects[0] }) {
+function InfoPanel({ project }: { project: typeof projects[0] | undefined }) {
+  if (!project) return null;
   return (
     <div className="gv-info-panel">
       <CornerOrnaments cls="gv-panel-corner" />
@@ -203,7 +202,7 @@ export default function ProjectsPage() {
     (p) => tag === "All" || p.tags.includes(tag)
   );
 
-  const featuredProject = REEL_THUMBS[selectedReel]?.project ?? projects[0];
+  const featuredProject = REEL_THUMBS[selectedReel]?.project ?? projects[0] ?? null;
 
   return (
     <div className="gv-page">

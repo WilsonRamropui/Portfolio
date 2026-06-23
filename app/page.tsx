@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { homePageStyles, spotlightStyles } from '@/styles/dummy-styles';
+import { homePageStyles } from '@/styles/dummy-styles';
 import { Spotlight } from '@/components/ui/spotlight';
-import GlowingEffectDemo from '@/components/glowing-effect-demo';
-import { NavigationDock } from '@/components/NavigationDock';
 import FloorPlan3D from '@/components/FloorPlan3D';
 import "./tools/skills.css";
 import { AnimatedStrokeText } from '@/components/AnimatedStrokeText';
