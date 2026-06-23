@@ -12,6 +12,18 @@ export function generateStaticParams() {
   }));
 }
 
+export const unstable_instant = {
+  prefetch: 'static',
+  samples: [
+    { slug: 'aura-residential-complex' },
+    { slug: 'skyline-commercial-tower' },
+    { slug: 'riverview-suspension-bridge' },
+    { slug: 'metro-station-masterplan' },
+    { slug: 'luxury-villa-interior' },
+    { slug: 'city-park-landscape' }
+  ]
+};
+
 export default async function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const project = getProjectBySlug(resolvedParams.slug);
