@@ -15,15 +15,8 @@ import { usePathname } from "next/navigation";
 export function Footer() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const isProjects = pathname?.startsWith("/projects");
-  const isExperience = pathname?.startsWith("/experience");
-  const isTools = pathname?.startsWith("/tools");
-  const isContact = pathname?.startsWith("/contact");
-  const isAbout = pathname?.startsWith("/about");
-  const isDarkPage = isHome || isProjects || isExperience || isTools || isContact || isAbout;
-  
   return (
-    <footer className={`relative z-10 w-full mt-auto pt-10 pb-0 px-4 md:pt-16 md:pb-0 md:px-6 ${isDarkPage ? '' : 'bg-zinc-950'}`} style={isDarkPage ? { backgroundColor: 'transparent' } : {}}>
+    <footer className="relative z-10 w-full mt-auto pt-10 pb-0 px-4 md:pt-16 md:pb-0 md:px-6 bg-transparent">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
         {isHome && (
           <>
@@ -37,15 +30,15 @@ export function Footer() {
                   </div>
                 </div>
               </div>
-              <span className="text-zinc-100 font-cormorant text-base md:text-lg font-medium tracking-widest uppercase">WILSON STUDIO</span>
+              <span className="text-foreground font-cormorant text-base md:text-lg font-medium tracking-widest uppercase">WILSON STUDIO</span>
             </div>
 
             {/* Links */}
-            <div className="flex flex-row justify-center items-center flex-nowrap gap-x-1 md:gap-x-6 text-xs sm:text-sm md:text-base text-zinc-300 mb-2 md:mb-4 w-full max-w-full">
-              <Link href="/projects" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Products</Link>
-              <Link href="/blog" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Blog</Link>
-              <Link href="/privacy" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Privacy</Link>
-              <Link href="/terms" className="hover:text-white transition-colors whitespace-nowrap px-2 py-3">Terms</Link>
+            <div className="flex flex-row justify-center items-center flex-nowrap gap-x-1 md:gap-x-6 text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-300 mb-2 md:mb-4 w-full max-w-full">
+              <Link href="/projects" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Products</Link>
+              <Link href="/blog" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Blog</Link>
+              <Link href="/privacy" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Privacy</Link>
+              <Link href="/terms" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Terms</Link>
             </div>
           </>
         )}
@@ -60,7 +53,7 @@ export function Footer() {
         />
 
         {/* Bottom Section */}
-        <div className="relative w-full flex flex-col-reverse md:flex-row justify-center items-center text-zinc-400 gap-4 pb-6 md:pb-8">
+        <div className="relative w-full flex flex-col-reverse md:flex-row justify-center items-center text-zinc-500 dark:text-zinc-400 gap-4 pb-6 md:pb-8">
           
           {/* Centered HoverBorderGradient */}
           <HoverBorderGradient
@@ -73,11 +66,11 @@ export function Footer() {
 
           {/* Social Icons (Right aligned on PC, stacked on mobile) */}
           <div className="flex flex-row items-center justify-center gap-4 md:gap-5 shrink-0 md:absolute md:right-0">
-            <Link href="#" className="hover:text-white transition-colors"><IconBrandTwitter className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-white transition-colors"><IconBrandLinkedin className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-white transition-colors"><IconBrandGithub className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-white transition-colors"><IconBrandFacebook className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-white transition-colors"><IconBrandInstagram className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandTwitter className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandLinkedin className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandGithub className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandFacebook className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandInstagram className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
           </div>
         </div>
       </div>

@@ -5,43 +5,13 @@ import "../projects/projects.css";
 import { Mail, FileText } from "lucide-react";
 import { MetallicCard } from "@/components/MetallicCard";
 import { SweepButton } from "@/components/SweepButton";
-import LogoLoop from "@/components/LogoLoop";
-import { SiAutocad, SiSketchup, SiBlender } from "react-icons/si";
-import { TbBuildingBridge2 } from "react-icons/tb";
-
-
-
-// Inline SVG wrapper — no external fetch, no CORS, perfect alignment
-const Icon = ({ children, color = "currentColor" }: { children: React.ReactNode; color?: string }) => (
-  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", color, width: "1em", height: "1em" }}>
-    {children}
-  </span>
-);
-
-// Simple coloured circle fallback for tools without a react-icon
-const Dot = ({ color, label }: { color: string; label: string }) => (
-  <span title={label} style={{ display:"inline-flex",alignItems:"center",justifyContent:"center",width:"1em",height:"1em" }}>
-    <svg viewBox="0 0 24 24" width="100%" height="100%" fill={color}><circle cx="12" cy="12" r="10"/></svg>
-  </span>
-);
-
-
-
-const techLogos = [
-  { node: <Icon color="#e51d24"><SiAutocad style={{width:"100%",height:"100%"}} /></Icon>,          title: "AutoCAD",   href: "https://www.autodesk.com/products/autocad/overview" },
-  { node: <Dot color="#005f9e" label="Revit" />,                                                    title: "Revit",     href: "https://www.autodesk.com/products/revit/overview" },
-  { node: <Icon color="#009990"><SiSketchup style={{width:"100%",height:"100%"}} /></Icon>,         title: "SketchUp",  href: "https://www.sketchup.com" },
-  { node: <Dot color="#1a73c6" label="3ds Max" />,                                                  title: "3ds Max",   href: "https://www.autodesk.com/products/3ds-max/overview" },
-  { node: <Dot color="#00a8e0" label="Lumion" />,                                                   title: "Lumion",    href: "https://lumion.com" },
-  { node: <Dot color="#31a8ff" label="Photoshop" />,                                                title: "Photoshop", href: "https://www.adobe.com/products/photoshop.html" },
-  { node: <Icon color="#4285f4"><TbBuildingBridge2 style={{width:"100%",height:"100%"}} /></Icon>,  title: "Civil 3D",  href: "https://www.autodesk.com/products/civil-3d/overview" },
-  { node: <Dot color="#1d6f42" label="MS Excel" />,                                                 title: "MS Excel",  href: "https://www.microsoft.com/en-us/microsoft-365/excel" },
-  { node: <Dot color="#7db346" label="Enscape" />,                                                  title: "Enscape",   href: "https://enscape3d.com" },
-  { node: <Icon color="#f5792a"><SiBlender style={{width:"100%",height:"100%"}} /></Icon>,          title: "Blender",   href: "https://www.blender.org" },
-];
 
 export default function About() {
   const interests = [
+    "Structural Engineering",
+    "BIM & 3D Modeling",
+    "Parametric Design",
+    "AutoCAD & Revit Workflows",
     "AI & Machine Learning", 
     "System Architecture", 
     "Open Source", 
@@ -115,21 +85,6 @@ export default function About() {
             </div>
           </div>
 
-          {/* Tech Stack Section */}
-          <div className="mt-16 lg:mt-24 w-full">
-
-            <div className="w-full relative overflow-hidden mt-6" style={{ height: '100px' }}>
-              <LogoLoop
-                logos={techLogos}
-                speed={40}
-                direction="left"
-                logoHeight={48}
-                gap={80}
-                pauseOnHover={false}
-                ariaLabel="Technology stack logos"
-              />
-            </div>
-          </div>
 
           {/* Interests Section */}
           <div className="mt-12 lg:mt-16 text-center lg:text-left">

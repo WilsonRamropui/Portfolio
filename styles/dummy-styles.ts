@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 
 export const homePageStyles = {
   // Layout and container styles
-  container: "relative z-10 bg-zinc-950 flex-1 flex flex-col justify-center px-6 pb-6 pt-0 md:px-20 md:pb-20 md:pt-10 overflow-x-clip",
+  container: "relative z-10 bg-transparent flex-1 flex flex-col justify-center px-6 pb-6 pt-0 md:px-20 md:pb-20 md:pt-10 overflow-x-clip",
 
   // Background grid pattern
   backgroundGrid: {
@@ -19,9 +19,9 @@ export const homePageStyles = {
   heroSection: "w-full max-w-5xl mx-auto md:mr-auto md:ml-0 flex flex-col items-center text-center md:items-start md:text-left",
 
   // Headings
-  h1: "font-cormorant text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] leading-tight font-medium tracking-tight mb-4 text-zinc-100",
+  h1: "font-cormorant text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] leading-tight font-medium tracking-tight mb-4 text-foreground",
 
-  h2: "font-crimson text-base md:text-lg font-normal text-zinc-400 uppercase tracking-widest mb-6",
+  h2: "font-crimson text-base md:text-lg font-normal text-zinc-400 dark:text-zinc-400 text-zinc-600 uppercase tracking-widest mb-6",
 
   // Callout card
   calloutCard: {
@@ -71,7 +71,7 @@ export const spotlightStyles = {
 
 // assets/dummyStyles.js
 export const pageStyles = {
-  container: "flex min-h-screen pt-0 md:pt-12 w-full items-start justify-center bg-zinc-950 px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
+  container: "flex min-h-screen pt-0 md:pt-12 w-full items-start justify-center bg-transparent px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
   wrapper: "w-full max-w-3xl",
   backgroundContainer: "relative",
   backgroundEffect: "absolute inset-0 rounded-xl overflow-hidden",
@@ -97,7 +97,7 @@ export const pageStyles = {
 
 export const timelineStyles = {
   // Layout styles
-  container: "flex-1 flex flex-col justify-center min-h-screen bg-zinc-950 px-4 pb-4 md:px-8 md:pb-8 pt-8 md:pt-12 lg:pt-12",
+  container: "flex-1 flex flex-col justify-center min-h-screen bg-transparent px-4 pb-4 md:px-8 md:pb-8 pt-8 md:pt-12 lg:pt-12",
   innerContainer: "w-full max-w-full mx-auto",
   mainTitle: "text-4xl font-bold text-white md:text-5xl",
   mainParagraph: "mt-2 text-zinc-400",
@@ -194,7 +194,7 @@ export const timelineStyles = {
 
 export const aboutPageStyles = {
   // Layout and container styles
-  pageContainer: "flex min-h-screen pt-8 md:pt-12 w-full items-start justify-center bg-zinc-950 px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
+  pageContainer: "flex min-h-screen pt-8 md:pt-12 w-full items-start justify-center bg-transparent px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
   contentContainer: "w-full max-w-3xl",
 
   // Background container
@@ -231,7 +231,7 @@ export const aboutPageStyles = {
 
 export const contactPageStyles = {
   // Layout and container styles
-  pageContainer: "flex min-h-screen pt-0 md:pt-12 w-full items-start justify-center bg-zinc-950 px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
+  pageContainer: "flex min-h-screen pt-0 md:pt-12 w-full items-start justify-center bg-transparent px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
   contentContainer: "w-full max-w-2xl",
 
   // Form container with boxes background
@@ -282,7 +282,7 @@ export const contactPageStyles = {
 
 export const projectStyles = {
   // Page container
-  pageContainer: "flex-1 flex flex-col justify-center min-h-screen w-full pt-8 md:pt-12 bg-zinc-950 px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
+  pageContainer: "flex-1 flex flex-col justify-center min-h-screen w-full pt-8 md:pt-12 bg-transparent px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
   innerContainer: "w-full max-w-full mx-auto",
 
   // Header
@@ -344,7 +344,7 @@ export const styles = {
 
 export const toolsPageStyles = {
   // Layout and container styles
-  pageContainer: "flex-1 flex flex-col justify-center min-h-screen w-full bg-zinc-950 pt-8 md:pt-12 px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
+  pageContainer: "flex-1 flex flex-col justify-center min-h-screen w-full bg-transparent pt-8 md:pt-12 px-6 pb-12 md:px-12 md:pb-20 lg:px-16",
   contentContainer: "w-full max-w-full mx-auto",
 
   // Header
@@ -368,7 +368,7 @@ export const toolsPageStyles = {
 
 export const projectDetailStyles = {
   // Page container
-  pageContainer: "min-h-screen relative bg-zinc-950 pt-8 md:pt-12 px-4 sm:px-6 lg:px-8 pb-20 antialiased",
+  pageContainer: "min-h-screen relative bg-transparent pt-8 md:pt-12 px-4 sm:px-6 lg:px-8 pb-20 antialiased",
   innerContainer: "max-w-6xl mx-auto relative z-10",
 
   // Back button

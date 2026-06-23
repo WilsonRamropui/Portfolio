@@ -27,12 +27,20 @@ export default function ProjectsPage() {
       <div className="prj-bg-vignette" />
 
       <div className="prj-scroll-layer">
-        <div className="prj-hero prj-fade-up" style={{ animationDelay: "0.1s" }}>
-          <h1 className="prj-hero-title">Architectural & Civil Engineering Showcase</h1>
-          <p className="prj-hero-subtitle">
-            Exploring the intersection of modernist geometry, structural integrity, and parametric design through comprehensive 2D floor plans and 3D renderings.
-          </p>
-        </div>
+        <header className="prj-hero prj-fade-up" style={{ animationDelay: "0.1s" }}>
+          <span className="prj-eyebrow">— Compendium of Works —</span>
+          <h1 className="prj-hero-title">Architectural & Structural Projects</h1>
+          <div className="prj-subtitle-wrap">
+            <p className="prj-hero-subtitle">
+              Some of the projects which are not confidential
+            </p>
+          </div>
+          <div className="prj-hero-rule">
+            <div className="prj-hero-rule-line" />
+            <div className="prj-hero-rule-dot" />
+            <div className="prj-hero-rule-line prj-hero-rule-line--right" />
+          </div>
+        </header>
 
         <div className="prj-grid prj-fade-up" style={{ animationDelay: "0.3s" }}>
           {projects.map((project) => (

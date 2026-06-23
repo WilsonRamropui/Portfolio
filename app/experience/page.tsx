@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Timeline } from "@/components/ui/timeline";
-import { Monitor } from "lucide-react";
 import GooeyDemo from "@/components/gooey-demo";
 import TextType from '@/components/TextType';
 import "./experience.css";
@@ -85,13 +84,7 @@ export default function Experience() {
     },
   ];
 
-  /* ── Tech stack data ── */
-  const techStack = [
-    { title: "Core Tech",       content: "Python, Web Technology, Software Development" },
-    { title: "Emerging Tech",   content: "AI/ML, Big Data, Blockchain" },
-    { title: "Hardware & Sec",  content: "IoT, Drone Technology, Cyber Security" },
-    { title: "Engineering",     content: "Civil Engineering, Design Engineering" },
-  ];
+
 
   return (
     <div className="exp-page">
@@ -162,24 +155,7 @@ export default function Experience() {
             </div>
           </section>
 
-          <div className="exp-divider" />
 
-          {/* ── Tech Stack ───────────────────────────────────── */}
-          <section className="exp-section exp-fade-up" aria-label="Technology stack">
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
-              <Monitor style={{ width: "16px", height: "16px", color: "var(--exp-amber)", opacity: 0.8 }} />
-              <span className="exp-section-label" style={{ marginBottom: 0 }}>— Arsenal —</span>
-            </div>
-            <h2 className="exp-section-title">Tech Stack</h2>
-            <div className="exp-tech-grid">
-              {techStack.map((tech, idx) => (
-                <div key={idx} className="exp-tech-card">
-                  <h3 className="exp-tech-title">{tech.title}</h3>
-                  <p className="exp-tech-content">{tech.content}</p>
-                </div>
-              ))}
-            </div>
-          </section>
 
         </div>
       </div>

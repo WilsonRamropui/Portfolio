@@ -2,6 +2,22 @@
 
 /* ── MARAZANNA THEME VARIABLES ──────────────────────────────── */
 :root {
+  --mz-bg: #F4F0E6;
+  --mz-panel: rgba(244, 240, 230, 0.85);
+  --mz-panel-light: rgba(244, 240, 230, 0.95);
+  --mz-border: rgba(26, 24, 22, 0.15);
+  --mz-border-dim: rgba(26, 24, 22, 0.05);
+  --mz-text: #5A554F;
+  --mz-text-dim: #7A746B;
+  --mz-title: #1A1816;
+  --mz-red: #8b0000;
+  --mz-red-dim: #4a0000;
+  
+  --mz-font-serif: 'Cinzel', serif;
+  --mz-font-body: 'Crimson Text', serif;
+}
+
+.dark {
   --mz-bg: #090909;
   --mz-panel: #0f0f0f;
   --mz-panel-light: #161616;
@@ -12,9 +28,6 @@
   --mz-title: #e0e0e0;
   --mz-red: #8b0000;
   --mz-red-dim: #4a0000;
-  
-  --mz-font-serif: 'Cinzel', serif;
-  --mz-font-body: 'Crimson Text', serif;
 }
 
 /* ── BASE ───────────────────────────────────────────────────── */

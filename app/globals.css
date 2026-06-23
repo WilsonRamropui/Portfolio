@@ -15,6 +15,7 @@
   --font-goudy: var(--font-goudy);
   --font-cinzel: var(--font-cinzel);
   --font-saira-stencil: var(--font-saira-stencil);
+  --font-cormorant-infant: var(--font-cormorant-infant);
   --font-raleway-dots: var(--font-raleway-dots);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -68,9 +69,9 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --background: #F4F0E6;
+  --foreground: #1A1816;
+  --card: #F4F0E6;
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -103,9 +104,9 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --background: #020406;
+  --foreground: #ffffff;
+  --card: #020406;
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);

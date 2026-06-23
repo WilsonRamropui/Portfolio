@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowLeftIcon, BookText, Layers3 } from 'lucide-react';
+import { ArrowLeftIcon, BookText, Layers3, Sun, Moon } from 'lucide-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
+import { useTheme } from 'next-themes';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -70,6 +71,8 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const [isBio, setIsBio] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const { theme, setTheme } = useTheme();
     const isAnimatingRef = useRef(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -84,6 +87,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
+        setMounted(true);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
@@ -246,7 +250,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                 initial="closed"
                 animate={controls}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="relative overflow-hidden flex justify-center items-center bg-white/5 backdrop-blur-2xl border border-white/10 border-t-white/30 border-l-white/20 p-3 rounded-[30px] w-[2.5rem] h-[2.5rem] cursor-pointer shadow-[0_16px_32px_-8px_rgba(0,0,0,0.5),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_0_rgba(0,0,0,0.1)]"
+                className="relative overflow-hidden flex justify-center items-center bg-black/5 dark:bg-white/5 backdrop-blur-2xl border border-black/10 dark:border-white/10 border-t-black/20 dark:border-t-white/30 border-l-black/10 dark:border-l-white/20 p-3 rounded-[30px] w-[2.5rem] h-[2.5rem] cursor-pointer shadow-[0_16px_32px_-8px_rgba(0,0,0,0.2),0_8px_16px_-4px_rgba(0,0,0,0.1)] dark:shadow-[0_16px_32px_-8px_rgba(0,0,0,0.5),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_0_rgba(0,0,0,0.1)]"
             >
                 <div className="top-1/2 left-[8px] z-[9999] absolute flex justify-center items-center origin-left transition-all -translate-y-1/2 duration-350 ease-out">
                     <motion.div
@@ -260,9 +264,9 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         }}
                     >
                         <div className="flex flex-col justify-center items-center gap-[4px] bg-transparent w-full h-full">
-                            <span className="bg-white/80 rounded-full w-[16px] h-[1.5px]" />
-                            <span className="bg-white/80 rounded-full w-[16px] h-[1.5px]" />
-                            <span className="bg-white/80 rounded-full w-[16px] h-[1.5px]" />
+                            <span className="bg-zinc-800 dark:bg-white/80 rounded-full w-[16px] h-[1.5px]" />
+                            <span className="bg-zinc-800 dark:bg-white/80 rounded-full w-[16px] h-[1.5px]" />
+                            <span className="bg-zinc-800 dark:bg-white/80 rounded-full w-[16px] h-[1.5px]" />
                         </div>
                     </motion.div>
                 </div>
@@ -319,8 +323,8 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         }}
                         className="top-1/2 z-[50] absolute flex flex-col items-start origin-left"
                     >
-                        <span className="text-gray-400 text-sm select-none">{"Hello, I'm"}</span>
-                        <h1 className="m-0 font-normal text-base text-white leading-[16px] select-none">
+                        <span className="text-zinc-600 dark:text-gray-400 text-sm select-none">{"Hello, I'm"}</span>
+                        <h1 className="m-0 font-normal text-base text-zinc-900 dark:text-white leading-[16px] select-none">
                             {config?.firstName}
                         </h1>
                     </motion.div>
@@ -337,10 +341,10 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                     className="relative flex w-full max-w-[372px] h-[100%] origin-center transition-all duration-350 overflow-hidden ease-out"
                 >
                     <div className="px-4 py-6 w-full h-full overflow-hidden flex items-center justify-center">
-                        <p className="relative m-0 text-[14.5px] leading-relaxed text-zinc-400 select-none">
-                            {config?.bioText?.prefix} <span className="text-white">{config?.experience} {config?.bioText?.emphasis1}</span>{' '}
+                        <p className="relative m-0 text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-400 select-none">
+                            {config?.bioText?.prefix} <span className="text-zinc-900 dark:text-white">{config?.experience} {config?.bioText?.emphasis1}</span>{' '}
                             {config?.bioText?.midText}{' '}
-                            <span className="text-white">“{config?.bioText?.emphasis2}”</span>{config?.bioText?.suffix}
+                            <span className="text-zinc-900 dark:text-white">“{config?.bioText?.emphasis2}”</span>{config?.bioText?.suffix}
                         </p>
                     </div>
                 </motion.div>
@@ -360,19 +364,19 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                             }}
                             className="cursor-pointer"
                         >
-                            <ArrowLeftIcon size={16} color="white" suppressHydrationWarning />
+                            <ArrowLeftIcon size={16} className="text-zinc-900 dark:text-white" suppressHydrationWarning />
                         </div>
                         <Link href={config?.cvLink || '#'}>
-                            <BookText size={16} color="white" className="rotate-[30deg] hover:text-orange-400 transition-colors" suppressHydrationWarning />
+                            <BookText size={16} className="rotate-[30deg] text-zinc-900 dark:text-white hover:text-orange-400 transition-colors" suppressHydrationWarning />
                         </Link>
                         <Link href={config?.twitterUrl || '#'}>
-                            <FaTwitter size={16} color="white" className="hover:text-blue-400 transition-colors" suppressHydrationWarning />
+                            <FaTwitter size={16} className="text-zinc-900 dark:text-white hover:text-blue-400 transition-colors" suppressHydrationWarning />
                         </Link>
                         <Link href={config?.layersLink || '#'}>
-                            <Layers3 size={16} className="rotate-[30deg] hover:text-green-400 transition-colors" color="white" suppressHydrationWarning />
+                            <Layers3 size={16} className="rotate-[30deg] text-zinc-900 dark:text-white hover:text-green-400 transition-colors" suppressHydrationWarning />
                         </Link>
                         <Link href={config?.githubLink || '#'}>
-                            <FaGithub size={16} color="white" className="hover:text-purple-400 transition-colors" suppressHydrationWarning />
+                            <FaGithub size={16} className="text-zinc-900 dark:text-white hover:text-purple-400 transition-colors" suppressHydrationWarning />
                         </Link>
                     </div>
                 </motion.div>

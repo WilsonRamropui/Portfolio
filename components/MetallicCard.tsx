@@ -67,9 +67,9 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
   const rotY = useMotionValue(0);
   const rotX = useMotionValue(0);
 
-  // Fast, snappy spring — high stiffness = responsive, lower damping = lively
-  const sRotY = useSpring(rotY, { stiffness: 380, damping: 22, mass: 0.5 });
-  const sRotX = useSpring(rotX, { stiffness: 380, damping: 22, mass: 0.5 });
+  // Smooth, premium cinematic spring
+  const sRotY = useSpring(rotY, { stiffness: 120, damping: 25, mass: 1.2 });
+  const sRotX = useSpring(rotX, { stiffness: 120, damping: 25, mass: 1.2 });
 
   // Specular blob follows rotation
   const specBlobX = useTransform(sRotY, (v) => {
@@ -113,8 +113,8 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         // Drag mode — free spin in Y, clamped tilt in X
         const dx = e.clientX - lastX.current;
         const dy = e.clientY - lastY.current;
-        rotY.set(rotY.get() + dx * 1.8);
-        rotX.set(Math.max(-30, Math.min(30, rotX.get() - dy * 0.8)));
+        rotY.set(rotY.get() + dx * 0.8);
+        rotX.set(Math.max(-20, Math.min(20, rotX.get() - dy * 0.4)));
         lastX.current = e.clientX;
         lastY.current = e.clientY;
       } else {
@@ -125,8 +125,8 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         const pctY = (e.clientY - rect.top)  / rect.height - 0.5;
         // Positive pctX → rotate right (card tilts right), negative → tilts left
         // Positive pctY → mouse below center → tilt back, negative → tilt forward
-        rotY.set(pctX *  36);   // ±18° max horizontal
-        rotX.set(pctY * -24);   // ±12° max vertical (inverted: mouse up = tilt up)
+        rotY.set(pctX *  24);   // ±12° max horizontal
+        rotX.set(pctY * -16);   // ±8° max vertical
       }
     };
 
@@ -171,8 +171,8 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     if (!isDragging.current || tLastX.current === null) return;
     const dx = e.clientX - tLastX.current;
     const dy = e.clientY - (tLastY.current ?? 0);
-    rotY.set(rotY.get() + dx * 2.0);   // faster drag on touch
-    rotX.set(Math.max(-30, Math.min(30, rotX.get() - dy * 1.0)));
+    rotY.set(rotY.get() + dx * 1.0);
+    rotX.set(Math.max(-20, Math.min(20, rotX.get() - dy * 0.5)));
     tLastX.current = e.clientX;
     tLastY.current = e.clientY;
   }, [rotX, rotY]);

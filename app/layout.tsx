@@ -7,8 +7,9 @@ import { Footer } from "@/components/Footer";
 import Portfolio from "@/components/portfolio-menu";
 import PageTransition from "@/components/PageTransition";
 import PreLoader from "@/components/PreLoader";
-import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots } from "next/font/google";
+import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots, Cormorant_Infant } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans',display:'swap'});
 const cormorantGaramond = Cormorant_Garamond({
@@ -58,6 +59,12 @@ const ralewayDots = Raleway_Dots({
   variable: '--font-raleway-dots',
   display: 'swap',
 });
+const cormorantInfant = Cormorant_Infant({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-cormorant-infant',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "Wilson Portfolio",
@@ -77,9 +84,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="en" className={cn("dark", "font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable)}>
-      <body className="bg-zinc-950 text-zinc-100 antialiased">
-        <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-clip">
+    <html suppressHydrationWarning lang="en" className={cn("font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable, cormorantInfant.variable)}>
+      <body className="antialiased transition-colors duration-500 ease-in-out">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-clip">
           <PreLoader />
           <NavigationDock />
           <Portfolio />
@@ -90,6 +98,7 @@ export default function RootLayout({
             </PageTransition>
           </main>
         </div>
+        </ThemeProvider>
       </body>
     </html>
   );

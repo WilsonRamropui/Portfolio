@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import "./skills.css";
 import dynamic from "next/dynamic";
+import { Monitor } from "lucide-react";
 
 const GlowingEffectDemo = dynamic(() => import("@/components/glowing-effect-demo"), { ssr: false });
 const TextType = dynamic(() => import('@/components/TextType'), { ssr: false });
@@ -235,6 +236,34 @@ export default function SkillsPage() {
               {software.map((s) => (
                 <SoftwareCard key={s.name} s={s} />
               ))}
+            </div>
+          </section>
+
+          {/* ── Tech Stack ───────────────────────────────────────── */}
+          <section aria-label="Tech Stack" className="mb-20">
+            <div className="flex items-center gap-2 text-[10px] tracking-[0.3em] text-zinc-500 uppercase font-bold mb-3">
+              <Monitor size={14} className="opacity-70" />
+              — ARSENAL —
+            </div>
+            <h2 className="skills-section-title">Tech Stack</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mt-8">
+              <div className="bg-black/40 border border-white/5 rounded-xl p-8 hover:bg-white/5 transition-colors backdrop-blur-md">
+                <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-4 font-cinzel">Core Tech</h3>
+                <p className="text-[14px] text-zinc-400 font-serif">Python, Web Technology, Software Development</p>
+              </div>
+              <div className="bg-black/40 border border-white/5 rounded-xl p-8 hover:bg-white/5 transition-colors backdrop-blur-md">
+                <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-4 font-cinzel">Emerging Tech</h3>
+                <p className="text-[14px] text-zinc-400 font-serif">AI/ML, Big Data, Blockchain</p>
+              </div>
+              <div className="bg-black/40 border border-white/5 rounded-xl p-8 hover:bg-white/5 transition-colors backdrop-blur-md">
+                <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-4 font-cinzel">Hardware & Sec</h3>
+                <p className="text-[14px] text-zinc-400 font-serif">IoT, Drone Technology, Cyber Security</p>
+              </div>
+              <div className="bg-black/40 border border-white/5 rounded-xl p-8 hover:bg-white/5 transition-colors backdrop-blur-md">
+                <h3 className="text-[11px] font-bold tracking-[0.2em] text-white uppercase mb-4 font-cinzel">Engineering</h3>
+                <p className="text-[14px] text-zinc-400 font-serif">Civil Engineering, Design Engineering</p>
+              </div>
             </div>
           </section>
 

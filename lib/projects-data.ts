@@ -88,6 +88,27 @@ export const projects: Project[] = [
       { label: "Scale", value: "1:50" },
       { label: "Material", value: "Steel & Timber" }
     ]
+  },
+  {
+    id: "p4",
+    title: "Aethelgard Suspension Bridge",
+    description: "Conceptual design for a pedestrian suspension bridge prioritizing minimal ecological footprint.",
+    detailedDescription: "The Aethelgard Bridge project focuses on advanced cable-stayed tension dynamics. The 2D drafts show the anchoring blocks and the deck cross-sections, while the 3D renders illustrate the sleek steel towers rising above the tree canopy. The design utilizes high-strength carbon fiber cables to reduce the visual mass.",
+    slug: "aethelgard-bridge",
+    image: "/images/blueprint_4k.png",
+    blueprint: "/images/blueprint_4k.png",
+    tags: ["Infrastructure", "Bridge", "Civil"],
+    status: "active",
+    links: {},
+    author: "Wilson Ramropui",
+    authorAvatar: "/favicon.ico",
+    techStack: ["Civil 3D", "AutoCAD", "SAP2000", "Lumion"],
+    features: ["Cable Tension Analysis", "Environmental Impact Study", "Wind Tunnel Simulation"],
+    learningOutcomes: [],
+    metrics: [
+      { label: "Span", value: "120m" },
+      { label: "Type", value: "Suspension" }
+    ]
   }
 ];
 
