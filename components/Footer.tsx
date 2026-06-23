@@ -18,30 +18,7 @@ export function Footer() {
   return (
     <footer className="relative z-10 w-full mt-auto pt-10 pb-0 px-4 md:pt-16 md:pb-0 md:px-6 bg-transparent">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
-        {isHome && (
-          <>
-            {/* Top Section */}
-            <div className="flex items-center justify-center gap-2 md:gap-4 mb-6 md:mb-8 mt-2">
-              <div className="h-12 md:h-14 flex items-center justify-center w-12 md:w-14">
-                <div className="scale-[0.4] md:scale-[0.45] origin-center flex items-center justify-center">
-                  <div className="preloader-monogram-wrapper" style={{ marginBottom: 0 }}>
-                    <div className="preloader-ring-glow" />
-                    <span className="preloader-monogram relative top-[3px] right-[2px]">W</span>
-                  </div>
-                </div>
-              </div>
-              <span className="text-foreground font-cormorant text-base md:text-lg font-medium tracking-widest uppercase">WILSON STUDIO</span>
-            </div>
-
-            {/* Links */}
-            <div className="flex flex-row justify-center items-center flex-nowrap gap-x-1 md:gap-x-6 text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-300 mb-2 md:mb-4 w-full max-w-full">
-              <Link href="/projects" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Products</Link>
-              <Link href="/blog" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Blog</Link>
-              <Link href="/privacy" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Privacy</Link>
-              <Link href="/terms" className="hover:text-foreground transition-colors whitespace-nowrap px-2 py-3">Terms</Link>
-            </div>
-          </>
-        )}
+          {/* Logo and links removed as requested */}
 
         {/* Dashed Separator */}
         <div

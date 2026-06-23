@@ -33,7 +33,7 @@ export function NavigationDock() {
                 href={item.href}
                 prefetch={true}
                 scroll={false}
-                className={`relative text-[clamp(14px,3.5vw,16px)] md:text-[18px] font-cormorant-infant font-bold tracking-[0.05em] whitespace-nowrap transition-colors duration-300 py-2 ${
+                className={`relative text-[clamp(14px,3.5vw,16px)] md:text-[14px] font-sans font-bold tracking-wide whitespace-nowrap transition-colors duration-300 py-2 ${
                   isActive ? 'text-foreground drop-shadow-[0_0_8px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'text-zinc-600 dark:text-zinc-400 hover:text-foreground hover:opacity-90'
                 }`}
               >
