@@ -1,6 +1,7 @@
 import React from 'react';
 
 export interface LogoLoopProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   logos?: any[];
   speed?: number;
   direction?: 'left' | 'right';
@@ -9,7 +10,7 @@ export interface LogoLoopProps {
   hoverSpeed?: number;
   fadeOut?: boolean;
   ariaLabel?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 declare const LogoLoop: React.FC<LogoLoopProps>;

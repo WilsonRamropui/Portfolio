@@ -56,7 +56,7 @@ export default function About() {
               <Link href="/contact" className="flex w-full sm:w-auto">
                 <SweepButton className="w-full flex items-center justify-center gap-2">
                   <Mail className="w-4 h-4" />
-                  Let's Connect
+                  Let&apos;s Connect
                 </SweepButton>
               </Link>
               <Link href="/projects" className="flex w-full sm:w-auto">
@@ -82,14 +82,14 @@ export default function About() {
               <section>
                 <h2 className={`${s.sectionHeading} font-cinzel text-center lg:text-left`}>Who I am</h2>
                 <p className={`${s.paragraph} text-center lg:text-left mx-auto lg:mx-0`}>
-                  I'm Wilson Ramropui. I'm a civil engineer by trade, but I also have a deep passion for computer science and software development. I've always been fascinated by how things are built, whether it's a physical structure or a complex codebase.
+                  I&apos;m Wilson Ramropui. I&apos;m a civil engineer by trade, but I also have a deep passion for computer science and software development. I&apos;ve always been fascinated by how things are built, whether it&apos;s a physical structure or a complex codebase.
                 </p>
               </section>
 
               <section>
                 <h2 className={`${s.sectionHeading} font-cinzel text-center lg:text-left`}>What I do</h2>
                 <p className={`${s.paragraph} text-center lg:text-left mx-auto lg:mx-0`}>
-                  Currently, I work as a Design Engineer. My day-to-day involves drafting floor plans and creating structural designs. But my work doesn't stop there—I also write code. I love taking the same detail-oriented, logical approach I use in architecture and applying it to building software.
+                  Currently, I work as a Design Engineer. My day-to-day involves drafting floor plans and creating structural designs. But my work doesn&apos;t stop there—I also write code. I love taking the same detail-oriented, logical approach I use in architecture and applying it to building software.
                 </p>
               </section>
 

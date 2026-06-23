@@ -103,8 +103,8 @@ export default function BlogPage() {
                   <span style={{fontSize:'16px'}}>✒</span> STATUS / UPDATES
                 </div>
                 <h3 className="mz-quote">
-                  "I don't chase perfection.<br/>
-                  I write what haunts me."
+                  &quot;I don&apos;t chase perfection.<br/>
+                  I write what haunts me.&quot;
                 </h3>
                 <p className="mz-status-text">
                   Currently crafting stories that bleed,<br/>
@@ -136,9 +136,9 @@ export default function BlogPage() {
                     A storyteller at heart and a creator by choice. I build worlds that linger, characters that feel real, and plots that twist beautifully.
                   </p>
                   <p>
-                    Here, you'll find my templates, resources, and original series—crafted with passion and a touch of darkness.
+                    Here, you&apos;ll find my templates, resources, and original series—crafted with passion and a touch of darkness.
                   </p>
-                  <p className="mz-about-quote">"Stories are my escape. Writing is my heartbeat."</p>
+                  <p className="mz-about-quote">&quot;Stories are my escape. Writing is my heartbeat.&quot;</p>
                 </div>
                 <Image src="/blog/potion_candle.png" alt="Potion and Candle" width={160} height={160} className="mz-about-img" />
               </div>

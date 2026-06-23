@@ -133,7 +133,7 @@ export default function FloorPlan3D() {
                       <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider mb-1 sm:mb-0">DRAWN BY: <span className="text-white font-bold ml-1">WILSON RAMROPUI</span></div>
                       <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">DATE: <span className="text-white font-bold ml-1">2025</span></div>
                     </div>
-                    <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">SCALE: <span className="text-white ml-1">1/4" = 1'-0"</span></div>
+                    <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">SCALE: <span className="text-white ml-1">1/4&quot; = 1&apos;-0&quot;</span></div>
                   </div>
                   <div className="px-6 py-3 sm:px-10 flex flex-col items-center justify-center bg-black/40 min-w-[100px] sm:min-w-[150px]">
                     <div className="text-zinc-500 font-mono text-[10px] sm:text-sm uppercase tracking-wider mb-1">SHEET</div>

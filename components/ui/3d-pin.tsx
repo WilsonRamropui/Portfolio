@@ -40,6 +40,7 @@ export const PinContainer = ({
     return null;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const Tag = href ? "a" : ("div" as any);
   return (
     <Tag

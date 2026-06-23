@@ -92,31 +92,31 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
   const vel = useRef(0);
   const rafRef = useRef<number | null>(null);
 
-  const animationLoop = useCallback(() => {
-    if (!isDragging.current && !isHovered.current) {
-      if (Math.abs(vel.current) > 0.1) {
-        vel.current *= 0.92;
-        rotY.set(rotY.get() + vel.current);
-      } else {
-        vel.current = 0;
-      }
-      
-      const currentX = rotX.get();
-      if (Math.abs(currentX) > 0.1) {
-        rotX.set(currentX * 0.92);
-      } else {
-        rotX.set(0);
-      }
-    }
-    rafRef.current = requestAnimationFrame(animationLoop);
-  }, [rotY, rotX]);
-
   useEffect(() => {
+    function animationLoop() {
+      if (!isDragging.current && !isHovered.current) {
+        if (Math.abs(vel.current) > 0.1) {
+          vel.current *= 0.92;
+          rotY.set(rotY.get() + vel.current);
+        } else {
+          vel.current = 0;
+        }
+        
+        const currentX = rotX.get();
+        if (Math.abs(currentX) > 0.1) {
+          rotX.set(currentX * 0.92);
+        } else {
+          rotX.set(0);
+        }
+      }
+      rafRef.current = requestAnimationFrame(animationLoop);
+    }
+
     rafRef.current = requestAnimationFrame(animationLoop);
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
-  }, [animationLoop]);
+  }, [rotY, rotX]);
 
   const onDown = useCallback((e: MouseEvent) => {
     isDragging.current = true;
