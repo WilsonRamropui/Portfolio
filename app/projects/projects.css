@@ -6,9 +6,9 @@
 :root {
   --prj-glass-bg: rgba(244, 240, 230, 0.45);
   --prj-border: rgba(26, 24, 22, 0.1);
-  --prj-silver: #5A554F;
-  --prj-title: #1A1816;
-  --prj-subtitle: #7A746B;
+  --prj-silver: #1A1816;      /* Matches --exp-amber */
+  --prj-title: #1A1816;       /* Matches --exp-text-primary */
+  --prj-subtitle: #5A554F;    /* Matches --exp-text-muted */
   --prj-overlay-bg: rgba(244, 240, 230, 0.95);
   --prj-overlay-bg-mid: rgba(244, 240, 230, 0.4);
   --prj-reticle: #1A1816;
@@ -17,9 +17,9 @@
 .dark {
   --prj-glass-bg: rgba(15, 15, 15, 0.6);
   --prj-border: rgba(255, 255, 255, 0.1);
-  --prj-silver: #a1a1aa;
-  --prj-title: #ffffff;
-  --prj-subtitle: #a1a1aa;
+  --prj-silver: #e4e4e7;      /* Matches --exp-amber */
+  --prj-title: #ffffff;       /* Matches --exp-text-primary */
+  --prj-subtitle: #a1a1aa;    /* Matches --exp-text-muted */
   --prj-overlay-bg: rgba(0, 0, 0, 0.95);
   --prj-overlay-bg-mid: rgba(0, 0, 0, 0.4);
   --prj-reticle: #ffffff;
@@ -76,7 +76,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 100px 24px 80px;
+  padding: 80px 16px 60px;
 }
 
 /* ── FREE-FLOATING HERO ── */
@@ -466,6 +466,6 @@
     grid-template-columns: 1fr;
   }
   .prj-hero-title {
-    font-size: 32px;
+    font-size: 28px;
   }
 }

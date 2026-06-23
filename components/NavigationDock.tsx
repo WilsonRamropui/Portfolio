@@ -18,7 +18,7 @@ export function NavigationDock() {
   ];
 
   return (
-    <header className="flex sticky top-0 z-50 w-full max-w-[100vw] overflow-hidden border-b border-black/10 dark:border-white/10 bg-background/50 dark:bg-zinc-950/30 backdrop-blur-xl backdrop-saturate-150 py-1 md:py-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] relative">
+    <header id="main-nav" className="flex sticky top-0 z-50 w-full max-w-[100vw] overflow-hidden border-b border-black/10 dark:border-white/10 bg-background/50 dark:bg-zinc-950/30 backdrop-blur-xl backdrop-saturate-150 py-1 md:py-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] relative">
       <div className="absolute inset-0 bg-gradient-to-b from-foreground/5 to-transparent pointer-events-none" />
 
       {/* Navigation Wrapper - Handles safe scrolling */}

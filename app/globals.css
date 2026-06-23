@@ -174,3 +174,11 @@
     black 100%
   );
 }
+
+/* Hide Navigation bar when 3D Pin is expanded */
+body.hide-navbar #main-nav {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+  transition: opacity 0.3s ease;
+}

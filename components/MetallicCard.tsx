@@ -202,6 +202,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
           WebkitUserSelect: "none",
           touchAction: "none",           // block default scroll only inside card
           transformOrigin: "center center",
+          transformStyle: "preserve-3d", // Ensure grandparent passes 3D context
         }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -210,7 +211,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
       >
         {/* ── Rotating 3D container ── */}
         <motion.div
-          style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d", willChange: "transform" }}
+          style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d" }}
           className="absolute inset-0 w-full h-full"
         >
         {/* ══════════════ FRONT FACE ══════════════ */}
@@ -313,16 +314,14 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
           </div>
         </div>
 
-        {/* LEFT EDGE — hard clip at chamfer corners */}
+        {/* LEFT EDGE */}
         <div
           className="absolute pointer-events-none"
           style={{
-            top: 0, left: `-${HALF}px`, width: `${THICKNESS}px`, height: "100%",
+            top: `${CHAMFER - 0.5}px`, left: 0, marginLeft: `-${HALF}px`, width: `${THICKNESS}px`, height: `calc(100% - ${CHAMFER * 2 - 1}px)`,
+            transformOrigin: "center",
             transform: "rotateY(-90deg)",
             background: "linear-gradient(to right, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.08) 100%)",
-            clipPath: `polygon(0 ${CHAMFER}px, 100% ${CHAMFER}px, 100% calc(100% - ${CHAMFER}px), 0 calc(100% - ${CHAMFER}px))`,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden" as React.CSSProperties["backfaceVisibility"],
           }}
         />
 
@@ -330,12 +329,10 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         <div
           className="absolute pointer-events-none"
           style={{
-            top: 0, right: `-${HALF}px`, width: `${THICKNESS}px`, height: "100%",
+            top: `${CHAMFER - 0.5}px`, left: "100%", marginLeft: `-${HALF}px`, width: `${THICKNESS}px`, height: `calc(100% - ${CHAMFER * 2 - 1}px)`,
+            transformOrigin: "center",
             transform: "rotateY(90deg)",
             background: "linear-gradient(to left, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.08) 100%)",
-            clipPath: `polygon(0 ${CHAMFER}px, 100% ${CHAMFER}px, 100% calc(100% - ${CHAMFER}px), 0 calc(100% - ${CHAMFER}px))`,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden" as React.CSSProperties["backfaceVisibility"],
           }}
         />
 
@@ -343,12 +340,10 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         <div
           className="absolute pointer-events-none"
           style={{
-            top: `-${HALF}px`, left: 0, width: "100%", height: `${THICKNESS}px`,
-            transform: "rotateX(90deg)",
+            top: 0, marginTop: `-${HALF}px`, left: `${CHAMFER - 0.5}px`, width: `calc(100% - ${CHAMFER * 2 - 1}px)`, height: `${THICKNESS}px`,
+            transformOrigin: "center",
+            transform: "rotateX(-90deg)",
             background: "linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)",
-            clipPath: `polygon(${CHAMFER}px 0, calc(100% - ${CHAMFER}px) 0, calc(100% - ${CHAMFER}px) 100%, ${CHAMFER}px 100%)`,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden" as React.CSSProperties["backfaceVisibility"],
           }}
         />
 
@@ -356,46 +351,36 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         <div
           className="absolute pointer-events-none"
           style={{
-            bottom: `-${HALF}px`, left: 0, width: "100%", height: `${THICKNESS}px`,
-            transform: "rotateX(-90deg)",
+            top: "100%", marginTop: `-${HALF}px`, left: `${CHAMFER - 0.5}px`, width: `calc(100% - ${CHAMFER * 2 - 1}px)`, height: `${THICKNESS}px`,
+            transformOrigin: "center",
+            transform: "rotateX(90deg)",
             background: "linear-gradient(to top, rgba(255,255,255,0.10) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)",
-            clipPath: `polygon(${CHAMFER}px 0, calc(100% - ${CHAMFER}px) 0, calc(100% - ${CHAMFER}px) 100%, ${CHAMFER}px 100%)`,
-            backfaceVisibility: "hidden",
-            WebkitBackfaceVisibility: "hidden" as React.CSSProperties["backfaceVisibility"],
           }}
         />
 
         {/*
           ══════════════════════════════════════════════════════
           CHAMFER CORNER PANELS — 4 diagonal faces at 45°
-          Each is a CHAMFER_DIAG × THICKNESS rectangle rotated
-          to exactly fill the diagonal gap at each corner.
-
-          Transform derivation (verified algebraically):
-            rotateX(-90deg) makes the face stand perpendicular.
-            rotateZ(±45deg) angles it to the correct corner.
-            translate3d offsets by (CHAMFER/2 - CHAMFER_DIAG/2)
-            = CHAMFER_OFF ≈ -5px to hit the chamfer center.
+          Positioned using ONLY top/left to avoid WebKit transform-origin bugs.
           ══════════════════════════════════════════════════════
         */}
         {[
-          // [position, transform]
-          [{ top: 0, left: 0 },     `translate3d(${CHAMFER_OFF}px, ${-CHAMFER_OFF}px, 0) rotateZ(-45deg) rotateX(-90deg)`],
-          [{ top: 0, right: 0 },    `translate3d(${-CHAMFER_OFF}px, ${-CHAMFER_OFF}px, 0) rotateZ(45deg) rotateX(-90deg)`],
-          [{ bottom: 0, left: 0 },  `translate3d(${CHAMFER_OFF}px, ${CHAMFER_OFF}px, 0) rotateZ(45deg) rotateX(-90deg)`],
-          [{ bottom: 0, right: 0 }, `translate3d(${-CHAMFER_OFF}px, ${CHAMFER_OFF}px, 0) rotateZ(-45deg) rotateX(-90deg)`],
-        ].map(([pos, tfm], i) => (
+          // [position, transform, background]
+          [{ top: 0, left: 0 },       `translate3d(-5.75px, 5px, 0) rotateZ(-45deg) rotateX(-90deg)`, "linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
+          [{ top: 0, left: "100%" },  `translate3d(-29.75px, 5px, 0) rotateZ(45deg) rotateX(-90deg)`, "linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
+          [{ top: "100%", left: 0 },  `translate3d(-5.75px, -19px, 0) rotateZ(45deg) rotateX(90deg)`, "linear-gradient(to top, rgba(255,255,255,0.10) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
+          [{ top: "100%", left: "100%" }, `translate3d(-29.75px, -19px, 0) rotateZ(-45deg) rotateX(90deg)`, "linear-gradient(to top, rgba(255,255,255,0.10) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
+        ].map(([pos, tfm, bg], i) => (
           <div
             key={i}
             className="absolute pointer-events-none"
             style={{
               ...(pos as React.CSSProperties),
-              width: `${CHAMFER_DIAG}px`,
+              width: `${CHAMFER_DIAG + 1.5}px`,
               height: `${THICKNESS}px`,
+              transformOrigin: "center",
               transform: tfm as string,
-              background: "linear-gradient(90deg, #2a2a2d, #222224 50%, #2a2a2d)",
-              backfaceVisibility: "hidden",
-              WebkitBackfaceVisibility: "hidden" as React.CSSProperties["backfaceVisibility"],
+              background: bg as string,
             }}
           />
         ))}

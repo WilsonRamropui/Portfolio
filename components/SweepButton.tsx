@@ -13,11 +13,11 @@ export const SweepButton = ({ children = "GET MOTION+", className = "", ...props
       whileHover="hover"
       whileTap="tap"
       initial="idle"
-      className={`relative group flex items-center justify-center px-6 h-[44px] font-mono text-sm tracking-widest uppercase transition-all ${className}`}
+      className={`relative group flex items-center justify-center px-6 h-[44px] font-mono text-sm tracking-widest uppercase transition-all isolate ${className}`}
       {...props}
     >
       {/* Background layer (clipped) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none bg-white/[0.05] backdrop-blur-md">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none bg-white/[0.05] backdrop-blur-md transform-gpu" style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}>
         {/* Hatched background */}
         <div 
           className="absolute inset-0 opacity-[0.5]"

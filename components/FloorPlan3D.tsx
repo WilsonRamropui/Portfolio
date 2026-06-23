@@ -1,21 +1,42 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { Compass, Ruler, X } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 
+// Update these values when you upload a new blueprint image
+const BLUEPRINT_DATA = {
+  imageSrc: "/images/blueprint_4k.png",
+  title: "MODERN HOUSE RESIDENCE",
+  drawnBy: "WILSON RAMROPUI",
+  date: "2025",
+  scale: "1/4\" = 1'-0\"",
+  sheet: "A101",
+  status: "Approved",
+  liveScale: "1:100",
+};
+
 export default function FloorPlan3D() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isExpanded) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("hide-navbar");
     } else {
       document.body.style.overflow = "unset";
+      document.body.classList.remove("hide-navbar");
     }
     return () => {
       document.body.style.overflow = "unset";
+      document.body.classList.remove("hide-navbar");
     };
   }, [isExpanded]);
 
@@ -56,17 +77,16 @@ export default function FloorPlan3D() {
             {/* Blueprint Image Container */}
             <div className="relative flex-1 w-full bg-transparent overflow-hidden p-3 flex items-center justify-center pointer-events-none">
               
-              <motion.div 
-                layoutId="blueprint-image-container"
+              <div 
                 className="relative w-full h-full rounded-xl overflow-hidden border border-white/[0.05]"
               >
                 <Image 
-                  src="/images/blueprint_4k.png" 
+                  src={BLUEPRINT_DATA.imageSrc}
                   alt="2D Floor Plan Blueprint" 
                   fill
                   className="object-cover mix-blend-screen grayscale opacity-90 hover:opacity-100 transition-opacity"
                 />
-              </motion.div>
+              </div>
             </div>
 
             {/* Footer Metadata */}
@@ -76,11 +96,11 @@ export default function FloorPlan3D() {
                   <Ruler className="w-3 h-3 text-zinc-500" />
                   <span className="text-[9px] text-zinc-500 uppercase tracking-widest">Scale</span>
                 </div>
-                <span className="text-xs text-zinc-200 font-mono font-medium">1:100</span>
+                <span className="text-xs text-zinc-200 font-mono font-medium">{BLUEPRINT_DATA.liveScale}</span>
               </div>
               <div className="bg-neutral-950/80 p-3 flex flex-col items-center justify-center">
                 <div className="text-[9px] text-zinc-500 uppercase tracking-widest mb-1">Status</div>
-                <span className="text-xs text-emerald-400 font-medium">Approved</span>
+                <span className="text-xs text-emerald-400 font-medium">{BLUEPRINT_DATA.status}</span>
               </div>
             </div>
             
@@ -90,61 +110,68 @@ export default function FloorPlan3D() {
         </PinContainer>
       </div>
 
-      <AnimatePresence>
-        {isExpanded && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/90 backdrop-blur-xl cursor-zoom-out"
-              onClick={() => setIsExpanded(false)}
-            />
-            <motion.div
-              layoutId="blueprint-image-container"
-              className="relative w-full max-w-5xl h-[85vh] sm:h-[90vh] rounded-2xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,1)] z-10 border border-white/10 flex flex-col bg-[#050505]"
-            >
-              <button 
-                className="absolute top-4 right-4 z-50 p-3 bg-black/60 hover:bg-black/90 rounded-full text-white backdrop-blur-md transition-all border border-white/10"
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {isExpanded && (
+            <div className="fixed inset-0 z-[999999] flex items-center justify-center p-0 sm:p-8" style={{ position: 'fixed' }}>
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15, ease: "easeInOut" }}
+                className="absolute inset-0 bg-black cursor-zoom-out"
                 onClick={() => setIsExpanded(false)}
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.96, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 10 }}
+                transition={{ type: "tween", ease: "easeOut", duration: 0.2 }}
+                className="relative w-full max-w-5xl h-[100dvh] sm:h-[90vh] rounded-none sm:rounded-2xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,1)] z-10 border-0 sm:border border-white/10 flex flex-col bg-[#050505]"
               >
-                <X className="w-6 h-6" />
-              </button>
-              
-              <div className="relative flex-1 w-full min-h-0 bg-black">
-                <Image 
-                  src="/images/blueprint_4k.png" 
-                  alt="2D Floor Plan Blueprint Expanded" 
-                  fill
-                  unoptimized
-                  quality={100}
-                  className="object-contain mix-blend-screen grayscale p-2 sm:p-6"
-                />
-              </div>
-              
-              {/* Custom Title Block Bottom Bar (Expanded) */}
-              <div className="w-full bg-neutral-950 border-t border-white/20 flex flex-col pointer-events-auto shrink-0">
-                <div className="border-b border-white/20 px-4 py-2 sm:px-6 sm:py-3 bg-white/[0.02]">
-                  <h3 className="text-white font-mono font-bold tracking-[0.15em] text-sm sm:text-xl">MODERN HOUSE RESIDENCE</h3>
+                <button 
+                  className="absolute top-4 right-4 z-50 p-3 bg-black/60 hover:bg-black/90 rounded-full text-white backdrop-blur-md transition-all border border-white/10"
+                  onClick={() => setIsExpanded(false)}
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                
+                <div className="relative flex-1 w-full min-h-0 bg-black">
+                  <Image 
+                    src={BLUEPRINT_DATA.imageSrc}
+                    alt="2D Floor Plan Blueprint Expanded" 
+                    fill
+                    unoptimized
+                    quality={100}
+                    className="object-contain mix-blend-screen grayscale p-2 sm:p-6"
+                  />
                 </div>
-                <div className="flex flex-row">
-                  <div className="flex-1 border-r border-white/20 px-4 py-3 sm:px-6 sm:py-4 flex flex-col justify-center">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 mb-2">
-                      <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider mb-1 sm:mb-0">DRAWN BY: <span className="text-white font-bold ml-1">WILSON RAMROPUI</span></div>
-                      <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">DATE: <span className="text-white font-bold ml-1">2025</span></div>
+                
+                {/* Custom Title Block Bottom Bar (Expanded) */}
+                <div className="w-full bg-neutral-950 border-t border-white/20 flex flex-col pointer-events-auto shrink-0 pb-safe sm:pb-0">
+                  <div className="border-b border-white/20 px-4 py-2 sm:px-6 sm:py-3 bg-white/[0.02]">
+                    <h3 className="text-white font-mono font-bold tracking-[0.15em] text-sm sm:text-xl">{BLUEPRINT_DATA.title}</h3>
+                  </div>
+                  <div className="flex flex-row">
+                    <div className="flex-1 border-r border-white/20 px-4 py-3 sm:px-6 sm:py-4 flex flex-col justify-center">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:gap-6 mb-2">
+                        <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider mb-1 sm:mb-0">DRAWN BY: <span className="text-white font-bold ml-1">{BLUEPRINT_DATA.drawnBy}</span></div>
+                        <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">DATE: <span className="text-white font-bold ml-1">{BLUEPRINT_DATA.date}</span></div>
+                      </div>
+                      <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">SCALE: <span className="text-white ml-1">{BLUEPRINT_DATA.scale}</span></div>
                     </div>
-                    <div className="text-zinc-400 font-mono text-[10px] sm:text-sm uppercase tracking-wider">SCALE: <span className="text-white ml-1">1/4&quot; = 1&apos;-0&quot;</span></div>
-                  </div>
-                  <div className="px-6 py-3 sm:px-10 flex flex-col items-center justify-center bg-black/40 min-w-[100px] sm:min-w-[150px]">
-                    <div className="text-zinc-500 font-mono text-[10px] sm:text-sm uppercase tracking-wider mb-1">SHEET</div>
-                    <div className="text-emerald-400 font-mono font-bold text-2xl sm:text-5xl">A101</div>
+                    <div className="px-6 py-3 sm:px-10 flex flex-col items-center justify-center bg-black/40 min-w-[100px] sm:min-w-[150px]">
+                      <div className="text-zinc-500 font-mono text-[10px] sm:text-sm uppercase tracking-wider mb-1">SHEET</div>
+                      <div className="text-emerald-400 font-mono font-bold text-2xl sm:text-5xl">{BLUEPRINT_DATA.sheet}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }

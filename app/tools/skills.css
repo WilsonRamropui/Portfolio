@@ -764,8 +764,7 @@
 
   /* Hero */
   .skills-hero-title {
-    font-size: clamp(20px, 8vw, 32px);
-    word-break: break-word;
+    font-size: 28px;
   }
   .skills-hero-sub {
     max-width: 100%;

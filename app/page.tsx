@@ -16,11 +16,6 @@ export default function Home() {
       <div className="skills-bg-image" aria-hidden="true" />
       <div className="skills-bg-vignette" aria-hidden="true" />
 
-      {/* ── GRID OVERLAY ── */}
-      <div className={`${homePageStyles.backgroundGrid.wrapper} !z-[2]`}>
-        <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
-      </div>
-
       <div className="w-full flex justify-center mx-auto -mt-4 md:-mt-16 -mb-4 z-10 relative">
         <div className="w-full max-w-md px-4 sm:px-6 select-none">
           <AnimatedStrokeText
@@ -36,7 +31,7 @@ export default function Home() {
         <div className="w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 md:gap-8 lg:gap-8">
           
           {/* Left Column: Text Content */}
-          <div className="flex flex-col items-center text-center md:items-start md:text-left max-w-2xl mt-6 md:mt-8 lg:mt-12">
+          <div className="flex flex-col items-center text-center md:items-start md:text-left max-w-2xl mt-6 md:mt-8 lg:mt-0 lg:-translate-y-16">
             <h1 className="skills-hero-title">
               Building Design Products
             </h1>
@@ -67,7 +62,7 @@ export default function Home() {
           <div className="flex-1 w-full mt-0 lg:mt-0 flex justify-center lg:justify-end items-center lg:pr-4">
             <div className="flex flex-col-reverse lg:flex-col items-center">
               <FloorPlan3D />
-              <div className="mb-6 sm:mb-10 lg:mb-0 lg:mt-12 w-full flex justify-center z-20">
+              <div className="mb-6 sm:mb-10 lg:mb-0 lg:mt-12 w-full flex justify-center relative z-20 transform-gpu will-change-transform">
                 <Link href="/showcase" className="flex w-full sm:w-auto">
                   <SweepButton className="w-full flex items-center justify-center gap-2 px-8">
                     <LayoutGrid className="w-4 h-4" />

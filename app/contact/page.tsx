@@ -1,13 +1,12 @@
 "use client";
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback } from "react";
 import emailjs from "@emailjs/browser";
 import { contactPageStyles as s } from "@/styles/dummy-styles";
-import { Mail, MapPin, Phone, Send, Download, Globe, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Globe, ArrowUpRight } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import { toPng } from "html-to-image";
 import "../experience/experience.css";
 import "./contact.css";
 
@@ -71,11 +70,6 @@ export default function Contact() {
           {/* Form */}
           <div className="contact-form-section">
             <ContactForm />
-          </div>
-
-          {/* Business card — tilt only on non-touch devices */}
-          <div className="contact-card-section">
-            <ContactBusinessCard />
           </div>
 
         </div>
@@ -232,90 +226,7 @@ function ContactForm() {
   );
 }
 
-/* ── BUSINESS CARD — static on mobile, tilt on desktop ────────────────────── */
-function ContactBusinessCard() {
-  const cardRef = useRef<HTMLDivElement>(null);
 
-  const downloadCard = useCallback(() => {
-    if (!cardRef.current) return;
-    toPng(cardRef.current, {
-      cacheBust: true,
-      pixelRatio: 3,
-      style: { transform: "none", margin: "0" },
-    })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "wilson_ramropui_card.png";
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch(console.error);
-  }, []);
-
-  return (
-    <div className="contact-biz-wrap">
-      {/* Card — no 3D tilt, no backdrop-blur inside, GPU safe */}
-      <div ref={cardRef} className="contact-biz-card">
-        {/* Photo */}
-        <div className="contact-biz-photo-wrap">
-          <img
-            crossOrigin="anonymous"
-            className="contact-biz-photo"
-            alt="Wilson Ramropui"
-            src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?q=80&w=800&auto=format&fit=crop"
-            loading="lazy"
-            decoding="async"
-          />
-          <div className="contact-biz-photo-gradient" aria-hidden="true" />
-          <div className="contact-biz-photo-top-line" aria-hidden="true" />
-
-          {/* Overlay content */}
-          <div className="contact-biz-overlay">
-            <div className="contact-biz-status">
-              <span className="contact-biz-status-dot" />
-              <span className="contact-biz-status-text">Available</span>
-            </div>
-            <h3 className="contact-biz-name">Wilson Ramropui</h3>
-            <p className="contact-biz-role">Design Engineer</p>
-            <div className="contact-biz-rule" aria-hidden="true" />
-            <div className="contact-biz-info">
-              <div className="contact-biz-info-row">
-                <MapPin className="w-3.5 h-3.5 contact-biz-info-icon" />
-                <span>CCPUR, Manipur</span>
-              </div>
-              <div className="contact-biz-info-row">
-                <Globe className="w-3.5 h-3.5 contact-biz-info-icon" />
-                <span>wilsonramropui.com</span>
-              </div>
-              <div className="contact-biz-info-row">
-                <Phone className="w-3.5 h-3.5 contact-biz-info-icon" />
-                <span>+91 9233104770</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="contact-biz-footer">
-          <div className="contact-biz-footer-email">
-            <Mail className="w-3.5 h-3.5" aria-hidden="true" />
-            <span>wilsonramz774@gmail.com</span>
-          </div>
-          <div className="contact-biz-footer-cta">
-            <span>Contact</span>
-            <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-
-      {/* Download button */}
-      <button onClick={downloadCard} className="contact-download-btn" aria-label="Download contact card">
-        <Download className="w-4 h-4" aria-hidden="true" />
-        Download Card
-      </button>
-    </div>
-  );
-}
 
 /* ── HELPERS ───────────────────────────────────────────────────────────────── */
 function LabelInputContainer({ children, className }: { children: React.ReactNode; className?: string }) {

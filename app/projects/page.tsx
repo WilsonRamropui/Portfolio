@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { projects, Project } from "@/lib/projects-data";
+import TextType from '@/components/TextType';
 import "./projects.css";
 
 export default function ProjectsPage() {
@@ -31,9 +32,17 @@ export default function ProjectsPage() {
           <span className="prj-eyebrow">— Compendium of Works —</span>
           <h1 className="prj-hero-title">Architectural & Structural Projects</h1>
           <div className="prj-subtitle-wrap">
-            <p className="prj-hero-subtitle">
-              Some of the projects which are not confidential
-            </p>
+            <TextType
+              text={[
+                "Some of the projects which are not confidential"
+              ]}
+              typingSpeed={100}
+              deletingSpeed={45}
+              pauseDuration={2400}
+              showCursor={true}
+              cursorCharacter="|"
+              className="prj-hero-subtitle"
+            />
           </div>
           <div className="prj-hero-rule">
             <div className="prj-hero-rule-line" />
