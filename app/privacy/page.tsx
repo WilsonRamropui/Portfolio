@@ -16,7 +16,7 @@ export default function PrivacyPage() {
         <h1 className="text-4xl md:text-6xl font-cormorant font-medium text-zinc-100 tracking-wide mb-2">Privacy Policy</h1>
         <div className="space-y-6">
           <p className="font-sans text-sm text-zinc-500 uppercase tracking-widest mb-10">
-            Last updated: {new Date().toLocaleDateString()}
+            Last updated: June 23, 2026
           </p>
           <p>
             At WilStudio, we take your privacy seriously. This placeholder privacy policy outlines how we handle your data.

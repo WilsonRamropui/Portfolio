@@ -16,7 +16,7 @@ export default function TermsPage() {
         <h1 className="text-4xl md:text-6xl font-cormorant font-medium text-zinc-100 tracking-wide mb-2">Terms of Service</h1>
         <div className="space-y-6">
           <p className="font-sans text-sm text-zinc-500 uppercase tracking-widest mb-10">
-            Last updated: {new Date().toLocaleDateString()}
+            Last updated: June 23, 2026
           </p>
           <p>
             Welcome to WilStudio. By accessing this website, you agree to comply with and be bound by these terms.
