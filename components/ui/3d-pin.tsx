@@ -25,6 +25,7 @@ export const PinContainer = ({
   const [mounted, setMounted] = useState(false);
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 

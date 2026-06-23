@@ -66,6 +66,7 @@ export default function PreLoader() {
   const removeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     setParticles(makeParticles());
 

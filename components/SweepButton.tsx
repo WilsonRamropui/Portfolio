@@ -14,7 +14,7 @@ export const SweepButton = ({ children = "GET MOTION+", className = "", ...props
       whileTap="tap"
       initial="idle"
       className={`relative group flex items-center justify-center px-6 h-[44px] font-mono text-sm tracking-widest uppercase transition-all ${className}`}
-      {...(props as any)}
+      {...props}
     >
       {/* Background layer (clipped) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none bg-white/[0.05] backdrop-blur-md">

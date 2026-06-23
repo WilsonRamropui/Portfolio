@@ -1,31 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function useDetectBrowser() {
-  const [browser, setBrowser] = useState<string>("Unknown");
-
-  useEffect(() => {
+  const [browser] = useState<string>(() => {
+    if (typeof window === "undefined") return "Unknown";
     const userAgent = navigator.userAgent;
 
     if (userAgent.indexOf("Firefox") > -1) {
-      setBrowser("Firefox");
+      return "Firefox";
     } else if (userAgent.indexOf("SamsungBrowser") > -1) {
-      setBrowser("SamsungBrowser");
+      return "SamsungBrowser";
     } else if (userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) {
-      setBrowser("Opera");
+      return "Opera";
     } else if (userAgent.indexOf("Trident") > -1) {
-      setBrowser("Internet Explorer");
+      return "Internet Explorer";
     } else if (userAgent.indexOf("Edge") > -1) {
-      setBrowser("Edge");
+      return "Edge";
     } else if (userAgent.indexOf("Chrome") > -1) {
-      setBrowser("Chrome");
+      return "Chrome";
     } else if (userAgent.indexOf("Safari") > -1) {
-      setBrowser("Safari");
+      return "Safari";
     } else {
-      setBrowser("Unknown");
+      return "Unknown";
     }
-  }, []);
+  });
 
   return browser;
 }
