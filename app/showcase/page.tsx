@@ -284,10 +284,10 @@ export default function CinematicShowcasePage() {
           >
 
             {/* PROPOSED */}
-            <div style={{ overflow: "hidden", marginBottom: 0, marginTop: "8vh" }} className="md:mt-0">
+            <div style={{ overflow: "hidden", marginBottom: 0 }} className="mt-[2vh] md:mt-0 shrink-0">
               <motion.h1
                 className="font-cormorant text-left uppercase text-[#1A1816]"
-                style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 0.95, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
+                style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 1.05, fontWeight: 400, letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.15, duration: 1.8, ease: CINEMATIC }}
@@ -297,10 +297,10 @@ export default function CinematicShowcasePage() {
             </div>
 
             {/* BUILDING */}
-            <div style={{ overflow: "hidden", marginBottom: "clamp(4px, 1.5dvh, 12px)" }}>
+            <div style={{ overflow: "hidden", marginBottom: "clamp(4px, 1.5dvh, 12px)" }} className="shrink-0">
               <motion.h1
                 className="font-cormorant text-left uppercase"
-                style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 0.95, fontWeight: 300, fontStyle: "italic", color: "#7A746B", letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
+                style={{ fontSize: "clamp(2.4rem, 8vw, 5rem)", lineHeight: 1.05, fontWeight: 300, fontStyle: "italic", color: "#7A746B", letterSpacing: "-0.01em", willChange: "transform", backfaceVisibility: "hidden" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.35, duration: 1.8, ease: CINEMATIC }}
