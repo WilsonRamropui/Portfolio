@@ -2,10 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function NavigationDock() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const items = [
     { href: '/', label: 'Home' },
@@ -25,16 +26,17 @@ export function NavigationDock() {
         {/* Navigation - Centered on mobile, Right aligned on desktop */}
         <nav className="flex w-max min-w-full justify-center md:justify-end items-center gap-[clamp(16px,4vw,32px)] relative z-10 mx-auto">
         {items.map((item) => (
-          <Link
+          <button
             key={item.href}
-            href={item.href}
-            prefetch={true}
+            onClick={() => {
+              router.push(item.href);
+            }}
             className={`text-[clamp(12px,3.5vw,14px)] md:text-[15px] font-medium tracking-wide whitespace-nowrap transition-all duration-300 py-2 ${
               pathname === item.href ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'text-zinc-400 hover:text-white hover:opacity-90'
             }`}
           >
             {item.label}
-          </Link>
+          </button>
         ))}
         </nav>
       </div>
