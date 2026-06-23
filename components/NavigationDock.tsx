@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 export function NavigationDock() {
   const pathname = usePathname();
@@ -24,18 +25,36 @@ export function NavigationDock() {
       <div className="w-full h-full overflow-x-auto px-4 md:px-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* Navigation - Centered on mobile, Right aligned on desktop */}
         <nav className="flex w-max min-w-full justify-center md:justify-end items-center gap-[clamp(16px,4vw,32px)] relative z-10 mx-auto">
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            prefetch={true}
-            className={`text-[clamp(12px,3.5vw,14px)] md:text-[15px] font-medium tracking-wide whitespace-nowrap transition-all duration-300 py-2 ${
-              pathname === item.href ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'text-zinc-400 hover:text-white hover:opacity-90'
-            }`}
-          >
-            {item.label}
-          </Link>
-        ))}
+          {items.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                prefetch={true}
+                scroll={false}
+                className={`relative text-[clamp(12px,3.5vw,14px)] md:text-[15px] font-medium tracking-wide whitespace-nowrap transition-colors duration-300 py-2 ${
+                  isActive ? 'text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'text-zinc-400 hover:text-white hover:opacity-90'
+                }`}
+              >
+                {item.label}
+
+                {/* Animated underline indicator — slides between active items */}
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-active-indicator"
+                    className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-white rounded-full"
+                    style={{ boxShadow: '0 0 6px 1px rgba(255,255,255,0.45)' }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>

@@ -13,12 +13,12 @@ export default function Home() {
     <div className={homePageStyles.container}>
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60 z-[10]" fill="rgba(255, 255, 255, 0.5)" />
       {/* ── CINEMATIC BACKGROUND ── */}
-      <div className="skills-bg-image" style={{ transform: 'translateZ(0)', willChange: 'transform' }} aria-hidden="true" />
-      <div className="skills-bg-vignette" style={{ transform: 'translateZ(0)', willChange: 'transform' }} aria-hidden="true" />
+      <div className="skills-bg-image" aria-hidden="true" />
+      <div className="skills-bg-vignette" aria-hidden="true" />
 
       {/* ── GRID OVERLAY ── */}
-      <div className={`${homePageStyles.backgroundGrid.wrapper} !z-[2]`} style={{ transform: 'translateZ(0)', willChange: 'transform' }}>
-        <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" style={{ transform: 'translateZ(0)', willChange: 'transform' }} />
+      <div className={`${homePageStyles.backgroundGrid.wrapper} !z-[2]`}>
+        <div className="fixed inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
       </div>
 
       <div className="w-full flex justify-center mx-auto -mt-4 md:-mt-16 -mb-4 z-10 relative">
@@ -61,14 +61,6 @@ export default function Home() {
               TEC
               . I have successfully delivered over 15 residential, commercial and institutional building during my working time.
             </p>
-            <div className={`${homePageStyles.article.linkContainer} mt-8`}>
-              <Link href="/showcase" className={homePageStyles.article.link}>
-                View Projects
-                <svg className={homePageStyles.article.linkIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-            </div>
           </div>
           
           {/* Right Column: 3D Floor Plan */}

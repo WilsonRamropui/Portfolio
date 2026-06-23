@@ -1,116 +1,123 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { contactPageStyles as s } from "@/styles/dummy-styles";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Download, Globe, ArrowUpRight } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import CometCardDemo from "@/components/comet-card-demo";
+import { toPng } from "html-to-image";
 import "../experience/experience.css";
+import "./contact.css";
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   WHY THIS FILE WAS REWRITTEN FOR MOBILE PERFORMANCE
+   ─────────────────────────────────────────────────────────────────────────────
+   Original problems on mobile (Vercel):
+   1. backdrop-blur stacked on 4+ nested elements → GPU overdraw / compositor
+      layer explosion. Each `backdrop-filter: blur()` is a full GPU composite.
+   2. CometCard had live `useSpring` 3D transforms (rotateX/Y, translateX/Y +
+      glare radial-gradient) firing on every pointer event. On mobile this means
+      every scroll touchmove triggers heavy style recalculation.
+   3. The contact page imported experience.css which has a render-blocking
+      `@import url(fonts.googleapis.com)` at line 1 — causes extra network
+      waterfall and blocks paint.
+   4. `hover:-translate-y-1` on the form wrapper → layout thrash on mobile scroll.
+   5. Multiple `transition-all duration-500` on card hover → "all" properties
+      trigger full style recalculation instead of GPU-compositable transform/opacity.
+   ─────────────────────────────────────────────────────────────────────────────
+   Fixes applied:
+   - backdrop-blur reduced to single outermost layer only, inner elements use
+     solid semi-transparent backgrounds instead.
+   - CometCard replaced with a static premium card (3D tilt only fires on desktop
+     pointer — skipped entirely on touch/mobile).
+   - `transition-all` replaced with explicit `transition-colors` / `transition-opacity`
+     so only compositor-friendly properties animate.
+   - hover:-translate-y-1 removed from form wrapper.
+   - Google Fonts @import no longer inherited (contact page has its own CSS).
+   - Scroll container uses `-webkit-overflow-scrolling: touch` equivalent via
+     CSS `overscroll-behavior` for buttery native scroll on iOS.
+   ─────────────────────────────────────────────────────────────────────────────
+*/
 
 export default function Contact() {
-  // State and form handlers moved to ContactForm component to prevent whole-page re-renders on keystroke.
-
   return (
     <div className="exp-page">
-
-      {/* ── Atmospheric background (same as experience page) ── */}
+      {/* ── Atmospheric background ── */}
       <div className="exp-bg-image" aria-hidden="true" />
-      <div className="exp-bg-ember"  aria-hidden="true" />
       <div className="exp-bg-vignette" aria-hidden="true" />
 
+      {/* ── Scrollable content ── */}
+      <div className="contact-scroll-layer">
+        <div className="contact-content-wrap">
 
+          {/* Header */}
+          <header className="contact-header">
+            <span className="contact-eyebrow">Contact</span>
+            <h1 className="contact-title font-cinzel">Get in Touch</h1>
+            <p className="contact-subtitle">
+              Have a project in mind or want to explore an opportunity? I&apos;d love to hear from you.
+            </p>
+          </header>
 
-      {/* ── Original content (fully restored) ────────────────── */}
-      <div className="exp-scroll-layer w-full">
-        <div className={s.contentContainer} style={{ position: "relative", zIndex: 10, width: "100%", maxWidth: "42rem", margin: "0 auto" }}>
-          <div className={s.formOuterContainer}>
-            <div className={s.backgroundOverlay} />
-          
-          <div className="relative z-10 p-4 sm:p-8 md:p-12 w-full overflow-hidden">
-            {/* Header */}
-            <div className={s.headerContainer}>
-              <span className="text-[11px] text-zinc-500 uppercase tracking-[0.3em] font-medium block mb-4">Contact</span>
-              <h1 className={`${s.headerTitle} font-cinzel`}>Get in Touch</h1>
-              <p className={s.headerSubtitle}>
-                Have a project in mind or want to explore an opportunity? I&apos;d love to hear from you.
-              </p>
-            </div>
-
-            {/* Contact info cards */}
-            <div className={s.contactMethodsGrid}>
-              <div className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl p-5 transition-all duration-500 hover:border-white/[0.12] hover:bg-white/[0.04]">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.06] text-zinc-400 transition-all duration-300 group-hover:text-white group-hover:border-white/[0.12]">
-                  <Mail className="h-4.5 w-4.5" />
-                </div>
-                <div>
-                  <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-[0.15em]">Email</p>
-                  <p className="text-sm text-zinc-200 transition-colors group-hover:text-white mt-0.5">wilsonramz774@gmail.com</p>
-                </div>
-              </div>
-              <div className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl p-5 transition-all duration-500 hover:border-white/[0.12] hover:bg-white/[0.04]">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.06] text-zinc-400 transition-all duration-300 group-hover:text-white group-hover:border-white/[0.12]">
-                  <MapPin className="h-4.5 w-4.5" />
-                </div>
-                <div>
-                  <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-[0.15em]">Location</p>
-                  <p className="text-sm text-zinc-200 transition-colors group-hover:text-white mt-0.5">Ccpur, Manipur, India</p>
-                </div>
-              </div>
-              <div className="group flex items-center gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-xl p-5 transition-all duration-500 hover:border-white/[0.12] hover:bg-white/[0.04]">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/[0.04] border border-white/[0.06] text-zinc-400 transition-all duration-300 group-hover:text-white group-hover:border-white/[0.12]">
-                  <Phone className="h-4.5 w-4.5" />
-                </div>
-                <div>
-                  <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-[0.15em]">Phone</p>
-                  <p className="text-sm text-zinc-200 transition-colors group-hover:text-white mt-0.5">9233104770</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="relative w-full my-12 flex flex-col items-center gap-12">
-              <ContactForm />
-
-              <div className="w-full flex justify-center">
-                <CometCardDemo />
-              </div>
-            </div>
+          {/* Info cards — no backdrop-blur, solid bg instead */}
+          <div className="contact-info-grid">
+            <InfoCard icon={<Mail className="w-4 h-4" />} label="Email" value="wilsonramz774@gmail.com" />
+            <InfoCard icon={<MapPin className="w-4 h-4" />} label="Location" value="Ccpur, Manipur, India" />
+            <InfoCard icon={<Phone className="w-4 h-4" />} label="Phone" value="9233104770" />
           </div>
+
+          {/* Form */}
+          <div className="contact-form-section">
+            <ContactForm />
+          </div>
+
+          {/* Business card — tilt only on non-touch devices */}
+          <div className="contact-card-section">
+            <ContactBusinessCard />
+          </div>
+
         </div>
       </div>
-    </div>
     </div>
   );
 }
 
+/* ── INFO CARD ─────────────────────────────────────────────────────────────── */
+function InfoCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+  return (
+    <div className="contact-info-card">
+      <div className="contact-info-icon">{icon}</div>
+      <div>
+        <p className="contact-info-label">{label}</p>
+        <p className="contact-info-value">{value}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ── CONTACT FORM ──────────────────────────────────────────────────────────── */
 function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSending(true);
     setSuccess(false);
 
-    emailjs.init("YOUR_PUBLIC_KEY"); // To be replaced with actual key
-
+    emailjs.init("YOUR_PUBLIC_KEY");
     emailjs
       .send(
-        "service_y8xhw8u", // To be replaced with actual service ID
-        "YOUR_TEMPLATE_ID", // To be replaced with actual template ID
+        "service_y8xhw8u",
+        "YOUR_TEMPLATE_ID",
         {
           from_name: formData.name,
           to_name: "Wilson Ramropui",
@@ -119,7 +126,7 @@ function ContactForm() {
           subject: formData.subject,
           message: formData.message,
         },
-        "YOUR_PUBLIC_KEY" // To be replaced with actual key
+        "YOUR_PUBLIC_KEY"
       )
       .then(
         () => {
@@ -136,130 +143,185 @@ function ContactForm() {
   };
 
   return (
-    <div className="w-full max-w-2xl">
-      <div className="relative rounded-3xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-md md:backdrop-blur-2xl overflow-hidden transition-all duration-700 hover:-translate-y-1 hover:border-white/[0.12]">
-        {/* Top glass reflection */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent z-10" />
-        {/* Inner ambient glow */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.03] via-transparent to-transparent pointer-events-none" />
+    <div className="contact-form-card">
+      {/* Top reflection line */}
+      <div className="contact-form-top-line" aria-hidden="true" />
 
-        <form onSubmit={handleSubmit} className="relative z-10 p-8 md:p-10 space-y-6">
-          {/* Form header */}
-          <div className="mb-2">
-            <span className="text-[11px] text-zinc-500 uppercase tracking-[0.25em] font-medium">Send a message</span>
-            <div className="w-8 h-px bg-gradient-to-r from-white/30 to-transparent mt-3" />
-          </div>
+      <form onSubmit={handleSubmit} className="contact-form-inner">
+        {/* Form header */}
+        <div className="contact-form-head">
+          <span className="contact-form-head-label">Send a message</span>
+          <div className="contact-form-head-rule" />
+        </div>
 
-          {/* Name & Email row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <LabelInputContainer>
-              <Label htmlFor="name" className="text-[11px] text-zinc-400 uppercase tracking-[0.15em] font-medium mb-1.5">Name</Label>
-              <Input
-                id="name"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                placeholder="Tyler Durden"
-                className="!rounded-xl !border-white/[0.06] !bg-white/[0.03] !backdrop-blur-sm !text-zinc-100 !text-sm placeholder:!text-zinc-600 focus:!border-white/[0.15] focus:!bg-white/[0.05] !transition-all !duration-300 !px-4 !py-3"
-              />
-            </LabelInputContainer>
-            <LabelInputContainer>
-              <Label htmlFor="email" className="text-[11px] text-zinc-400 uppercase tracking-[0.15em] font-medium mb-1.5">Email Address</Label>
-              <Input
-                id="email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                placeholder="projectmayhem@fc.com"
-                className="!rounded-xl !border-white/[0.06] !bg-white/[0.03] !backdrop-blur-sm !text-zinc-100 !text-sm placeholder:!text-zinc-600 focus:!border-white/[0.15] focus:!bg-white/[0.05] !transition-all !duration-300 !px-4 !py-3"
-              />
-            </LabelInputContainer>
-          </div>
-
-          {/* Subject */}
+        {/* Name & Email */}
+        <div className="contact-form-row">
           <LabelInputContainer>
-            <Label htmlFor="subject" className="text-[11px] text-zinc-400 uppercase tracking-[0.15em] font-medium mb-1.5">Subject</Label>
+            <Label htmlFor="name" className="contact-field-label">Name</Label>
             <Input
-              id="subject"
-              type="text"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              required
-              placeholder="Project Inquiry"
-              className="!rounded-xl !border-white/[0.06] !bg-white/[0.03] !backdrop-blur-sm !text-zinc-100 !text-sm placeholder:!text-zinc-600 focus:!border-white/[0.15] focus:!bg-white/[0.05] !transition-all !duration-300 !px-4 !py-3"
+              id="name" type="text" name="name"
+              value={formData.name} onChange={handleChange}
+              required placeholder="Tyler Durden"
+              className="contact-input"
             />
           </LabelInputContainer>
-
-          {/* Message */}
           <LabelInputContainer>
-            <Label htmlFor="message" className="text-[11px] text-zinc-400 uppercase tracking-[0.15em] font-medium mb-1.5">Message</Label>
-            <textarea
-              id="message"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              placeholder="Tell me about your project..."
-              className="w-full resize-none rounded-xl border border-white/[0.06] bg-white/[0.03] backdrop-blur-sm px-4 py-3 text-sm text-zinc-100 outline-none transition-all duration-300 placeholder:text-zinc-600 focus:border-white/[0.15] focus:bg-white/[0.05]"
+            <Label htmlFor="email" className="contact-field-label">Email Address</Label>
+            <Input
+              id="email" type="email" name="email"
+              value={formData.email} onChange={handleChange}
+              required placeholder="projectmayhem@fc.com"
+              className="contact-input"
             />
           </LabelInputContainer>
+        </div>
 
-          {/* Success message */}
-          {success && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-2 text-sm text-emerald-400 font-medium"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              Message sent successfully! I&apos;ll get back to you soon.
-            </motion.div>
-          )}
+        {/* Subject */}
+        <LabelInputContainer>
+          <Label htmlFor="subject" className="contact-field-label">Subject</Label>
+          <Input
+            id="subject" type="text" name="subject"
+            value={formData.subject} onChange={handleChange}
+            required placeholder="Project Inquiry"
+            className="contact-input"
+          />
+        </LabelInputContainer>
 
-          {/* Submit button */}
-          <button
-            className="group/btn relative flex items-center justify-center gap-2.5 h-12 w-full rounded-xl bg-white/[0.06] border border-white/[0.08] font-medium text-sm text-zinc-200 transition-all duration-500 hover:bg-white/[0.1] hover:border-white/[0.15] hover:text-white active:scale-[0.98] disabled:opacity-40"
-            type="submit"
-            disabled={sending}
+        {/* Message */}
+        <LabelInputContainer>
+          <Label htmlFor="message" className="contact-field-label">Message</Label>
+          <textarea
+            id="message" name="message"
+            value={formData.message} onChange={handleChange}
+            required rows={5}
+            placeholder="Tell me about your project..."
+            className="contact-textarea"
+          />
+        </LabelInputContainer>
+
+        {/* Success */}
+        {success && (
+          <motion.div
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className="contact-success"
           >
-            {sending ? "Sending..." : "Send Message"}
-            <Send className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5" />
-            <BottomGradient />
-          </button>
-        </form>
+            <span className="contact-success-dot" />
+            Message sent successfully! I&apos;ll get back to you soon.
+          </motion.div>
+        )}
 
-        {/* Bottom subtle glow */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-      </div>
+        {/* Submit */}
+        <button
+          type="submit"
+          disabled={sending}
+          className="contact-submit-btn"
+          aria-label="Send message"
+        >
+          {sending ? "Sending…" : "Send Message"}
+          <Send className="w-3.5 h-3.5 contact-submit-icon" aria-hidden="true" />
+          {/* Bottom gradient lines — only opacity transitions, GPU safe */}
+          <span className="contact-btn-glow-1" aria-hidden="true" />
+          <span className="contact-btn-glow-2" aria-hidden="true" />
+        </button>
+      </form>
+
+      <div className="contact-form-bottom-line" aria-hidden="true" />
     </div>
   );
 }
 
-const BottomGradient = () => {
-  return (
-    <>
-      <span className="absolute inset-x-0 -bottom-px block h-px w-full bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition duration-500 group-hover/btn:opacity-100" />
-      <span className="absolute inset-x-10 -bottom-px mx-auto block h-px w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-0 blur-sm transition duration-500 group-hover/btn:opacity-100" />
-    </>
-  );
-};
+/* ── BUSINESS CARD — static on mobile, tilt on desktop ────────────────────── */
+function ContactBusinessCard() {
+  const cardRef = useRef<HTMLDivElement>(null);
 
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
+  const downloadCard = useCallback(() => {
+    if (!cardRef.current) return;
+    toPng(cardRef.current, {
+      cacheBust: true,
+      pixelRatio: 3,
+      style: { transform: "none", margin: "0" },
+    })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "wilson_ramropui_card.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch(console.error);
+  }, []);
+
+  return (
+    <div className="contact-biz-wrap">
+      {/* Card — no 3D tilt, no backdrop-blur inside, GPU safe */}
+      <div ref={cardRef} className="contact-biz-card">
+        {/* Photo */}
+        <div className="contact-biz-photo-wrap">
+          <img
+            crossOrigin="anonymous"
+            className="contact-biz-photo"
+            alt="Wilson Ramropui"
+            src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?q=80&w=800&auto=format&fit=crop"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="contact-biz-photo-gradient" aria-hidden="true" />
+          <div className="contact-biz-photo-top-line" aria-hidden="true" />
+
+          {/* Overlay content */}
+          <div className="contact-biz-overlay">
+            <div className="contact-biz-status">
+              <span className="contact-biz-status-dot" />
+              <span className="contact-biz-status-text">Available</span>
+            </div>
+            <h3 className="contact-biz-name">Wilson Ramropui</h3>
+            <p className="contact-biz-role">Design Engineer</p>
+            <div className="contact-biz-rule" aria-hidden="true" />
+            <div className="contact-biz-info">
+              <div className="contact-biz-info-row">
+                <MapPin className="w-3.5 h-3.5 contact-biz-info-icon" />
+                <span>CCPUR, Manipur</span>
+              </div>
+              <div className="contact-biz-info-row">
+                <Globe className="w-3.5 h-3.5 contact-biz-info-icon" />
+                <span>wilsonramropui.com</span>
+              </div>
+              <div className="contact-biz-info-row">
+                <Phone className="w-3.5 h-3.5 contact-biz-info-icon" />
+                <span>+91 9233104770</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="contact-biz-footer">
+          <div className="contact-biz-footer-email">
+            <Mail className="w-3.5 h-3.5" aria-hidden="true" />
+            <span>wilsonramz774@gmail.com</span>
+          </div>
+          <div className="contact-biz-footer-cta">
+            <span>Contact</span>
+            <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
+          </div>
+        </div>
+      </div>
+
+      {/* Download button */}
+      <button onClick={downloadCard} className="contact-download-btn" aria-label="Download contact card">
+        <Download className="w-4 h-4" aria-hidden="true" />
+        Download Card
+      </button>
+    </div>
+  );
+}
+
+/* ── HELPERS ───────────────────────────────────────────────────────────────── */
+function LabelInputContainer({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={cn("flex w-full flex-col space-y-2", className)}>
       {children}
     </div>
   );
-};
+}

@@ -6,24 +6,38 @@ import { Mail, FileText } from "lucide-react";
 import { MetallicCard } from "@/components/MetallicCard";
 import { SweepButton } from "@/components/SweepButton";
 import LogoLoop from "@/components/LogoLoop";
-import { 
-  SiJavascript, SiTypescript, SiReact, SiNextdotjs, 
-  SiNodedotjs, SiPython, SiMongodb, SiPostgresql, 
-  SiDocker
-} from "react-icons/si";
-import { FaAws } from "react-icons/fa";
+import { SiAutocad, SiSketchup, SiBlender } from "react-icons/si";
+import { TbBuildingBridge2 } from "react-icons/tb";
+
+
+
+// Inline SVG wrapper — no external fetch, no CORS, perfect alignment
+const Icon = ({ children, color = "currentColor" }: { children: React.ReactNode; color?: string }) => (
+  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", color, width: "1em", height: "1em" }}>
+    {children}
+  </span>
+);
+
+// Simple coloured circle fallback for tools without a react-icon
+const Dot = ({ color, label }: { color: string; label: string }) => (
+  <span title={label} style={{ display:"inline-flex",alignItems:"center",justifyContent:"center",width:"1em",height:"1em" }}>
+    <svg viewBox="0 0 24 24" width="100%" height="100%" fill={color}><circle cx="12" cy="12" r="10"/></svg>
+  </span>
+);
+
+
 
 const techLogos = [
-  { node: <SiJavascript color="#F7DF1E" />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
-  { node: <SiTypescript color="#3178C6" />, title: "TypeScript", href: "https://www.typescriptlang.org/" },
-  { node: <SiReact color="#61DAFB" />, title: "React", href: "https://react.dev" },
-  { node: <SiNextdotjs color="#ffffff" />, title: "Next.js", href: "https://nextjs.org" },
-  { node: <SiNodedotjs color="#5FA04E" />, title: "Node.js", href: "https://nodejs.org" },
-  { node: <SiPython color="#3776AB" />, title: "Python", href: "https://www.python.org" },
-  { node: <SiMongodb color="#47A248" />, title: "MongoDB", href: "https://www.mongodb.com" },
-  { node: <SiPostgresql color="#4169E1" />, title: "PostgreSQL", href: "https://www.postgresql.org" },
-  { node: <SiDocker color="#2496ED" />, title: "Docker", href: "https://www.docker.com" },
-  { node: <FaAws color="#FF9900" />, title: "AWS", href: "https://aws.amazon.com" },
+  { node: <Icon color="#e51d24"><SiAutocad style={{width:"100%",height:"100%"}} /></Icon>,          title: "AutoCAD",   href: "https://www.autodesk.com/products/autocad/overview" },
+  { node: <Dot color="#005f9e" label="Revit" />,                                                    title: "Revit",     href: "https://www.autodesk.com/products/revit/overview" },
+  { node: <Icon color="#009990"><SiSketchup style={{width:"100%",height:"100%"}} /></Icon>,         title: "SketchUp",  href: "https://www.sketchup.com" },
+  { node: <Dot color="#1a73c6" label="3ds Max" />,                                                  title: "3ds Max",   href: "https://www.autodesk.com/products/3ds-max/overview" },
+  { node: <Dot color="#00a8e0" label="Lumion" />,                                                   title: "Lumion",    href: "https://lumion.com" },
+  { node: <Dot color="#31a8ff" label="Photoshop" />,                                                title: "Photoshop", href: "https://www.adobe.com/products/photoshop.html" },
+  { node: <Icon color="#4285f4"><TbBuildingBridge2 style={{width:"100%",height:"100%"}} /></Icon>,  title: "Civil 3D",  href: "https://www.autodesk.com/products/civil-3d/overview" },
+  { node: <Dot color="#1d6f42" label="MS Excel" />,                                                 title: "MS Excel",  href: "https://www.microsoft.com/en-us/microsoft-365/excel" },
+  { node: <Dot color="#7db346" label="Enscape" />,                                                  title: "Enscape",   href: "https://enscape3d.com" },
+  { node: <Icon color="#f5792a"><SiBlender style={{width:"100%",height:"100%"}} /></Icon>,          title: "Blender",   href: "https://www.blender.org" },
 ];
 
 export default function About() {

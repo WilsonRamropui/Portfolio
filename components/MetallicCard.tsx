@@ -63,19 +63,20 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 }) => {
   const cardWrapperRef = useRef<HTMLDivElement>(null);
 
-  // Unbounded Y rotation (full 360° spin), clamped X tilt
+  // ── Motion values ─────────────────────────────────────────────────────────
   const rotY = useMotionValue(0);
   const rotX = useMotionValue(0);
 
-  const sRotY = useSpring(rotY, { stiffness: 220, damping: 30, mass: 0.7 });
-  const sRotX = useSpring(rotX, { stiffness: 220, damping: 30, mass: 0.7 });
+  // Fast, snappy spring — high stiffness = responsive, lower damping = lively
+  const sRotY = useSpring(rotY, { stiffness: 380, damping: 22, mass: 0.5 });
+  const sRotX = useSpring(rotX, { stiffness: 380, damping: 22, mass: 0.5 });
 
-  // Specular blob — ping-pongs with spin
+  // Specular blob follows rotation
   const specBlobX = useTransform(sRotY, (v) => {
     const norm = ((v % 360) + 360) % 360;
     return `${norm <= 180 ? (norm / 180) * 100 : ((360 - norm) / 180) * 100}%`;
   });
-  const specBlobY = useTransform(sRotX, [-20, 20], ["20%", "80%"]);
+  const specBlobY = useTransform(sRotX, [-25, 25], ["15%", "85%"]);
 
   // Slow ambient shimmer
   const shimmer = useMotionValue(120);
@@ -84,119 +85,81 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     return () => c.stop();
   }, [shimmer]);
 
-  // ── Drag & Reset (No continuous rAF loop for better mobile performance) ──
-  const isDragging = useRef(false);
-  const isHovered = useRef(false);
-  const lastX = useRef(0);
-  const lastY = useRef(0);
+  // ── Interaction state ──────────────────────────────────────────────────────
+  const isDragging  = useRef(false);
+  const lastX       = useRef(0);
+  const lastY       = useRef(0);
+  const tLastX      = useRef<number | null>(null);
+  const tLastY      = useRef<number | null>(null);
 
-  const resetRotation = useCallback(() => {
-    isDragging.current = false;
-    isHovered.current = false;
-  }, []);
+  // Card stays at the angle it was left — no snap-back
 
-  const onDown = useCallback((e: MouseEvent) => {
-    isDragging.current = true;
-    lastX.current = e.clientX; lastY.current = e.clientY;
-  }, []);
-
-  const onEnter = useCallback(() => {
-    isHovered.current = true;
-  }, []);
-
-  const onMove = useCallback((e: MouseEvent) => {
-    if (!isDragging.current) {
-      isHovered.current = true;
-      // Hover-only tilt
-      const el = cardWrapperRef.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      const pctX = (e.clientX - r.left) / r.width - 0.5;
-      const pctY = (e.clientY - r.top) / r.height - 0.5;
-      
-      // Intuitive tilt: mouse up -> tilt up, mouse right -> rotate right
-      rotX.set(pctY * -30);
-      
-      const currentY = rotY.get();
-      const nearest180 = Math.round(currentY / 180) * 180;
-      rotY.set(nearest180 + (pctX * 40));
-      return;
-    }
-    const dx = e.clientX - lastX.current;
-    const dy = e.clientY - lastY.current;
-    rotY.set(rotY.get() + dx * 1.0);
-    rotX.set(Math.max(-30, Math.min(30, rotX.get() + dy * 0.5)));
-    lastX.current = e.clientX; lastY.current = e.clientY;
-  }, [rotX, rotY]);
-
-  const onUp = useCallback(() => {
-    resetRotation();
-  }, [resetRotation]);
-
-  const onLeave = useCallback(() => {
-    resetRotation();
-  }, [resetRotation]);
-
+  // ── Mouse handlers (desktop only) ─────────────────────────────────────────
   useEffect(() => {
     const el = cardWrapperRef.current;
     if (!el) return;
     const isMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!isMouse) return;
-    el.addEventListener("mouseenter", onEnter);
-    el.addEventListener("mousedown", onDown);
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseup", onUp);
+    if (!isMouse) return; // skip on touch-only devices
+
+    const onDown = (e: MouseEvent) => {
+      isDragging.current = true;
+      lastX.current = e.clientX;
+      lastY.current = e.clientY;
+      el.style.cursor = "grabbing";
+    };
+
+    const onMove = (e: MouseEvent) => {
+      if (isDragging.current) {
+        // Drag mode — free spin in Y, clamped tilt in X
+        const dx = e.clientX - lastX.current;
+        const dy = e.clientY - lastY.current;
+        rotY.set(rotY.get() + dx * 1.8);
+        rotX.set(Math.max(-30, Math.min(30, rotX.get() - dy * 0.8)));
+        lastX.current = e.clientX;
+        lastY.current = e.clientY;
+      } else {
+        // Hover mode — tilt relative to the CARD CENTER
+        const rect = el.getBoundingClientRect();
+        // pctX/pctY: -0.5 (left/top) to +0.5 (right/bottom)
+        const pctX = (e.clientX - rect.left) / rect.width  - 0.5;
+        const pctY = (e.clientY - rect.top)  / rect.height - 0.5;
+        // Positive pctX → rotate right (card tilts right), negative → tilts left
+        // Positive pctY → mouse below center → tilt back, negative → tilt forward
+        rotY.set(pctX *  36);   // ±18° max horizontal
+        rotX.set(pctY * -24);   // ±12° max vertical (inverted: mouse up = tilt up)
+      }
+    };
+
+    const onUp = () => {
+      isDragging.current = false;
+      el.style.cursor = "grab";
+    };
+
+    const onLeave = () => {
+      isDragging.current = false;
+      el.style.cursor = "grab";
+      // Card stays at current angle — no reset
+    };
+
+    el.addEventListener("mousedown",  onDown);
+    el.addEventListener("mousemove",  onMove);
+    el.addEventListener("mouseup",    onUp);
     el.addEventListener("mouseleave", onLeave);
-    window.addEventListener("mouseup", onUp);
+    window.addEventListener("mouseup", onUp);   // catch release outside card
+
     return () => {
-      el.removeEventListener("mouseenter", onEnter);
-      el.removeEventListener("mousedown", onDown);
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseup", onUp);
+      el.removeEventListener("mousedown",  onDown);
+      el.removeEventListener("mousemove",  onMove);
+      el.removeEventListener("mouseup",    onUp);
       el.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("mouseup", onUp);
     };
-  }, [onEnter, onDown, onMove, onUp, onLeave]);
-
-  // Mobile touch
-  const tLastX = useRef<number | null>(null);
-  const tLastY = useRef<number | null>(null);
-  useEffect(() => {
-    const el = cardWrapperRef.current;
-    if (!el) return;
-    const onTS = (e: TouchEvent) => {
-      e.preventDefault(); isDragging.current = true;
-      tLastX.current = e.touches[0].clientX; tLastY.current = e.touches[0].clientY;
-    };
-    const onTM = (e: TouchEvent) => {
-      if (!isDragging.current || tLastX.current === null) return;
-      e.preventDefault();
-      const dx = e.touches[0].clientX - tLastX.current;
-      const dy = e.touches[0].clientY - (tLastY.current ?? 0);
-      rotY.set(rotY.get() + dx * 1.4);
-      rotX.set(Math.max(-30, Math.min(30, rotX.get() + dy * 0.7)));
-      tLastX.current = e.touches[0].clientX; tLastY.current = e.touches[0].clientY;
-    };
-    const onTE = (e: TouchEvent) => {
-      e.preventDefault();
-      tLastX.current = null; tLastY.current = null;
-      resetRotation();
-    };
-    el.addEventListener("touchstart", onTS, { passive: false });
-    el.addEventListener("touchmove", onTM, { passive: false });
-    el.addEventListener("touchend", onTE, { passive: false });
-    el.addEventListener("touchcancel", onTE, { passive: false });
-    return () => {
-      el.removeEventListener("touchstart", onTS);
-      el.removeEventListener("touchmove", onTM);
-      el.removeEventListener("touchend", onTE);
-      el.removeEventListener("touchcancel", onTE);
-    };
   }, [rotX, rotY]);
 
-  // Pointer events fallback (works on both mouse & touch via PointerEvent API)
+  // ── Touch / Pointer handlers (mobile) ─────────────────────────────────────
+  // Uses PointerEvent API — works across touch, stylus, mouse
   const onPointerDown = useCallback((e: React.PointerEvent) => {
-    if (e.pointerType === "mouse") return; // handled by mouse listeners
+    if (e.pointerType === "mouse") return;
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
     isDragging.current = true;
     tLastX.current = e.clientX;
@@ -208,8 +171,8 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     if (!isDragging.current || tLastX.current === null) return;
     const dx = e.clientX - tLastX.current;
     const dy = e.clientY - (tLastY.current ?? 0);
-    rotY.set(rotY.get() + dx * 1.4);
-    rotX.set(Math.max(-30, Math.min(30, rotX.get() + dy * 0.7)));
+    rotY.set(rotY.get() + dx * 2.0);   // faster drag on touch
+    rotX.set(Math.max(-30, Math.min(30, rotX.get() - dy * 1.0)));
     tLastX.current = e.clientX;
     tLastY.current = e.clientY;
   }, [rotX, rotY]);
@@ -218,15 +181,16 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     if (e.pointerType === "mouse") return;
     tLastX.current = null;
     tLastY.current = null;
-    resetRotation();
-  }, [resetRotation]);
+    isDragging.current = false;
+    // Card stays at current angle
+  }, []);
 
   return (
     <div
       className="flex items-center justify-center p-4 w-full"
       style={{
-        perspective: "900px",
-        perspectiveOrigin: "50% 50%",
+        perspective: "1000px",
+        perspectiveOrigin: "50% 50%",   // rotate from card center
       }}
     >
       <div
@@ -235,8 +199,9 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         style={{
           cursor: "grab",
           userSelect: "none",
-          touchAction: "none",          // prevents browser scroll hijack on mobile inside the card area
           WebkitUserSelect: "none",
+          touchAction: "none",           // block default scroll only inside card
+          transformOrigin: "center center",
         }}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}

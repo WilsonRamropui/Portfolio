@@ -5,6 +5,7 @@ import { NavigationDock } from "@/components/NavigationDock";
 import { Footer } from "@/components/Footer";
 
 import Portfolio from "@/components/portfolio-menu";
+import PageTransition from "@/components/PageTransition";
 import PreLoader from "@/components/PreLoader";
 import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -83,8 +84,10 @@ export default function RootLayout({
           <NavigationDock />
           <Portfolio />
           <main className="flex-1 flex flex-col relative pt-8">
-            {children}
-            <Footer />
+            <PageTransition>
+              {children}
+              <Footer />
+            </PageTransition>
           </main>
         </div>
       </body>

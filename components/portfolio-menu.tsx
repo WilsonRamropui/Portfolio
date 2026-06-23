@@ -3,17 +3,11 @@
 import { ArrowLeftIcon, BookText, Layers3 } from 'lucide-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
-import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
-
-const inter = Inter({
-    variable: '--font-inter',
-    subsets: ['latin'],
-});
 
 export type PortfolioConfig = {
     image?: string;
@@ -181,46 +175,53 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
 
             switch (state) {
                 case 'openButBioClosed': {
-                    aboutControls.start('closed');
-                    plusControls.start('open');
-                    imageControls.start('open');
-                    menuControls.start('closed');
-                    controls.start('open');
-                    iconsControls.start('open');
-                    profileControls.start('open');
+                    await Promise.all([
+                        aboutControls.start('closed'),
+                        plusControls.start('open'),
+                        imageControls.start('open'),
+                        menuControls.start('closed'),
+                        controls.start('open'),
+                        iconsControls.start('open'),
+                        profileControls.start('open'),
+                    ]);
                     break;
                 }
                 case 'closedButBioClosed': {
-                    aboutControls.start('closed');
-                    menuControls.start('closed');
-                    profileControls.start('closed');
-                    iconsControls.start('closed');
-                    controls.start('closed');
-                    imageControls.start('closed');
-                    plusControls.start('closed');
+                    await Promise.all([
+                        aboutControls.start('closed'),
+                        menuControls.start('closed'),
+                        profileControls.start('closed'),
+                        iconsControls.start('closed'),
+                        controls.start('closed'),
+                        imageControls.start('closed'),
+                        plusControls.start('closed'),
+                    ]);
                     break;
                 }
                 case 'openButBioOpen': {
-                    imageControls.start('bio');
-                    menuControls.start('closed');
-                    plusControls.start('open');
-                    profileControls.start('closed');
-                    iconsControls.start('closed');
-                    controls.start('bio');
-                    aboutControls.start('bio');
+                    await Promise.all([
+                        imageControls.start('bio'),
+                        menuControls.start('closed'),
+                        plusControls.start('open'),
+                        profileControls.start('closed'),
+                        iconsControls.start('closed'),
+                        controls.start('bio'),
+                        aboutControls.start('bio'),
+                    ]);
                     break;
                 }
                 case 'menuOpened': {
-                    imageControls.start('bio');
-                    profileControls.start('closed');
-                    iconsControls.start('closed');
-                    controls.start('menu');
-                    menuControls.start('menu');
+                    await Promise.all([
+                        imageControls.start('bio'),
+                        profileControls.start('closed'),
+                        iconsControls.start('closed'),
+                        controls.start('menu'),
+                        menuControls.start('menu'),
+                    ]);
                     break;
                 }
             }
-            // Add a small artificial delay just to debounce rapid clicks if needed, 
-            // or just unlock immediately. Let's unlock immediately.
+            // Unlock only after all animations have fully resolved
             isAnimatingRef.current = false;
         };
 
@@ -239,7 +240,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     ]);
 
     return (
-        <div ref={menuRef} className={cn('fixed bottom-8 right-8 z-[9999] justify-end items-center bg-transparent', inter.className, pathname?.startsWith('/showcase') ? 'hidden' : 'flex')}>
+        <div ref={menuRef} className={cn('fixed bottom-8 right-8 z-[9999] justify-end items-center bg-transparent', pathname?.startsWith('/showcase') ? 'hidden' : 'flex')}>
             <motion.div
                 variants={containerVariants}
                 initial="closed"
