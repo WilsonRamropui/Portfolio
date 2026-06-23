@@ -1,0 +1,341 @@
+/* ═══════════════════════════════════════════════════════════════
+   PROJECTS PAGE — Cinematic Glassmorphism Theme
+   Palette: Deep Zinc · Pure Black · Silver White
+   ═══════════════════════════════════════════════════════════════ */
+
+.prj-page {
+  position: relative;
+  min-height: 100vh;
+  background-color: #020406;
+  overflow-x: hidden;
+  margin-top: -32px;
+  color: #fff;
+}
+
+/* ── FULL PAGE BACKGROUND IMAGE ────────────────────────────── */
+.prj-bg-image {
+  position: fixed;
+  top: -10vh;
+  left: -10vw;
+  width: 120vw;
+  height: 120vh;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('/home-bg-4k.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.prj-bg-vignette {
+  position: fixed;
+  top: -10vh;
+  left: -10vw;
+  width: 120vw;
+  height: 120vh;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.9) 100%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.65) 100%);
+}
+
+.prj-scroll-layer {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 24px 80px;
+}
+
+/* ── HERO ────────────────────────────────────────────── */
+.prj-hero {
+  text-align: center;
+  margin-bottom: 60px;
+  max-width: 800px;
+}
+
+.prj-hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  text-shadow: 0 4px 30px rgba(255, 255, 255, 0.15);
+}
+
+.prj-hero-subtitle {
+  font-family: 'Crimson Text', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: #a1a1aa;
+}
+
+/* ── GRID LAYOUT ────────────────────────────────────────────── */
+.prj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 32px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* ── PROJECT CARD ────────────────────────────────────────────── */
+.prj-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(15, 15, 15, 0.4);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  cursor: pointer;
+  aspect-ratio: 4 / 3;
+}
+
+.prj-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255,255,255,0.2);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.prj-card-img-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.prj-card-img {
+  object-fit: cover;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  opacity: 0.6;
+}
+
+.prj-card:hover .prj-card-img {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.prj-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+}
+
+.prj-card-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+
+.prj-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+
+.prj-card-desc {
+  font-family: 'Crimson Text', serif;
+  font-size: 15px;
+  color: #a1a1aa;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── MODAL ────────────────────────────────────────────── */
+.prj-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.prj-modal {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  max-height: 90vh;
+  background: #080808;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+  display: flex;
+}
+
+.prj-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 110;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.prj-modal-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.prj-modal-left {
+  width: 400px;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  background: #0a0a0a;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  overflow-y: auto;
+}
+
+.prj-modal-right {
+  flex: 1;
+  position: relative;
+  background: #000;
+}
+
+.prj-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.prj-modal-desc {
+  font-family: 'Crimson Text', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #a1a1aa;
+  margin-bottom: 32px;
+}
+
+.prj-modal-section {
+  margin-bottom: 24px;
+}
+
+.prj-modal-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.prj-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prj-modal-tag {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family: 'Cinzel', serif;
+}
+
+/* ── VIEW TOGGLES ────────────────────────────────────────────── */
+.prj-toggles {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(20px);
+  padding: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  z-index: 10;
+}
+
+.prj-toggle-btn {
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prj-toggle-btn.active {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+}
+
+/* ── ANIMATIONS ────────────────────────────────────────────── */
+.prj-fade-up {
+  opacity: 0;
+  animation: prj-fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes prj-fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1024px) {
+  .prj-modal {
+    flex-direction: column-reverse;
+  }
+  .prj-modal-left {
+    width: 100%;
+    height: 40%;
+    border-right: none;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .prj-modal-right {
+    height: 60%;
+  }
+}
+
+@media (max-width: 640px) {
+  .prj-grid {
+    grid-template-columns: 1fr;
+  }
+  .prj-hero-title {
+    font-size: 32px;
+  }
+}
