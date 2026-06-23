@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { aboutPageStyles as s } from "@/styles/dummy-styles";
-import "../projects/gothic.css";
+import "../projects/projects.css";
 import { Mail, FileText } from "lucide-react";
 import { MetallicCard } from "@/components/MetallicCard";
 import { SweepButton } from "@/components/SweepButton";
@@ -51,9 +51,8 @@ export default function About() {
 
   return (
     <div className={s.pageContainer}>
-      <div className="gv-bg" aria-hidden="true" />
-      <div className="gv-map-lines" aria-hidden="true" />
-      <div className="gv-vignette" aria-hidden="true" />
+      <div className="prj-bg-image" aria-hidden="true" />
+      <div className="prj-bg-vignette" aria-hidden="true" />
 
       <div className={`${s.contentWrapper} w-full max-w-6xl mx-auto`}>
         <div className="z-10 relative">
