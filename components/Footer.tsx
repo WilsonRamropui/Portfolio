@@ -68,7 +68,7 @@ export function Footer() {
             as="div"
             className="dark:bg-zinc-950 bg-white text-black dark:text-white flex items-center justify-center space-x-1 md:space-x-2 px-3 py-1.5 md:px-4 md:py-1.5"
           >
-            <span className="text-xs sm:text-sm md:text-sm whitespace-nowrap">© {new Date().getFullYear()} Wilson Ramropui</span>
+            <span className="text-xs sm:text-sm md:text-sm whitespace-nowrap">© 2026 Wilson Ramropui</span>
           </HoverBorderGradient>
 
           {/* Social Icons (Right aligned on PC, stacked on mobile) */}

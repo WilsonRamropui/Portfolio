@@ -63,6 +63,8 @@ export const metadata: Metadata = {
   description: "Wilson Ramropui - Founding Engineer & Design Engineer",
 };
 
+export const unstable_instant = { prefetch: 'static' };
+
 export const viewport = {
   width: "device-width",
   initialScale: 1,

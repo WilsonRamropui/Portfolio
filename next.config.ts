@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
+  cacheComponents: true,
 
   // Compress all responses with gzip/brotli
   compress: true,
