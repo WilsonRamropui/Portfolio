@@ -109,8 +109,8 @@
   width: 100%;
   max-width: 840px;
   background-color: var(--exp-glass-bg);
-  backdrop-filter: blur(30px) saturate(1.2);
-  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border: none;
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.6),
@@ -264,8 +264,8 @@
   );
   
   /* Very strong blur like the reference image */
-  backdrop-filter: blur(40px) saturate(1.2);
-  -webkit-backdrop-filter: blur(40px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   
   /* Large app-icon style radius */
   border-radius: 36px;
@@ -415,8 +415,8 @@
   overflow: hidden;
   position: relative;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(28px) saturate(1.8);
-  -webkit-backdrop-filter: blur(28px) saturate(1.8);
+  backdrop-filter: blur(12px) saturate(1.8);
+  -webkit-backdrop-filter: blur(12px) saturate(1.8);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   border-left: 1px solid rgba(255, 255, 255, 0.18);

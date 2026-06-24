@@ -166,8 +166,8 @@
   border-radius: 4px; /* Sharper cinematic architectural corners */
   overflow: hidden;
   background: var(--prj-glass-bg);
-  backdrop-filter: blur(20px) saturate(1.2);
-  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border: 1px solid var(--prj-border);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 0 1px var(--prj-border);
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.6s ease;
@@ -296,7 +296,7 @@
   inset: 0;
   z-index: 100;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(40px);
+  backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -408,7 +408,7 @@
   display: flex;
   gap: 16px;
   background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
   padding: 8px;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.1);

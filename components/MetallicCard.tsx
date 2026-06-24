@@ -48,8 +48,8 @@ const SciFiFrame = () => (
 );
 
 // ── Shared face base style ─────────────────────────────────────────────────
-const FACE_BG = "linear-gradient(145deg, #3a3a3a 0%, #2a2a2a 40%, #1e1e1e 70%, #2d2d2d 100%)";
-const BACK_BG = "linear-gradient(215deg, #3a3a3a 0%, #2a2a2a 40%, #1e1e1e 70%, #2d2d2d 100%)";
+const FACE_BG = "linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.01) 70%, rgba(255,255,255,0.08) 100%)";
+const BACK_BG = "linear-gradient(215deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.01) 70%, rgba(255,255,255,0.08) 100%)";
 
 const faceShared: React.CSSProperties = {
   backfaceVisibility: "hidden",
@@ -117,16 +117,6 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         rotX.set(Math.max(-20, Math.min(20, rotX.get() - dy * 0.4)));
         lastX.current = e.clientX;
         lastY.current = e.clientY;
-      } else {
-        // Hover mode — tilt relative to the CARD CENTER
-        const rect = el.getBoundingClientRect();
-        // pctX/pctY: -0.5 (left/top) to +0.5 (right/bottom)
-        const pctX = (e.clientX - rect.left) / rect.width  - 0.5;
-        const pctY = (e.clientY - rect.top)  / rect.height - 0.5;
-        // Positive pctX → rotate right (card tilts right), negative → tilts left
-        // Positive pctY → mouse below center → tilt back, negative → tilt forward
-        rotY.set(pctX *  24);   // ±12° max horizontal
-        rotX.set(pctY * -16);   // ±8° max vertical
       }
     };
 
@@ -216,13 +206,13 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         >
         {/* ══════════════ FRONT FACE ══════════════ */}
         <div
-          className="absolute inset-0 overflow-hidden flex flex-col justify-between"
+          className="absolute inset-0 overflow-hidden flex flex-col justify-between md:backdrop-blur-[12px]"
           style={{
             ...faceShared,
             clipPath: CLIP,
             background: FACE_BG,
             transform: `translateZ(${HALF}px)`,
-            boxShadow: "inset 0 2px 0 rgba(255,255,255,0.36), inset 0 -1px 0 rgba(255,255,255,0.05)",
+            boxShadow: "inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(255,255,255,0.05)",
           }}
         >
           <SciFiFrame />
@@ -278,13 +268,13 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* ══════════════ BACK FACE ══════════════ */}
         <div
-          className="absolute inset-0 overflow-hidden flex items-center justify-center"
+          className="absolute inset-0 overflow-hidden flex items-center justify-center md:backdrop-blur-[12px]"
           style={{
             ...faceShared,
             clipPath: CLIP,
             background: BACK_BG,
             transform: `rotateY(180deg) translateZ(${HALF}px)`,
-            boxShadow: "inset 0 2px 0 rgba(255,255,255,0.36), inset 0 -1px 0 rgba(255,255,255,0.05)",
+            boxShadow: "inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(255,255,255,0.05)",
           }}
         >
           <SciFiFrame />
@@ -316,45 +306,45 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* LEFT EDGE */}
         <div
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none md:backdrop-blur-[12px]"
           style={{
             top: `${CHAMFER - 0.5}px`, left: 0, marginLeft: `-${HALF}px`, width: `${THICKNESS}px`, height: `calc(100% - ${CHAMFER * 2 - 1}px)`,
             transformOrigin: "center",
             transform: "rotateY(-90deg)",
-            background: "linear-gradient(to right, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.08) 100%)",
+            background: "linear-gradient(to right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)",
           }}
         />
 
         {/* RIGHT EDGE */}
         <div
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none md:backdrop-blur-[12px]"
           style={{
             top: `${CHAMFER - 0.5}px`, left: "100%", marginLeft: `-${HALF}px`, width: `${THICKNESS}px`, height: `calc(100% - ${CHAMFER * 2 - 1}px)`,
             transformOrigin: "center",
             transform: "rotateY(90deg)",
-            background: "linear-gradient(to left, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.08) 100%)",
+            background: "linear-gradient(to left, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)",
           }}
         />
 
         {/* TOP EDGE */}
         <div
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none md:backdrop-blur-[12px]"
           style={{
             top: 0, marginTop: `-${HALF}px`, left: `${CHAMFER - 0.5}px`, width: `calc(100% - ${CHAMFER * 2 - 1}px)`, height: `${THICKNESS}px`,
             transformOrigin: "center",
             transform: "rotateX(-90deg)",
-            background: "linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)",
+            background: "linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)",
           }}
         />
 
         {/* BOTTOM EDGE */}
         <div
-          className="absolute pointer-events-none"
+          className="absolute pointer-events-none md:backdrop-blur-[12px]"
           style={{
             top: "100%", marginTop: `-${HALF}px`, left: `${CHAMFER - 0.5}px`, width: `calc(100% - ${CHAMFER * 2 - 1}px)`, height: `${THICKNESS}px`,
             transformOrigin: "center",
             transform: "rotateX(90deg)",
-            background: "linear-gradient(to top, rgba(255,255,255,0.10) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)",
+            background: "linear-gradient(to top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)",
           }}
         />
 
@@ -366,14 +356,14 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         */}
         {[
           // [position, transform, background]
-          [{ top: 0, left: 0 },       `translate3d(-5.75px, 5px, 0) rotateZ(-45deg) rotateX(-90deg)`, "linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
-          [{ top: 0, left: "100%" },  `translate3d(-29.75px, 5px, 0) rotateZ(45deg) rotateX(-90deg)`, "linear-gradient(to bottom, rgba(255,255,255,0.14) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
-          [{ top: "100%", left: 0 },  `translate3d(-5.75px, -19px, 0) rotateZ(45deg) rotateX(90deg)`, "linear-gradient(to top, rgba(255,255,255,0.10) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
-          [{ top: "100%", left: "100%" }, `translate3d(-29.75px, -19px, 0) rotateZ(-45deg) rotateX(90deg)`, "linear-gradient(to top, rgba(255,255,255,0.10) 0%, #303033 20%, #252527 80%, rgba(255,255,255,0.06) 100%)"],
+          [{ top: 0, left: 0 },       `translate3d(-5.75px, 5px, 0) rotateZ(-45deg) rotateX(-90deg)`, "linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)"],
+          [{ top: 0, left: "100%" },  `translate3d(-29.75px, 5px, 0) rotateZ(45deg) rotateX(-90deg)`, "linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)"],
+          [{ top: "100%", left: 0 },  `translate3d(-5.75px, -19px, 0) rotateZ(45deg) rotateX(90deg)`, "linear-gradient(to top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)"],
+          [{ top: "100%", left: "100%" }, `translate3d(-29.75px, -19px, 0) rotateZ(-45deg) rotateX(90deg)`, "linear-gradient(to top, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.02) 80%, rgba(255,255,255,0.1) 100%)"],
         ].map(([pos, tfm, bg], i) => (
           <div
             key={i}
-            className="absolute pointer-events-none"
+            className="absolute pointer-events-none md:backdrop-blur-[12px]"
             style={{
               ...(pos as React.CSSProperties),
               width: `${CHAMFER_DIAG + 1.5}px`,

@@ -223,8 +223,8 @@
   margin: 0 auto 0;
   flex: 1;
   background: var(--sk-glass-bg);
-  backdrop-filter: blur(30px) saturate(1.2);
-  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   border-radius: 28px 28px 0 0;
   padding: 40px 40px 80px;
   box-shadow:
@@ -381,8 +381,8 @@
   margin-bottom: 5rem;
   /* Experience page glass formula */
   background: var(--sk-glass-bg);
-  backdrop-filter: blur(30px) saturate(1.2);
-  -webkit-backdrop-filter: blur(30px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.6),
     inset 2px 2px 4px rgba(255, 255, 255, 0.15),
@@ -485,8 +485,6 @@
   font-size: 1.3rem;
   /* Experience page glass formula */
   background: var(--sk-glass-bg);
-  backdrop-filter: blur(30px) saturate(1.2);
-  -webkit-backdrop-filter: blur(30px) saturate(1.2);
   border: 1px solid rgba(255,255,255,0.05);
   margin-bottom: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;

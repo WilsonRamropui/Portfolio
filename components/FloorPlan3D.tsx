@@ -56,8 +56,8 @@ export default function FloorPlan3D() {
             style={{
               backgroundColor: "rgba(20, 20, 20, 0.45)",
               backgroundImage: "linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.01) 35%, rgba(0, 0, 0, 0.5) 100%)",
-              backdropFilter: "blur(40px) saturate(1.2)",
-              WebkitBackdropFilter: "blur(40px) saturate(1.2)",
+              backdropFilter: "blur(12px) saturate(1.2)",
+              WebkitBackdropFilter: "blur(12px) saturate(1.2)",
               borderRadius: "36px",
               boxShadow: "0 30px 60px rgba(0, 0, 0, 0.6), inset 2px 2px 4px rgba(255, 255, 255, 0.25), inset -3px -3px 6px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05)"
             }}

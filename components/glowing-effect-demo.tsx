@@ -90,8 +90,6 @@ const GridItem = ({ area, icon, title, description, tags, softwareItems, accent 
         style={{
           /* Dark frosted glass — near-black translucent base */
           background: "linear-gradient(135deg, rgba(30,30,30,0.55) 0%, rgba(10,10,10,0.75) 100%)",
-          backdropFilter: "blur(40px) saturate(1.4)",
-          WebkitBackdropFilter: "blur(40px) saturate(1.4)",
           borderRadius: "0px",
           /* Outer edge: very thin dim rim */
           border: "1px solid rgba(255,255,255,0.08)",
@@ -140,28 +138,24 @@ const GridItem = ({ area, icon, title, description, tags, softwareItems, accent 
         {/* ── 3D GLASS CORNER BRACKETS ── */}
         <div style={{
           position: "absolute", top: -2, left: -2, width: 24, height: 24, zIndex: 10, pointerEvents: "none",
-          backdropFilter: "blur(20px) saturate(1.2)", WebkitBackdropFilter: "blur(20px) saturate(1.2)",
           clipPath: "polygon(0 0, 100% 0, 100% 6px, 6px 6px, 6px 100%, 0 100%)",
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H24V1.5H1.5V24H0V0Z' fill='rgba(255,255,255,0.25)' /%3E%3Cpath d='M4.5 6H24V4.5H4.5V24H6V6Z' fill='rgba(0,0,0,0.9)' /%3E%3Cpath d='M1.5 1.5H22.5V2.5H2.5V22.5H1.5V1.5Z' fill='rgba(255,255,255,0.05)' /%3E%3C/svg%3E\")",
           backgroundSize: "100% 100%", transform: "rotate(0deg)"
         }} />
         <div style={{
           position: "absolute", top: -2, right: -2, width: 24, height: 24, zIndex: 10, pointerEvents: "none",
-          backdropFilter: "blur(20px) saturate(1.2)", WebkitBackdropFilter: "blur(20px) saturate(1.2)",
           clipPath: "polygon(0 0, 100% 0, 100% 6px, 6px 6px, 6px 100%, 0 100%)",
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H24V1.5H1.5V24H0V0Z' fill='rgba(255,255,255,0.25)' /%3E%3Cpath d='M4.5 6H24V4.5H4.5V24H6V6Z' fill='rgba(0,0,0,0.9)' /%3E%3Cpath d='M1.5 1.5H22.5V2.5H2.5V22.5H1.5V1.5Z' fill='rgba(255,255,255,0.05)' /%3E%3C/svg%3E\")",
           backgroundSize: "100% 100%", transform: "rotate(90deg)"
         }} />
         <div style={{
           position: "absolute", bottom: -2, left: -2, width: 24, height: 24, zIndex: 10, pointerEvents: "none",
-          backdropFilter: "blur(20px) saturate(1.2)", WebkitBackdropFilter: "blur(20px) saturate(1.2)",
           clipPath: "polygon(0 0, 100% 0, 100% 6px, 6px 6px, 6px 100%, 0 100%)",
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H24V1.5H1.5V24H0V0Z' fill='rgba(255,255,255,0.25)' /%3E%3Cpath d='M4.5 6H24V4.5H4.5V24H6V6Z' fill='rgba(0,0,0,0.9)' /%3E%3Cpath d='M1.5 1.5H22.5V2.5H2.5V22.5H1.5V1.5Z' fill='rgba(255,255,255,0.05)' /%3E%3C/svg%3E\")",
           backgroundSize: "100% 100%", transform: "rotate(270deg)"
         }} />
         <div style={{
           position: "absolute", bottom: -2, right: -2, width: 24, height: 24, zIndex: 10, pointerEvents: "none",
-          backdropFilter: "blur(20px) saturate(1.2)", WebkitBackdropFilter: "blur(20px) saturate(1.2)",
           clipPath: "polygon(0 0, 100% 0, 100% 6px, 6px 6px, 6px 100%, 0 100%)",
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0H24V1.5H1.5V24H0V0Z' fill='rgba(255,255,255,0.25)' /%3E%3Cpath d='M4.5 6H24V4.5H4.5V24H6V6Z' fill='rgba(0,0,0,0.9)' /%3E%3Cpath d='M1.5 1.5H22.5V2.5H2.5V22.5H1.5V1.5Z' fill='rgba(255,255,255,0.05)' /%3E%3C/svg%3E\")",
           backgroundSize: "100% 100%", transform: "rotate(180deg)"
@@ -180,7 +174,6 @@ const GridItem = ({ area, icon, title, description, tags, softwareItems, accent 
                 border: "1px solid rgba(255,255,255,0.1)",
                 background: "rgba(255,255,255,0.05)",
                 padding: "8px 10px",
-                backdropFilter: "blur(8px)",
               }}
             >
               {icon}

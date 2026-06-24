@@ -55,7 +55,7 @@ export default function About() {
             
             {/* Left Side: Card (Scaled for mobile) */}
             <div className="w-full max-w-sm lg:w-[380px] flex-shrink-0 flex justify-center lg:sticky lg:top-24">
-              <div className="w-full transform scale-100 sm:scale-105 lg:scale-100 origin-top lg:origin-top-left transition-transform">
+              <div className="w-full transform scale-90 sm:scale-100 lg:scale-100 origin-top lg:origin-top-left transition-transform">
                 <MetallicCard name="WILSON RAMROPUI" />
               </div>
             </div>
