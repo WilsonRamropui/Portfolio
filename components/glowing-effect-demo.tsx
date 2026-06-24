@@ -15,18 +15,76 @@ import React from "react";
    Matches the projects page info-panel / card corner aesthetic.
    ================================================================ */
 
+interface SoftwareItem {
+  name: string;
+  type: string;
+  pct: number;
+  icon: string;
+  fallback: string;
+}
+
 interface GridItemProps {
   area: string;
   icon: React.ReactNode;
   title: string;
   description: React.ReactNode;
   tags?: string[];
+  softwareItems?: SoftwareItem[];
   accent?: string;
 }
 
-const GridItem = ({ area, icon, title, description, tags, accent }: GridItemProps) => {
+/* ================================================================
+   SOFTWARE CARD ITEM
+   ================================================================ */
+function SoftwareCardItem({ s }: { s: SoftwareItem }) {
+  const [imgFailed, setImgFailed] = React.useState(false);
+  const imgRef = React.useRef<HTMLImageElement>(null);
+
+  React.useEffect(() => {
+    if (imgRef.current && imgRef.current.complete && imgRef.current.naturalWidth === 0) {
+      setImgFailed(true);
+    }
+  }, []);
+
   return (
-    <li className={`min-h-[9rem] sm:min-h-[11rem] md:min-h-[15rem] list-none ${area}`}>
+    <div className="flex items-center gap-4 p-2 hover:bg-white/5 rounded-lg transition-colors group relative overflow-hidden w-full mt-2">
+      <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-md bg-black/20 border border-white/5 shadow-inner overflow-hidden">
+        {!imgFailed ? (
+          <img
+            ref={imgRef}
+            src={s.icon}
+            alt=""
+            width={24}
+            height={24}
+            className="object-contain"
+            onError={() => setImgFailed(true)}
+            loading="lazy"
+          />
+        ) : (
+          <span className="text-[1.2rem] leading-none opacity-80">{s.fallback}</span>
+        )}
+      </div>
+      
+      <div className="flex-1 min-w-0">
+        <div className="flex justify-between items-center mb-0.5">
+          <div className="font-[family-name:var(--font-heading)] text-[13px] font-semibold text-white/90 tracking-wider uppercase truncate group-hover:text-white transition-colors">{s.name}</div>
+          <div className="font-[family-name:var(--font-heading)] text-[9px] font-bold tracking-widest text-[#a1a1aa] opacity-40 group-hover:opacity-100 transition-opacity">{Math.round(s.pct * 100)}%</div>
+        </div>
+        <div className="font-serif text-[11px] italic tracking-wide text-[#71717a] mb-1.5 truncate group-hover:text-[#a1a1aa] transition-colors">{s.type}</div>
+        <div className="w-full h-[2px] bg-white/5 rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-white/10 via-white/50 to-white/90 shadow-[0_0_8px_rgba(255,255,255,0.15)] origin-left transition-transform duration-1000 ease-out"
+            style={{ transform: `scaleX(${s.pct})` }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const GridItem = ({ area, icon, title, description, tags, softwareItems, accent }: GridItemProps) => {
+  return (
+    <li className={`list-none ${area}`}>
       <div
         className="relative h-full"
         style={{
@@ -181,7 +239,13 @@ const GridItem = ({ area, icon, title, description, tags, accent }: GridItemProp
             >
               {description}
             </p>
-            {tags && tags.length > 0 && (
+            {softwareItems && softwareItems.length > 0 ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px", marginTop: "8px" }}>
+                {softwareItems.map((s) => (
+                  <SoftwareCardItem key={s.name} s={s} />
+                ))}
+              </div>
+            ) : tags && tags.length > 0 && (
               <div style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}>
                 {tags.map((t) => (
                   <span
@@ -212,68 +276,67 @@ const GridItem = ({ area, icon, title, description, tags, accent }: GridItemProp
 
 export default function GlowingEffectDemo() {
   return (
-    <ul className="flex flex-col md:grid md:grid-cols-12 md:grid-rows-3 gap-3 md:gap-4 w-full">
-
-      {/* Row 1, Col 1-4 — Architectural Design */}
-      <GridItem
-        area="md:[grid-area:1/1/2/5]"
-        icon={<PenTool className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
-        title="Architectural Design"
-        accent="Core"
-        description="From concept massing to full construction documentation — floor plans, sections, elevations, and 3D spatial modelling."
-        tags={["Revit", "AutoCAD", "SketchUp"]}
-      />
-
-      {/* Row 2, Col 1-4 — Structural Engineering */}
-      <GridItem
-        area="md:[grid-area:2/1/3/5]"
-        icon={<Cpu className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
-        title="Structural Engineering"
-        accent="Analysis"
-        description="Computational analysis of frames, beams, slabs, and foundations. Ensuring safety and efficiency through engineering precision."
-        tags={["ETABS", "AutoCAD", "Structural Analysis"]}
-      />
-
-      {/* Row 1-2, Col 5-8 — 3D Visualisation (tall) */}
-      <GridItem
-        area="md:[grid-area:1/5/3/8]"
-        icon={<Eye className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
-        title="3D Visualisation & Rendering"
-        accent="Creative"
-        description="Photorealistic renders and real-time walkthroughs that communicate design intent with cinematic quality. Every pixel reflects a design decision."
-        tags={["V-Ray", "Enscape", "3ds Max", "Lumion"]}
-      />
-
-      {/* Row 1, Col 8-13 — Technical Drafting */}
-      <GridItem
-        area="md:[grid-area:1/8/2/13]"
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full items-start">
+      
+      {/* Left Column */}
+      <ul className="flex flex-col gap-4 w-full m-0 p-0">
+        {/* Technical Drafting (First) */}
+        <GridItem
+          area=""
         icon={<Layers className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
         title="Technical Drafting"
         accent="Precision"
         description="Precision 2D documentation for construction sets, shop drawings, coordination drawings, and as-built records."
-        tags={["AutoCAD", "Civil 3D", "Revit"]}
+        softwareItems={[
+          { name: "AutoCAD", type: "CAD Drafting", pct: 0.95, icon: "https://img.icons8.com/color/96/autocad.png", fallback: "📐" },
+          { name: "AutoCAD Civil 3D", type: "Civil Design", pct: 0.76, icon: "https://img.icons8.com/color/96/autocad.png", fallback: "🛣️" },
+        ]}
       />
 
-      {/* Row 2, Col 8-13 — Project Management */}
-      <GridItem
-        area="md:[grid-area:2/8/3/13]"
-        icon={<ClipboardList className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
-        title="Project Management"
-        accent="Leadership"
-        description="Full lifecycle management — scheduling, cost estimation, quantity surveying, and resource allocation across complex project environments."
-        tags={["Primavera P6", "Excel", "MS Project"]}
+        {/* Architectural Design (Second) */}
+        <GridItem
+          area=""
+        icon={<PenTool className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
+        title="Architectural Design (BIM)"
+        accent="Core"
+        description="From concept massing to full construction documentation — floor plans, sections, elevations, and 3D spatial modelling."
+        softwareItems={[
+          { name: "Autodesk Revit", type: "BIM Software", pct: 0.90, icon: "https://img.icons8.com/color/96/autodesk-revit.png", fallback: "🏢" },
+          { name: "SketchUp", type: "3D Modelling", pct: 0.88, icon: "https://img.icons8.com/color/96/google-sketchup.png", fallback: "🧊" },
+        ]}
+      />
+      </ul>
+
+      {/* Right Column */}
+      <ul className="flex flex-col gap-4 w-full m-0 p-0">
+        {/* 3D Visualisation (Third) */}
+        <GridItem
+          area=""
+        icon={<Eye className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
+        title="3D Visualisation & Rendering"
+        accent="Creative"
+        description="Photorealistic renders and real-time walkthroughs that communicate design intent with cinematic quality. Every pixel reflects a design decision."
+        softwareItems={[
+          { name: "V-Ray", type: "Rendering Engine", pct: 0.82, icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/V-Ray_logo.svg/240px-V-Ray_logo.svg.png", fallback: "🌟" },
+          { name: "Enscape", type: "Real-Time Render", pct: 0.85, icon: "https://img.icons8.com/color/96/enscape--v1.png", fallback: "✨" },
+          { name: "3ds Max", type: "3D Visualisation", pct: 0.78, icon: "https://img.icons8.com/color/96/3ds-max.png", fallback: "🌌" },
+          { name: "Lumion", type: "Arch Visualisation", pct: 0.75, icon: "https://img.icons8.com/color/96/lumion.png", fallback: "🌿" },
+        ]}
       />
 
-      {/* Row 3, full width — Sustainable Design */}
-      <GridItem
-        area="md:[grid-area:3/1/4/13]"
-        icon={<Leaf className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
-        title="Sustainable Design & Green Building"
-        accent="Green"
-        description="Integrating passive design strategies, daylighting analysis, and green building principles. Every project considers its environmental footprint — from material selection to energy performance and long-term resilience."
-        tags={["BIM", "Energy Analysis", "Daylighting", "LEED", "Passive Design"]}
+        {/* Structural Engineering (Fourth) */}
+        <GridItem
+          area=""
+        icon={<Cpu className="h-4 w-4 md:h-5 md:w-5" style={{ color: "#aaaaaa" }} />}
+        title="Structural Engineering"
+        accent="Analysis"
+        description="Computational analysis of frames, beams, slabs, and foundations. Ensuring safety and efficiency through engineering precision."
+        softwareItems={[
+          { name: "ETABS", type: "Structural Analysis", pct: 0.80, icon: "https://img.icons8.com/color/96/structural-analysis.png", fallback: "⚙️" },
+        ]}
       />
+      </ul>
 
-    </ul>
+    </div>
   );
 }

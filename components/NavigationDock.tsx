@@ -18,7 +18,7 @@ export function NavigationDock() {
   ];
 
   return (
-    <header id="main-nav" className="flex sticky top-0 z-50 w-full max-w-[100vw] overflow-hidden border-b border-black/10 dark:border-white/10 bg-background/50 dark:bg-zinc-950/30 backdrop-blur-xl backdrop-saturate-150 py-1 md:py-3 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] relative">
+    <header id="main-nav" className="flex sticky top-0 z-50 w-full max-w-[100vw] overflow-hidden border-b border-black/10 dark:border-white/10 bg-background/50 dark:bg-zinc-950/30 backdrop-blur-xl backdrop-saturate-150 py-1 md:py-1 shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] relative">
       <div className="absolute inset-0 bg-gradient-to-b from-foreground/5 to-transparent pointer-events-none" />
 
       {/* Navigation Wrapper - Handles safe scrolling */}
@@ -33,7 +33,7 @@ export function NavigationDock() {
                 href={item.href}
                 prefetch={true}
                 scroll={false}
-                className={`relative text-[clamp(14px,3.5vw,16px)] md:text-[14px] font-sans font-bold tracking-wide whitespace-nowrap transition-colors duration-300 py-2 ${
+                className={`relative text-[clamp(14px,3.5vw,16px)] md:text-[16px] font-[family-name:var(--font-rosarivo)] tracking-wide whitespace-nowrap transition-colors duration-300 py-2 ${
                   isActive ? 'text-foreground drop-shadow-[0_0_8px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]' : 'text-zinc-600 dark:text-zinc-400 hover:text-foreground hover:opacity-90'
                 }`}
               >

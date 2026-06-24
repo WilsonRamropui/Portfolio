@@ -267,6 +267,7 @@
   /* Only transition border and background — NOT all */
   transition: border-color 0.2s ease, background-color 0.2s ease !important;
   -webkit-appearance: none;
+  appearance: none;
   /* Prevent iOS zoom on focus (font-size must be >= 16px to prevent, or set explicitly) */
   font-size: max(14px, 16px) !important;
 }
@@ -296,6 +297,7 @@
   /* Only border/bg transition */
   transition: border-color 0.2s ease, background-color 0.2s ease;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .contact-textarea:focus {
@@ -366,7 +368,8 @@
 .contact-btn-glow-1,
 .contact-btn-glow-2 {
   position: absolute;
-  inset-x: 0;
+  left: 0;
+  right: 0;
   bottom: -1px;
   height: 1px;
   opacity: 0;
@@ -379,7 +382,8 @@
 }
 
 .contact-btn-glow-2 {
-  inset-x: 20%;
+  left: 20%;
+  right: 20%;
   filter: blur(2px);
   background: linear-gradient(90deg, transparent, #6366f1, transparent);
 }
@@ -487,6 +491,7 @@
   font-family: 'Playfair Display', Georgia, serif;
   background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 40%, #52525b 100%); 
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   line-height: 1;
   transform: translateY(-4px); 

@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import Portfolio from "@/components/portfolio-menu";
 import PageTransition from "@/components/PageTransition";
 import PreLoader from "@/components/PreLoader";
-import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots, Cormorant_Infant } from "next/font/google";
+import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots, Cormorant_Infant, Rosarivo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -65,6 +65,12 @@ const cormorantInfant = Cormorant_Infant({
   variable: '--font-cormorant-infant',
   display: 'swap',
 });
+const rosarivo = Rosarivo({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-rosarivo',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "Wilson Portfolio",
@@ -84,7 +90,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="en" className={cn("font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable, cormorantInfant.variable)}>
+    <html suppressHydrationWarning lang="en" className={cn("font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable, cormorantInfant.variable, rosarivo.variable)}>
       <body className="antialiased transition-colors duration-500 ease-in-out">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-clip">
