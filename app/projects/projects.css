@@ -461,11 +461,26 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .prj-grid {
     grid-template-columns: 1fr;
   }
   .prj-hero-title {
+    font-size: 32px;
+  }
+  .prj-hero-subtitle {
+    font-size: 16px;
+  }
+  .prj-card-title {
+    font-size: 24px;
+  }
+  .prj-card-desc {
+    font-size: 16px;
+  }
+  .prj-modal-title {
     font-size: 28px;
+  }
+  .prj-modal-desc {
+    font-size: 16px;
   }
 }

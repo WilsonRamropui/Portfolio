@@ -546,16 +546,17 @@
 
   /* Hero */
   .skills-hero-title {
-    font-size: 28px;
+    font-size: 32px;
   }
   .skills-hero-sub {
+    font-size: 16px;
     max-width: 100%;
   }
 
   /* Section headers */
-  .skills-section-label { font-size: 10px; }
+  .skills-section-label { font-size: 11px; }
   .skills-section-title {
-    font-size: 22px;
+    font-size: 24px;
     margin-bottom: 1.5rem;
   }
 
@@ -566,13 +567,13 @@
   }
   .stat-item { border-right: 1px solid var(--sk-border-subtle); padding: 1.5rem 0.75rem; }
   .stat-item:nth-child(2n) { border-right: none; }
-  .stat-number { font-size: 28px; }
-  .stat-label  { font-size: 8px; }
+  .stat-number { font-size: 32px; }
+  .stat-label  { font-size: 10px; }
 
   /* Workflow: 3 col */
   .skills-workflow-steps { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
   .workflow-step-dot { width: 44px; height: 44px; font-size: 1.1rem; }
-  .workflow-step-label { font-size: 8px; }
+  .workflow-step-label { font-size: 10px; }
 }
 
 /* ── Small Mobile: 480px ─────────────────────────────────────── */
@@ -588,28 +589,28 @@
   .skills-hero-rule-line { width: 50px; }
 
   /* Section */
-  .skills-section-label { font-size: 8px; letter-spacing: 0.3em; }
-  .skills-section-title { font-size: 18px; }
+  .skills-section-label { font-size: 10px; letter-spacing: 0.3em; }
+  .skills-section-title { font-size: 22px; }
 
   /* Software grid: 2 col, tighter cards */
   .skills-software-grid { gap: 1px; }
   .skill-card { padding: 1rem 0.85rem 0.9rem; }
   .skill-card-icon-wrap { width: 38px; height: 38px; }
   .skill-card-icon-img  { width: 24px; height: 24px; }
-  .skill-card-name  { font-size: 14px; }
-  .skill-card-type  { font-size: 12px; margin-bottom: 0.75rem; }
+  .skill-card-name  { font-size: 16px; }
+  .skill-card-type  { font-size: 14px; margin-bottom: 0.75rem; }
 
   /* Stats: 2 col tighter */
   .skills-stats-strip { margin-bottom: 2.5rem; }
   .stat-item { padding: 1.2rem 0.5rem; }
-  .stat-number { font-size: 24px; }
-  .stat-label  { font-size: 8px; letter-spacing: 0.2em; }
+  .stat-number { font-size: 28px; }
+  .stat-label  { font-size: 9px; letter-spacing: 0.2em; }
 
   /* Workflow: 2 col */
   .skills-workflow-steps { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .workflow-step { padding: 0 0.25rem 1rem; }
   .workflow-step-dot { width: 40px; height: 40px; font-size: 1rem; }
-  .workflow-step-label { font-size: 8px; }
+  .workflow-step-label { font-size: 9px; }
 }
 
 /* ── XS Mobile: 360px ────────────────────────────────────────── */

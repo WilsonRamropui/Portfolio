@@ -446,14 +446,20 @@
 .exp-fade-up:nth-child(5) { animation-delay: 0.5s; }
 
 /* ── RESPONSIVE ────────────────────────────────────────────── */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .exp-panel {
     padding: 28px 16px 36px;
     border-radius: 16px;
     margin: 0 4px;
   }
   .exp-main-title {
-    font-size: 28px;
+    font-size: 32px;
+  }
+  .exp-subtitle-text {
+    font-size: 16px;
+  }
+  .exp-section-title {
+    font-size: 24px;
   }
   .exp-tech-grid {
     grid-template-columns: 1fr;
@@ -464,17 +470,17 @@
     padding: 24px 20px;
   }
   .exp-timeline-company {
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 19px;
+    margin-bottom: 8px;
   }
   .exp-timeline-desc {
-    font-size: 14px;
-    line-height: 1.5;
-    margin-bottom: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 16px;
   }
   .exp-tag {
-    font-size: 8px;
-    padding: 3px 8px;
+    font-size: 10px;
+    padding: 4px 10px;
   }
 
   .exp-bg-image { filter: none !important; }

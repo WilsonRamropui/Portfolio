@@ -201,7 +201,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
       >
         {/* ── Rotating 3D container ── */}
         <motion.div
-          style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d" }}
+          style={{ rotateX: sRotX, rotateY: sRotY, transformStyle: "preserve-3d", willChange: "transform" }}
           className="absolute inset-0 w-full h-full"
         >
         {/* ══════════════ FRONT FACE ══════════════ */}
@@ -306,7 +306,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* LEFT EDGE */}
         <div
-          className="absolute pointer-events-none md:backdrop-blur-[12px]"
+          className="absolute pointer-events-none"
           style={{
             top: `${CHAMFER - 0.5}px`, left: 0, marginLeft: `-${HALF}px`, width: `${THICKNESS}px`, height: `calc(100% - ${CHAMFER * 2 - 1}px)`,
             transformOrigin: "center",
@@ -317,7 +317,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* RIGHT EDGE */}
         <div
-          className="absolute pointer-events-none md:backdrop-blur-[12px]"
+          className="absolute pointer-events-none"
           style={{
             top: `${CHAMFER - 0.5}px`, left: "100%", marginLeft: `-${HALF}px`, width: `${THICKNESS}px`, height: `calc(100% - ${CHAMFER * 2 - 1}px)`,
             transformOrigin: "center",
@@ -328,7 +328,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* TOP EDGE */}
         <div
-          className="absolute pointer-events-none md:backdrop-blur-[12px]"
+          className="absolute pointer-events-none"
           style={{
             top: 0, marginTop: `-${HALF}px`, left: `${CHAMFER - 0.5}px`, width: `calc(100% - ${CHAMFER * 2 - 1}px)`, height: `${THICKNESS}px`,
             transformOrigin: "center",
@@ -339,7 +339,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* BOTTOM EDGE */}
         <div
-          className="absolute pointer-events-none md:backdrop-blur-[12px]"
+          className="absolute pointer-events-none"
           style={{
             top: "100%", marginTop: `-${HALF}px`, left: `${CHAMFER - 0.5}px`, width: `calc(100% - ${CHAMFER * 2 - 1}px)`, height: `${THICKNESS}px`,
             transformOrigin: "center",
@@ -363,7 +363,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         ].map(([pos, tfm, bg], i) => (
           <div
             key={i}
-            className="absolute pointer-events-none md:backdrop-blur-[12px]"
+            className="absolute pointer-events-none"
             style={{
               ...(pos as React.CSSProperties),
               width: `${CHAMFER_DIAG + 1.5}px`,
