@@ -153,6 +153,11 @@
     scroll-behavior: smooth;
     overscroll-behavior-y: none;
   }
+  @media (max-width: 768px) {
+    html {
+      font-size: 18px; /* increased text size for mobile view */
+    }
+  }
 }
 
 @layer utilities {

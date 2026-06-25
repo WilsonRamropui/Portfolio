@@ -95,7 +95,7 @@ function DetailOverlay({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 1.0, ease: CINEMATIC }}
     >
       {/* Light backdrop */}
       <motion.div
@@ -104,18 +104,18 @@ function DetailOverlay({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 1.0, ease: CINEMATIC }}
         onClick={onClose}
       />
 
-      {/* Content panel — slides up from bottom */}
+      {/* Content panel — smooth zoom/scale-in */}
       <motion.div
         className="relative w-full h-full flex flex-col-reverse lg:flex-row"
-        style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-        initial={{ y: "4%", opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: "4%", opacity: 0 }}
-        transition={{ duration: 0.55, ease: CINEMATIC }}
+        style={{ willChange: "transform", backfaceVisibility: "hidden", transformOrigin: "center center" }}
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        transition={{ duration: 1.0, ease: CINEMATIC }}
       >
         {/* Back button (Fixed for mobile, absolute for desktop) */}
         <motion.button
@@ -123,7 +123,7 @@ function DetailOverlay({
           className="fixed top-6 left-6 lg:absolute lg:top-8 lg:left-16 z-[210] flex items-center gap-2 font-mono text-[9px] tracking-[0.22em] uppercase text-[#1A1816] bg-[#F4F0E6] lg:bg-transparent border border-[#1A1816]/10 lg:border-[#5A554F]/25 hover:border-[#1A1816]/50 lg:text-[#5A554F] lg:hover:text-[#1A1816] px-4 py-[7px] rounded-full transition-colors duration-200 shadow-sm lg:shadow-none"
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
+          transition={{ delay: 1.3, duration: 0.4 }}
         >
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.4">
             <path d="M8 6H2M2 6L4.5 3.5M2 6L4.5 8.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -142,7 +142,7 @@ function DetailOverlay({
               className="font-mono text-[9px] tracking-[0.22em] uppercase text-[#8B857A] mb-4 lg:mb-6"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.25, duration: 0.5 }}
+              transition={{ delay: 1.0, duration: 0.4 }}
             >
               {view.tag}
             </motion.span>
@@ -154,7 +154,7 @@ function DetailOverlay({
                 style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)", lineHeight: 0.88, fontWeight: 400 }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
-                transition={{ delay: 0.3, duration: 1.2, ease: CINEMATIC }}
+                transition={{ delay: 1.05, duration: 0.6, ease: CINEMATIC }}
               >
                 {view.label}
               </motion.h2>
@@ -165,7 +165,7 @@ function DetailOverlay({
                 style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)", lineHeight: 0.88, fontWeight: 300, fontStyle: "italic" }}
                 initial={{ y: "110%" }}
                 animate={{ y: 0 }}
-                transition={{ delay: 0.42, duration: 1.2, ease: CINEMATIC }}
+                transition={{ delay: 1.1, duration: 0.6, ease: CINEMATIC }}
               >
                 {view.subtitle}
               </motion.h2>
@@ -176,7 +176,7 @@ function DetailOverlay({
               style={{ height: 1, maxWidth: 200, background: "linear-gradient(90deg, rgba(26,24,22,0.2), transparent)", marginBottom: "clamp(12px, 3vh, 24px)", transformOrigin: "left" }}
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ delay: 0.55, duration: 0.8, ease: CINEMATIC }}
+              transition={{ delay: 1.15, duration: 0.4, ease: CINEMATIC }}
             />
 
             {/* Description */}
@@ -185,7 +185,7 @@ function DetailOverlay({
               style={{ maxWidth: 300 }}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, duration: 0.6 }}
+              transition={{ delay: 1.2, duration: 0.4 }}
             >
               {view.description}
             </motion.p>
@@ -196,7 +196,7 @@ function DetailOverlay({
             className="flex items-center justify-between mt-auto lg:mt-8 pt-4 lg:pt-0 border-t border-black/5 lg:border-none"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
+            transition={{ delay: 1.25, duration: 0.4 }}
           >
             <div>
               <p className="font-mono text-[8px] tracking-[0.25em] uppercase text-[#8B857A] mb-1">Ref</p>
@@ -213,10 +213,10 @@ function DetailOverlay({
         <motion.div
           className="relative flex-1 h-full flex items-center justify-center"
           style={{ backgroundColor: "#F4F0E6", willChange: "transform", backfaceVisibility: "hidden" }}
-          initial={{ x: "6%", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: "6%", opacity: 0 }}
-          transition={{ delay: 0.15, duration: 0.65, ease: CINEMATIC }}
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          transition={{ duration: 1.0, ease: CINEMATIC }}
         >
           <div className="relative" style={{ width: "88%", height: "82%", transform: "translateZ(0)" }}>
             <Image
