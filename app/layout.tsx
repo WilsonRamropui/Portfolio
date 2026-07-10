@@ -77,6 +77,10 @@ const rosarivo = Rosarivo({
 export const metadata: Metadata = {
   title: "Wilson Portfolio",
   description: "Wilson Ramropui - Founding Engineer & Design Engineer",
+  icons: {
+    icon: "/w-icon.png?v=2",
+    apple: "/w-icon.png?v=2",
+  }
 };
 
 export const viewport = {
