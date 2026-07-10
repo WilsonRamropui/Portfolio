@@ -3,10 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import {
-  IconBrandTwitter,
   IconBrandLinkedin,
   IconBrandGithub,
-  IconBrandFacebook,
   IconBrandInstagram
 } from "@tabler/icons-react";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
@@ -43,11 +41,9 @@ export function Footer() {
 
           {/* Social Icons (Right aligned on PC, stacked on mobile) */}
           <div className="flex flex-row items-center justify-center gap-4 md:gap-5 shrink-0 md:absolute md:right-0">
-            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandTwitter className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandLinkedin className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandGithub className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandFacebook className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
-            <Link href="#" className="hover:text-foreground transition-colors"><IconBrandInstagram className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="http://www.linkedin.com/in/wilsonramropui" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors"><IconBrandLinkedin className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="https://github.com/WilsonRamropui" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors"><IconBrandGithub className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
+            <Link href="https://www.instagram.com/keeponspammingme/" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors"><IconBrandInstagram className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5]" /></Link>
           </div>
         </div>
       </div>
