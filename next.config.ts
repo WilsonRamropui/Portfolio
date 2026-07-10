@@ -18,8 +18,10 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Next.js Image optimisation — serve AVIF then WebP, cache 1 year
+  output: "export",
+  // Next.js Image optimisation — disabled for static export
   images: {
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 31536000, // 1 year in seconds
     deviceSizes: [360, 480, 640, 750, 828, 1080, 1200, 1920, 2048],
