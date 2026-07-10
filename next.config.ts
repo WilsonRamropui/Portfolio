@@ -35,31 +35,6 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Aggressive HTTP caching for static assets
-  async headers() {
-    return [
-      {
-        // Cache Next.js static assets (JS, CSS, fonts) for 1 year — immutable
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        // Cache local images for 1 year
-        source: "/images/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default nextConfig;

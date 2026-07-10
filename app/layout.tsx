@@ -10,6 +10,8 @@ import PreLoader from "@/components/PreLoader";
 import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots, Cormorant_Infant, Rosarivo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { ArchitecturalGrid } from "@/components/ArchitecturalGrid";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans',display:'swap'});
 const cormorantGaramond = Cormorant_Garamond({
@@ -93,17 +95,20 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en" className={cn("font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable, cormorantInfant.variable, rosarivo.variable)}>
       <body className="antialiased transition-colors duration-500 ease-in-out">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-clip">
-          <PreLoader />
-          <NavigationDock />
-          <Portfolio />
-          <main className="flex-1 flex flex-col relative pt-8">
-            <PageTransition>
-              {children}
-              <Footer />
-            </PageTransition>
-          </main>
-        </div>
+          <SmoothScroll>
+            <ArchitecturalGrid />
+            <div className="relative flex flex-col min-h-screen w-full max-w-full overflow-x-clip">
+            <PreLoader />
+            <NavigationDock />
+            <Portfolio />
+            <main className="flex-1 flex flex-col relative pt-8">
+              <PageTransition>
+                {children}
+                <Footer />
+              </PageTransition>
+            </main>
+          </div>
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

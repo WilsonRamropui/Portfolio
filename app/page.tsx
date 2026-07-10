@@ -2,18 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 import { homePageStyles } from '@/styles/dummy-styles';
 import { Spotlight } from '@/components/ui/spotlight';
-import FloorPlan3D from '@/components/FloorPlan3D';
+import { DynamicFloorPlan as FloorPlan3D } from '@/components/DynamicFloorPlan';
+
 import "./tools/skills.css";
 import { AnimatedStrokeText } from '@/components/AnimatedStrokeText';
 import { SweepButton } from "@/components/SweepButton";
 import { LayoutGrid } from "lucide-react";
+import { CinematicBackground } from "@/components/CinematicBackground";
+import { StaggeredText } from "@/components/StaggeredText";
 
 export default function Home() {
   return (
     <div className={homePageStyles.container}>
       <Spotlight className="-top-40 left-0 md:-top-20 md:left-60 z-[10]" fill="rgba(255, 255, 255, 0.5)" />
       {/* ── CINEMATIC BACKGROUND ── */}
-      <div className="skills-bg-image" aria-hidden="true" />
+      <CinematicBackground className="skills-bg-image" />
       <div className="skills-bg-vignette" aria-hidden="true" />
 
       <div className="w-full flex justify-center mx-auto -mt-4 md:-mt-16 -mb-4 z-10 relative">
@@ -32,9 +35,7 @@ export default function Home() {
           
           {/* Left Column: Text Content */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left max-w-2xl mt-6 md:mt-8 lg:mt-0 lg:-translate-y-16">
-            <h1 className="skills-hero-title">
-              Building Design Products
-            </h1>
+            <StaggeredText text="Building Design Products" className="skills-hero-title" delay={0.3} />
 
             <h2 className={homePageStyles.h2}>
               Engineering • Design

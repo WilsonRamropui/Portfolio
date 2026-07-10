@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "./skills.css";
 import dynamic from "next/dynamic";
 import { Monitor } from "lucide-react";
+import { CinematicBackground } from "@/components/CinematicBackground";
 
 const GlowingEffectDemo = dynamic(() => import("@/components/glowing-effect-demo"), { ssr: false });
 const TextType = dynamic(() => import('@/components/TextType'), { ssr: false });
@@ -27,7 +28,7 @@ export default function SkillsPage() {
   return (
     <div className="skills-page">
       {/* ── CINEMATIC BACKGROUND (same as experience page) ── */}
-      <div className="skills-bg-image" aria-hidden="true" />
+      <CinematicBackground className="skills-bg-image" />
       <div className="skills-bg-vignette" aria-hidden="true" />
 
 

@@ -1,9 +1,13 @@
 'use client';
 
 import React from "react";
-import { Timeline } from "@/components/ui/timeline";
-import GooeyDemo from "@/components/gooey-demo";
+import dynamic from 'next/dynamic';
 import TextType from '@/components/TextType';
+import { StaggeredText } from '@/components/StaggeredText';
+
+const Timeline = dynamic(() => import('@/components/ui/timeline').then(mod => mod.Timeline), { ssr: false });
+const GooeyDemo = dynamic(() => import('@/components/gooey-demo'), { ssr: false });
+import { CinematicBackground } from "@/components/CinematicBackground";
 import "./experience.css";
 
 /* ════════════════════════════════════════════════════════════════
@@ -90,7 +94,7 @@ export default function Experience() {
     <div className="exp-page">
 
       {/* ── Atmospheric background ─────────────────────────── */}
-      <div className="exp-bg-image" aria-hidden="true" />
+      <CinematicBackground className="exp-bg-image" />
       <div className="exp-bg-ember"  aria-hidden="true" />
       <div className="exp-bg-vignette" aria-hidden="true" />
 
@@ -102,7 +106,7 @@ export default function Experience() {
         {/* ── Hero — floats above the glass, same as tools page ── */}
         <header className="exp-header-outside exp-fade-up">
           <span className="exp-eyebrow">— Compendium of Works —</span>
-          <h1 className="exp-main-title">Experience</h1>
+          <StaggeredText text="Experience" className="exp-main-title" delay={0.2} />
           <div className="exp-subtitle-wrap">
             <TextType
               text={[

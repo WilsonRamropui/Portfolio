@@ -5,6 +5,7 @@ import "../projects/projects.css";
 import { Mail, FileText } from "lucide-react";
 import { MetallicCard } from "@/components/MetallicCard";
 import { SweepButton } from "@/components/SweepButton";
+import { CinematicBackground } from "@/components/CinematicBackground";
 
 export default function About() {
   const interests = [
@@ -21,7 +22,7 @@ export default function About() {
 
   return (
     <div className={s.pageContainer}>
-      <div className="prj-bg-image" aria-hidden="true" />
+      <CinematicBackground className="prj-bg-image" />
       <div className="prj-bg-vignette" aria-hidden="true" />
 
       <div className={`${s.contentWrapper} w-full max-w-6xl mx-auto`}>

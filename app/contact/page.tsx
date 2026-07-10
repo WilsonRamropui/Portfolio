@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import "../experience/experience.css";
 import "./contact.css";
+import { CinematicBackground } from "@/components/CinematicBackground";
 
 /* ─────────────────────────────────────────────────────────────────────────────
    WHY THIS FILE WAS REWRITTEN FOR MOBILE PERFORMANCE
@@ -44,7 +45,7 @@ export default function Contact() {
   return (
     <div className="exp-page">
       {/* ── Atmospheric background ── */}
-      <div className="exp-bg-image" aria-hidden="true" />
+      <CinematicBackground className="exp-bg-image" />
       <div className="exp-bg-vignette" aria-hidden="true" />
 
       {/* ── Scrollable content ── */}
@@ -107,20 +108,25 @@ function ContactForm() {
     setSending(true);
     setSuccess(false);
 
-    emailjs.init("YOUR_PUBLIC_KEY");
+    emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "");
     emailjs
       .send(
-        "service_y8xhw8u",
-        "YOUR_TEMPLATE_ID",
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_y8xhw8u",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
         {
           from_name: formData.name,
           to_name: "Wilson Ramropui",
           from_email: formData.email,
-          to_email: "hello@example.com",
+          to_email: "wilsonramz774@gmail.com",
           subject: formData.subject,
           message: formData.message,
+          name: formData.name,       // Matches {{name}} in template
+          email: formData.email,     // Matches {{email}} in template (To Email)
+          title: formData.subject,   // Matches {{title}} in template
         },
-        "YOUR_PUBLIC_KEY"
+        {
+          publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "",
+        }
       )
       .then(
         () => {
@@ -129,9 +135,9 @@ function ContactForm() {
           setFormData({ name: "", email: "", subject: "", message: "" });
         },
         (error) => {
-          console.error(error);
+          console.error("EmailJS Error:", error);
           setSending(false);
-          alert("Something went wrong. Please try again later.");
+          alert("Error sending message: " + (error.text || JSON.stringify(error)));
         }
       );
   };

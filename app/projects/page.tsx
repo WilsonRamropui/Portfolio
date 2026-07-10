@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
+import { motion } from "motion/react";
 import { projects, Project } from "@/lib/projects-data";
 import TextType from '@/components/TextType';
+import { CinematicBackground } from "@/components/CinematicBackground";
 import "./projects.css";
 
 export default function ProjectsPage() {
@@ -24,7 +26,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="prj-page">
-      <div className="prj-bg-image" />
+      <CinematicBackground className="prj-bg-image" />
       <div className="prj-bg-vignette" />
 
       <div className="prj-scroll-layer">
@@ -131,18 +133,25 @@ export default function ProjectsPage() {
               />
               
               <div className="prj-toggles">
-                <button 
-                  className={`prj-toggle-btn ${activeView === "3D" ? "active" : ""}`}
-                  onClick={() => setActiveView("3D")}
-                >
-                  3D Render
-                </button>
-                <button 
-                  className={`prj-toggle-btn ${activeView === "2D" ? "active" : ""}`}
-                  onClick={() => setActiveView("2D")}
-                >
-                  2D Floor Plan
-                </button>
+                {["3D", "2D"].map((view) => (
+                  <button
+                    key={view}
+                    className={`relative px-6 py-3 rounded-full font-cinzel text-[12px] tracking-[0.1em] uppercase transition-colors duration-300 ${
+                      activeView === view ? "text-black font-semibold" : "text-white/50 hover:text-white/80"
+                    }`}
+                    style={{ border: "none", background: "transparent", cursor: "pointer" }}
+                    onClick={() => setActiveView(view as "3D" | "2D")}
+                  >
+                    {activeView === view && (
+                      <motion.div
+                        layoutId="pill"
+                        className="absolute inset-0 bg-white rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{view === "3D" ? "3D Render" : "2D Floor Plan"}</span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
