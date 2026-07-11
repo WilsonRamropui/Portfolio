@@ -36,7 +36,7 @@ export default function PageTransition({ children }: { children: React.ReactNode
         duration: 0.12,      // 120ms — barely perceptible, but smooth
         ease: 'easeOut',     // fast start, gentle settle — feels snappy
       }}
-      style={{ minHeight: '100%', display: 'flex', flexDirection: 'column', flex: 1 }}
+      style={{ minHeight: '100%', display: 'flex', flexDirection: 'column', flex: 1, willChange: 'opacity' }}
     >
       {children}
     </motion.div>

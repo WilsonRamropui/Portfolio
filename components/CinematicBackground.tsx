@@ -42,6 +42,7 @@ export function CinematicBackground({ className }: CinematicBackgroundProps) {
         x: translateX,
         y: translateY,
         scale: 1.05, // Slight scale up to prevent edges from showing during parallax
+        willChange: "transform",
       }}
       aria-hidden="true"
     />

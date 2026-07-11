@@ -16,7 +16,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 3787 2842"
       fill="none"
-      style={{ filter: "blur(151px)", transform: "translateZ(0)" }}
+      style={{ filter: "blur(151px)", transform: "translateZ(0)", willChange: "filter, transform" }}
     >
       <ellipse
         cx="1924.71"

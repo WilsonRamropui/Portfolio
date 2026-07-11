@@ -13,7 +13,9 @@ export function ArchitecturalGrid() {
         `,
         backgroundSize: '40px 40px',
         maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)',
-        WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)'
+        WebkitMaskImage: 'radial-gradient(ellipse at center, black 20%, transparent 80%)',
+        willChange: 'transform',
+        transform: 'translateZ(0)'
       }}
       aria-hidden="true"
     />
