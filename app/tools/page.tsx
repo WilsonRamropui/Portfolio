@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState } from "react";
+import React from "react";
 import "./skills.css";
 import dynamic from "next/dynamic";
-import { Monitor } from "lucide-react";
+import { ExternalLink, Award } from "lucide-react";
+
 import { CinematicBackground } from "@/components/CinematicBackground";
+import { CertificationsCarousel } from "@/components/CertificationsCarousel";
 
 const GlowingEffectDemo = dynamic(() => import("@/components/glowing-effect-demo"), { ssr: false });
 const TextType = dynamic(() => import('@/components/TextType'), { ssr: false });
@@ -19,6 +21,40 @@ const workflow = [
   { icon: "⚙️", label: "Structural\nAnalysis" },
   { icon: "🌟", label: "Visualisation\n& Render" },
   { icon: "📋", label: "Construction\nDocs" },
+];
+
+/* ================================================================
+   CERTIFICATIONS DATA
+   ================================================================ */
+const certifications = [
+  {
+    title: "AWS Certified Cloud Practitioner",
+    issuer: "Amazon Web Services",
+    category: "FOUNDATIONAL",
+    icon: "/aws-cloud-practitioner.png",
+    url: "#"
+  },
+  {
+    title: "AWS Certified AI Practitioner",
+    issuer: "Amazon Web Services",
+    category: "FOUNDATIONAL",
+    icon: "/aws-ai-practitioner.png",
+    url: "#"
+  },
+  {
+    title: "AWS Certified Developer – Associate",
+    issuer: "Amazon Web Services",
+    category: "ASSOCIATE",
+    icon: "/aws-developer.png",
+    url: "#"
+  },
+  {
+    title: "AWS Certified Solutions Architect – Associate",
+    issuer: "Amazon Web Services",
+    category: "ASSOCIATE",
+    icon: "/aws-solutions-architect.png",
+    url: "#"
+  }
 ];
 
 /* ================================================================
@@ -63,6 +99,13 @@ export default function SkillsPage() {
         {/* ── GLASS PANEL WRAP starts here, below the hero ── */}
         <div className="sk-glass-wrap">
 
+
+          {/* ── Certifications & Badges ──────────────────────────── */}
+          <section aria-label="Certifications & Badges" className="mb-20">
+            <div className="skills-section-label">Credentials</div>
+            <h2 className="skills-section-title">Certifications &amp; Badges</h2>
+            <CertificationsCarousel certifications={certifications} />
+          </section>
 
           {/* ── Areas of Expertise — Glowing Effect Bento ──────── */}
           <section aria-label="Areas of expertise" className="mb-20">

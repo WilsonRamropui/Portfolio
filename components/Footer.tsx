@@ -8,11 +8,10 @@ import {
   IconBrandInstagram
 } from "@tabler/icons-react";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import { usePathname } from "next/navigation";
+
 
 export function Footer() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
+
   return (
     <footer className="relative z-10 w-full mt-auto pt-10 pb-0 px-4 md:pt-16 md:pb-0 md:px-6 bg-transparent">
       <div className="max-w-5xl mx-auto flex flex-col items-center">

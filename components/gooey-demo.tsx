@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react"
 import { AnimatePresence, motion } from "motion/react"
-import useDetectBrowser from "@/hooks/use-detect-browser"
+
 import useScreenSize from "@/hooks/use-screen-size"
 import GooeySvgFilter from "@/components/fancy/filter/gooey-svg-filter"
 
@@ -49,6 +49,7 @@ export default function GooeyDemo() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+
     setMounted(true)
   }, [])
 

@@ -9,6 +9,9 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
   const orig = console.error;
   console.error = (...args: unknown[]) => {
     if (typeof args[0] === 'string' && args[0].includes('Encountered a script tag')) return;
+    if (args[0] && typeof args[0] === 'object' && Object.prototype.toString.call(args[0]) === '[object Event]') return;
+    // Next.js synthetic events sometimes just stringify to [object Event]
+    if (args[0] && args[0].toString && args[0].toString() === '[object Event]') return;
     orig.apply(console, args);
   };
 }

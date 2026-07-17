@@ -75,12 +75,36 @@ const rosarivo = Rosarivo({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://wilson-portfolio.com'),
   title: "Wilson Portfolio",
   description: "Wilson Ramropui - Founding Engineer & Design Engineer",
   icons: {
-    icon: "/w-icon.svg?v=3",
-    apple: "/w-icon.svg?v=3",
-  }
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: 'Wilson Portfolio',
+    description: 'Wilson Ramropui - Founding Engineer & Design Engineer',
+    url: 'https://wilson-portfolio.com',
+    siteName: 'Wilson Portfolio',
+    images: [
+      {
+        url: '/gothic-thumb-1.png',
+        width: 1200,
+        height: 630,
+        alt: 'Wilson Portfolio Preview',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Wilson Portfolio',
+    description: 'Wilson Ramropui - Founding Engineer & Design Engineer',
+    creator: '@wilson',
+    images: ['/gothic-thumb-1.png'],
+  },
 };
 
 export const viewport = {

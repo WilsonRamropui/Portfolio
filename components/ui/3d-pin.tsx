@@ -25,7 +25,7 @@ export const PinContainer = ({
   const [mounted, setMounted] = useState(false);
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+
     setMounted(true);
   }, []);
 
@@ -73,18 +73,16 @@ export const PinContainer = ({
           <div className={cn(" relative z-50 ", className)}>{children}</div>
         </div>
       </div>
-      <PinPerspective title={title} href={href} pinClassName={pinClassName} />
+      <PinPerspective title={title} pinClassName={pinClassName} />
     </Tag>
   );
 };
 
 export const PinPerspective = ({
   title,
-  href,
   pinClassName,
 }: {
   title?: string;
-  href?: string;
   pinClassName?: string;
 }) => {
   return (

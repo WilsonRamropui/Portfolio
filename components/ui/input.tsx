@@ -5,8 +5,7 @@ import { useMotionTemplate, useMotionValue, motion } from "motion/react";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+const Input = ({ className, type, ref, ...props }: InputProps & { ref?: React.Ref<HTMLInputElement> }) => {
     const radius = 100; // change this to increase the rdaius of the hover effect
     const [visible, setVisible] = React.useState(false);
 
@@ -46,8 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         />
       </motion.div>
     );
-  },
-);
+  };
 Input.displayName = "Input";
 
 export { Input };

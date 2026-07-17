@@ -2,6 +2,7 @@
 
 import React from "react";
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import TextType from '@/components/TextType';
 import { StaggeredText } from '@/components/StaggeredText';
 
@@ -25,9 +26,9 @@ export default function Experience() {
         <div key="exp-1" className="exp-timeline-card">
           <span className="exp-timeline-period">2026 — Present</span>
           <h4 className="exp-timeline-company">
-            <a href="https://www.tunnu.org/tec/home/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
+            <Link href="https://www.tunnu.org/tec/home/" target="_blank" rel="noopener noreferrer" className="hover:text-amber-500 transition-colors">
               Tunnu Engineering And Consultancy
-            </a>
+            </Link>
           </h4>
           <p className="exp-timeline-desc">
             Working as a Design Engineer, applying civil engineering principles and design expertise for consultancy projects.

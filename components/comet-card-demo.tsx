@@ -4,6 +4,7 @@ import { Mail, MapPin, Globe, Phone, ArrowUpRight } from "lucide-react";
 import React, { useRef, useCallback } from "react";
 import { toPng } from "html-to-image";
 import { Download } from "lucide-react";
+import Image from "next/image";
 
 export default function CometCardDemo() {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -40,11 +41,12 @@ export default function CometCardDemo() {
       >
         {/* Image section */}
         <div className="relative aspect-[3/4] w-full overflow-hidden">
-          <img
-            crossOrigin="anonymous"
-            className="absolute inset-0 h-full w-full object-cover"
-            alt="Wilson Ramropui Background"
+          <Image
             src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Wilson Ramropui Background"
+            fill
+            quality={100}
+            className="absolute inset-0 h-full w-full object-cover"
           />
           
           {/* Cinematic gradient overlay */}

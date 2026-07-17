@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useCallback } from "react";
 import emailjs from "@emailjs/browser";
-import { contactPageStyles as s } from "@/styles/dummy-styles";
-import { Mail, MapPin, Phone, Send, Globe, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Phone, Send } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";

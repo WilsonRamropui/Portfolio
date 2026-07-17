@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
+import Image from 'next/image';
 import './LogoLoop.css';
 
 const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
@@ -248,16 +249,14 @@ export const LogoLoop = memo(
             )}
           </div>
         ) : (
-          <img
+          <Image
             src={item.src}
-            srcSet={item.srcSet}
-            sizes={item.sizes}
-            width={item.width}
-            height={item.height}
+            width={item.width ?? 100}
+            height={item.height ?? logoHeight}
             alt={item.alt ?? ''}
             title={item.title}
-            loading="lazy"
-            decoding="async"
+            quality={100}
+            style={{ width: 'auto', height: '100%' }}
             draggable={false}
           />
         );
@@ -281,7 +280,7 @@ export const LogoLoop = memo(
           </li>
         );
       },
-      [renderItem]
+      [renderItem, logoHeight]
     );
 
     const logoLists = useMemo(

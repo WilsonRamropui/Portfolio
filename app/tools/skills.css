@@ -517,11 +517,175 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   CERTIFICATIONS & BADGES CAROUSEL
+   ═══════════════════════════════════════════════════════════════ */
+.cert-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.cert-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+  gap: 1.5rem;
+  padding: 1rem 0 2rem 0; /* Vertical padding for shadows */
+}
+
+.cert-carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.cert-carousel-slide {
+  flex: 0 0 calc(25% - 1.125rem); /* Default 4 columns */
+  scroll-snap-align: center;
+  min-width: 0; /* Prevent flex blowout */
+}
+
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--sk-border-subtle);
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.02),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.2),
+    0 8px 24px rgba(0,0,0,0.2);
+  height: 100%;
+}
+
+/* Rest of the original card styles... */
+
+.cert-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--sk-border-ornate);
+  transform: translateY(-4px);
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.08),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+    0 16px 40px rgba(0,0,0,0.4);
+}
+
+.cert-link-icon {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  color: var(--sk-fern);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.cert-card:hover .cert-link-icon {
+  opacity: 1;
+  color: var(--sk-parchment);
+  transform: scale(1.1);
+}
+
+.cert-badge-wrap {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.cert-badge-placeholder {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03), transparent);
+  border: 1px solid var(--sk-border-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sk-gold-dim);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.cert-card:hover .cert-badge-placeholder {
+  border-color: var(--sk-border-ornate);
+  color: var(--sk-ivory);
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), transparent);
+}
+
+.cert-category {
+  font-family: var(--sk-font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--sk-ivory);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--sk-border-dim);
+}
+
+.cert-title {
+  font-family: var(--sk-font-heading);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sk-ivory);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.cert-issuer {
+  font-family: var(--sk-font-body);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--sk-parchment);
+}
+
+/* ── Carousel Dots ────────────────────────────────────────────── */
+.cert-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.cert-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  outline: none;
+}
+
+.cert-dot:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.cert-dot.active {
+  background: var(--sk-gold-dim);
+  transform: scale(1.5);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — fluid from 1440px → 360px
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Tablet: 1024px ─────────────────────────────────────────── */
 @media (max-width: 1024px) {
+  .cert-carousel-slide {
+    flex: 0 0 calc(33.333% - 1rem); /* 3 columns */
+  }
   .sk-glass-wrap {
     padding: 32px 28px 44px;
     border-radius: 20px 20px 0 0;
@@ -574,6 +738,36 @@
   .skills-workflow-steps { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
   .workflow-step-dot { width: 44px; height: 44px; font-size: 1.1rem; }
   .workflow-step-label { font-size: 10px; }
+}
+
+/* ── Mobile Landscape: 768px ──────────────────────────────────── */
+@media (max-width: 768px) {
+  .cert-carousel-slide {
+    flex: 0 0 calc(60% - 1rem); /* 1 main column with peeks on both sides */
+  }
+  .skills-container {
+    padding: 0 16px;
+  }
+
+  .sk-glass-wrap {
+    padding: 20px 14px 28px;
+    border-radius: 8px 8px 0 0;
+  }
+}
+
+/* ── Mobile Portrait: 480px ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .cert-carousel-slide {
+    flex: 0 0 calc(85% - 1rem); /* Centers main card, leaves 7.5% peek on both sides */
+  }
+  .skills-hero-title {
+    font-size: 28px;
+  }
+
+  .sk-glass-wrap {
+    padding: 20px 14px 28px;
+    border-radius: 8px 8px 0 0;
+  }
 }
 
 /* ── Small Mobile: 480px ─────────────────────────────────────── */

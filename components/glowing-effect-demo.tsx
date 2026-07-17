@@ -5,10 +5,9 @@ import {
   Layers,
   Eye,
   PenTool,
-  ClipboardList,
-  Leaf,
 } from "lucide-react";
 import React from "react";
+import Image from "next/image";
 
 /* ================================================================
    CE DISCIPLINES — Gothic Victorian Corner-Bracket Panel Design
@@ -50,15 +49,15 @@ function SoftwareCardItem({ s }: { s: SoftwareItem }) {
     <div className="flex items-center gap-4 p-2 hover:bg-white/5 rounded-lg transition-colors group relative overflow-hidden w-full mt-2">
       <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-md bg-black/20 border border-white/5 shadow-inner overflow-hidden">
         {!imgFailed ? (
-          <img
-            ref={imgRef}
+          <Image
             src={s.icon}
             alt=""
             width={24}
             height={24}
             className="object-contain"
             onError={() => setImgFailed(true)}
-            loading="lazy"
+            quality={100}
+            unoptimized={true}
           />
         ) : (
           <span className="text-[1.2rem] leading-none opacity-80">{s.fallback}</span>

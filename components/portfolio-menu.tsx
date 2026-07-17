@@ -1,10 +1,8 @@
 "use client";
 
-import { ArrowLeftIcon, BookText, Layers3, Sun, Moon } from 'lucide-react';
+import { ArrowLeftIcon, BookText, Layers3 } from 'lucide-react';
 import { FaGithub, FaTwitter } from 'react-icons/fa';
-import { useTheme } from 'next-themes';
 import { AnimatePresence, motion, useAnimation } from 'motion/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -71,8 +69,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const [isBio, setIsBio] = useState(false);
     const [isMenu, setIsMenu] = useState(false);
-    const [mounted, setMounted] = useState(false);
-    const { theme, setTheme } = useTheme();
+
     const isAnimatingRef = useRef(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -87,7 +84,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
-        setMounted(true);
+
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
@@ -127,10 +124,6 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
         bio: { opacity: 0, translateX: '-3px' },
     };
 
-    const plusVariants = {
-        closed: { opacity: 1 },
-        open: { opacity: 0 },
-    };
 
     const iconsVariants = {
         closed: { opacity: 0, gap: '2px' },
@@ -257,6 +250,8 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         variants={imageVariants}
                         initial="closed"
                         animate={imageControls}
+                        role="button"
+                        aria-label="Toggle menu"
                         onClick={() => {
                             if (!isAnimatingRef.current) {
                                 setIsOpen((prev) => !prev);
@@ -280,6 +275,8 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                     className="top-1/2 right-[0.685rem] z-[999] absolute flex items-center gap-1 -translate-y-1/2"
                 >
                     <div
+                        role="button"
+                        aria-label="Open bio"
                         onClick={() => {
                             if (!isAnimatingRef.current) {
                                 setIsBio(true);
@@ -295,6 +292,8 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         <div className="bg-white rounded-full w-[1.5px] h-[5px]" />
                     </div>
                     <div
+                        role="button"
+                        aria-label="Open social links"
                         onClick={() => {
                             if (!isAnimatingRef.current) {
                                 setIsMenu(true);
@@ -356,6 +355,8 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                 >
                     <div className="flex items-center gap-4">
                         <div
+                            role="button"
+                            aria-label="Go back"
                             onClick={() => {
                                 if (!isAnimatingRef.current) {
                                     setIsMenu(false);
@@ -366,16 +367,16 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         >
                             <ArrowLeftIcon size={16} className="text-zinc-900 dark:text-white" suppressHydrationWarning />
                         </div>
-                        <Link href={config?.cvLink || '#'}>
+                        <Link href={config?.cvLink || '#'} aria-label="Resume">
                             <BookText size={16} className="rotate-[30deg] text-zinc-900 dark:text-white hover:text-orange-400 transition-colors" suppressHydrationWarning />
                         </Link>
-                        <Link href={config?.twitterUrl || '#'}>
+                        <Link href={config?.twitterUrl || '#'} aria-label="Twitter">
                             <FaTwitter size={16} className="text-zinc-900 dark:text-white hover:text-blue-400 transition-colors" suppressHydrationWarning />
                         </Link>
-                        <Link href={config?.layersLink || '#'}>
+                        <Link href={config?.layersLink || '#'} aria-label="Layers">
                             <Layers3 size={16} className="rotate-[30deg] text-zinc-900 dark:text-white hover:text-green-400 transition-colors" suppressHydrationWarning />
                         </Link>
-                        <Link href={config?.githubLink || '#'}>
+                        <Link href={config?.githubLink || '#'} aria-label="GitHub">
                             <FaGithub size={16} className="text-zinc-900 dark:text-white hover:text-purple-400 transition-colors" suppressHydrationWarning />
                         </Link>
                     </div>

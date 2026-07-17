@@ -19,7 +19,6 @@ const CHAMFER = 24;
 // Diagonal length of the chamfer face: 24√2 ≈ 34px
 const CHAMFER_DIAG = Math.ceil(CHAMFER * Math.SQRT2);
 // Translate offset to center each chamfer panel: CHAMFER/2 - CHAMFER_DIAG/2 ≈ -5
-const CHAMFER_OFF = Math.round(CHAMFER / 2 - CHAMFER_DIAG / 2);
 
 // Chamfered clip-path for front & back faces
 const CLIP = "polygon(24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px)";
@@ -206,10 +205,11 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
         >
         {/* ══════════════ FRONT FACE ══════════════ */}
         <div
-          className="absolute inset-0 overflow-hidden flex flex-col justify-between md:backdrop-blur-[12px]"
+          className="absolute inset-0 overflow-hidden flex flex-col justify-between backdrop-blur-[12px] md:backdrop-blur-[12px]"
           style={{
             ...faceShared,
             clipPath: CLIP,
+            WebkitClipPath: CLIP,
             background: FACE_BG,
             transform: `translateZ(${HALF}px)`,
             boxShadow: "inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(255,255,255,0.05)",
@@ -244,23 +244,23 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
           <div className="relative z-10 flex flex-col h-full justify-between p-5 sm:p-8 pt-10 sm:pt-12">
             <div>
               <div className="flex justify-between items-center w-full mb-4 sm:mb-6 mt-2 sm:mt-4">
-                <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded border border-zinc-500/50 bg-zinc-800/60 text-[9px] sm:text-[10px] font-bold text-zinc-300 tracking-wider">
+                <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded border border-zinc-500/50 bg-zinc-800/60 text-[9px] sm:text-[10px] font-bold text-zinc-300 tracking-wider" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9)", transform: "translateZ(1px)" }}>
                   <Lock className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> SECURE
                 </div>
                 <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-zinc-400" />
               </div>
             </div>
             <div className="flex flex-col items-center justify-center">
-              <h2 className="text-[20px] sm:text-[28px] leading-tight font-bold text-white tracking-widest text-center mb-2 sm:mb-3 break-words w-full px-1">{name}</h2>
-              <p className="text-zinc-400 text-[10px] sm:text-xs tracking-[0.20em] sm:tracking-[0.25em] font-medium text-center uppercase">{role}</p>
+              <h2 className="text-[20px] sm:text-[28px] leading-tight font-bold text-white tracking-widest text-center mb-2 sm:mb-3 break-words w-full px-1" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,0.9)", transform: "translateZ(1px)" }}>{name}</h2>
+              <p className="text-zinc-300 text-[10px] sm:text-xs tracking-[0.20em] sm:tracking-[0.25em] font-bold text-center uppercase" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9)", transform: "translateZ(1px)" }}>{role}</p>
             </div>
             <div className="mb-4 sm:mb-6">
-              <div className="flex justify-between items-end w-full">
+              <div className="flex justify-between items-end w-full" style={{ transform: "translateZ(1px)" }}>
                 <div>
-                  <p className="text-zinc-500 text-[9px] sm:text-[10px] font-bold tracking-[0.12em] sm:tracking-[0.15em] uppercase mb-1 sm:mb-1.5">ID NUMBER</p>
-                  <p className="text-zinc-200 font-mono text-[11px] sm:text-sm tracking-wider font-semibold">{idNumber}</p>
+                  <p className="text-zinc-400 text-[9px] sm:text-[10px] font-bold tracking-[0.12em] sm:tracking-[0.15em] uppercase mb-1 sm:mb-1.5" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.8)" }}>ID NUMBER</p>
+                  <p className="text-white font-mono text-[11px] sm:text-sm tracking-wider font-bold" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.8)" }}>{idNumber}</p>
                 </div>
-                <Fingerprint className="w-8 h-8 sm:w-10 sm:h-10 text-zinc-400 opacity-80" strokeWidth={1.5} />
+                <Fingerprint className="w-8 h-8 sm:w-10 sm:h-10 text-zinc-300 opacity-90" strokeWidth={1.5} style={{ filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))" }} />
               </div>
             </div>
           </div>
@@ -268,10 +268,11 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
 
         {/* ══════════════ BACK FACE ══════════════ */}
         <div
-          className="absolute inset-0 overflow-hidden flex items-center justify-center md:backdrop-blur-[12px]"
+          className="absolute inset-0 overflow-hidden flex items-center justify-center backdrop-blur-[12px] md:backdrop-blur-[12px]"
           style={{
             ...faceShared,
             clipPath: CLIP,
+            WebkitClipPath: CLIP,
             background: BACK_BG,
             transform: `rotateY(180deg) translateZ(${HALF}px)`,
             boxShadow: "inset 0 2px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(255,255,255,0.1), inset 0 0 20px rgba(255,255,255,0.05)",

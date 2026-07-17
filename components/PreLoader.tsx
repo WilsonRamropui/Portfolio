@@ -42,7 +42,7 @@ function makeParticles(): Particle[] {
 //   stored fingerprint ≠ current → real reload → show preloader
 //   stored fingerprint = current → in-app nav  → skip
 // ─────────────────────────────────────────────────────────────
-const SHOW_FLAG = 'wilson_show_preloader';
+
 const FP_KEY    = 'wilson_load_fp';
 
 function isRealPageLoad(): boolean {
@@ -58,7 +58,7 @@ export default function PreLoader() {
   // We'll hide it synchronously in useEffect if not needed
   const [visible,   setVisible]   = useState(true);
   const [fadeOut,   setFadeOut]   = useState(false);
-  const [mounted,   setMounted]   = useState(false);
+
   // Particles generated client-side only to avoid hydration mismatch
   const [particles, setParticles] = useState<Particle[]>([]);
 
@@ -66,8 +66,7 @@ export default function PreLoader() {
   const removeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
+
     setParticles(makeParticles());
 
     // Always snap to top — preloader should start from the very top
@@ -99,7 +98,7 @@ export default function PreLoader() {
       if (fadeTimer.current)    clearTimeout(fadeTimer.current);
       if (removeTimer.current)  clearTimeout(removeTimer.current);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   if (!visible) return null;
