@@ -88,7 +88,7 @@ export default function FloorPlan3D() {
 
             {/* Minimalist Typography Footer */}
             <div className="relative z-10 px-6 pb-6 pt-2 flex flex-col justify-end">
-              <h3 className="text-2xl font-bold text-white tracking-tight mb-1">{BLUEPRINT_DATA.title}</h3>
+              <h3 className="text-lg sm:text-2xl font-bold text-white tracking-tight mb-1">{BLUEPRINT_DATA.title}</h3>
               <div className="flex justify-between items-center text-neutral-400 text-sm">
                 <span className="font-medium">{BLUEPRINT_DATA.drawnBy}</span>
                 <div className="flex items-center gap-1.5">

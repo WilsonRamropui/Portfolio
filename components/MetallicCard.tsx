@@ -145,33 +145,27 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     };
   }, [rotX, rotY]);
 
-  // ── Touch / Pointer handlers (mobile) ─────────────────────────────────────
-  // Uses PointerEvent API — works across touch, stylus, mouse
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    if (e.pointerType === "mouse") return;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  // ── Touch handlers (mobile pure touch) ─────────────────────────────────────
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
     isDragging.current = true;
-    tLastX.current = e.clientX;
-    tLastY.current = e.clientY;
+    tLastX.current = e.touches[0].clientX;
+    tLastY.current = e.touches[0].clientY;
   }, []);
 
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    if (e.pointerType === "mouse") return;
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
     if (!isDragging.current || tLastX.current === null) return;
-    const dx = e.clientX - tLastX.current;
-    const dy = e.clientY - (tLastY.current ?? 0);
+    const dx = e.touches[0].clientX - tLastX.current;
+    const dy = e.touches[0].clientY - (tLastY.current ?? 0);
     rotY.set(rotY.get() + dx * 1.0);
     rotX.set(Math.max(-20, Math.min(20, rotX.get() - dy * 0.5)));
-    tLastX.current = e.clientX;
-    tLastY.current = e.clientY;
+    tLastX.current = e.touches[0].clientX;
+    tLastY.current = e.touches[0].clientY;
   }, [rotX, rotY]);
 
-  const onPointerUp = useCallback((e: React.PointerEvent) => {
-    if (e.pointerType === "mouse") return;
+  const onTouchEnd = useCallback(() => {
     tLastX.current = null;
     tLastY.current = null;
     isDragging.current = false;
-    // Card stays at current angle
   }, []);
 
   return (
@@ -193,10 +187,10 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
           transformOrigin: "center center",
           transformStyle: "preserve-3d", // Ensure grandparent passes 3D context
         }}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
       >
         {/* ── Rotating 3D container ── */}
         <motion.div
