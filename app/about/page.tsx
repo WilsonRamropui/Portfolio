@@ -33,7 +33,7 @@ export default function About() {
             <h1 className="text-5xl font-bold tracking-tight text-zinc-100 font-cinzel text-center lg:w-[380px]">About Me</h1>
             
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-end gap-3 w-full lg:w-auto">
-              <Link href="/resume.pdf" target="_blank" className={`${s.primaryButton} flex items-center justify-center gap-2`}>
+              <Link href="https://drive.google.com/file/d/1utFhantrIMrHRdhSffdpINwYMuo_EujX/view?usp=sharing" target="_blank" className={`${s.primaryButton} flex items-center justify-center gap-2`}>
                 <FileText className="w-4 h-4" />
                 Resume
               </Link>

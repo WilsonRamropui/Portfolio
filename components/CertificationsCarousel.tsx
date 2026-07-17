@@ -2,6 +2,8 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { ExternalLink, Award } from "lucide-react";
+import { SiUdemy } from "react-icons/si";
+import { FaLinkedinIn } from "react-icons/fa";
 
 export function CertificationsCarousel({ certifications }: { certifications: any[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -135,14 +137,19 @@ export function CertificationsCarousel({ certifications }: { certifications: any
       >
         {infiniteCerts.map((cert, i) => (
           <div className="cert-carousel-slide" key={i}>
-            <a href={cert.url} target="_blank" rel="noopener noreferrer" className="cert-card" draggable={false}>
+            <a href={cert.url} target="_blank" rel="noopener noreferrer" className="cert-card" draggable={false} onClick={(e) => { if (isDragging.current) { e.preventDefault(); } }}>
               <div className="cert-link-icon">
                 <ExternalLink size={16} />
               </div>
               <div className="cert-badge-wrap">
-                {/* Placeholder for the actual image. Replace with <img src={cert.icon} /> when you have the files! */}
                 <div className="cert-badge-placeholder">
-                  <Award size={40} strokeWidth={1.5} />
+                  {cert.issuer === "Udemy" ? (
+                    <SiUdemy size={50} color="var(--sk-ivory)" style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.2))" }} />
+                  ) : cert.issuer === "LinkedIn Learning" ? (
+                    <FaLinkedinIn size={38} color="var(--sk-ivory)" style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.2))" }} />
+                  ) : (
+                    <Award size={40} strokeWidth={1.5} color="var(--sk-ivory)" />
+                  )}
                 </div>
               </div>
               <div className="cert-category">{cert.category}</div>

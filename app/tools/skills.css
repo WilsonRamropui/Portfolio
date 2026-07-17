@@ -533,7 +533,19 @@
   -ms-overflow-style: none; /* IE/Edge */
   gap: 1.5rem;
   padding: 1rem 0 2rem 0; /* Vertical padding for shadows */
+  user-select: none; /* Prevent text selection while dragging */
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
+
+/* Prevent inner elements from being draggable or selectable */
+.cert-card, .cert-card * {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 
 .cert-carousel-track::-webkit-scrollbar {
   display: none; /* Chrome/Safari */
