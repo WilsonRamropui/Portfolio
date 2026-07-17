@@ -101,7 +101,7 @@ export default function SkillsPage() {
 
 
           {/* ── Certifications & Badges ──────────────────────────── */}
-          <section aria-label="Certifications & Badges" className="mb-20">
+          <section aria-label="Certifications & Badges" className="mb-8 md:mb-20">
             <div className="skills-section-label">Credentials</div>
             <h2 className="skills-section-title">Certifications &amp; Badges</h2>
             <CertificationsCarousel certifications={certifications} />

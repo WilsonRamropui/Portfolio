@@ -738,6 +738,10 @@
   .skills-workflow-steps { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
   .workflow-step-dot { width: 44px; height: 44px; font-size: 1.1rem; }
   .workflow-step-label { font-size: 10px; }
+
+  /* Tighter carousel dots on mobile */
+  .cert-carousel-dots { margin-top: 0.75rem; gap: 0.5rem; }
+  .cert-dot { width: 5px; height: 5px; }
 }
 
 /* ── Mobile Landscape: 768px ──────────────────────────────────── */

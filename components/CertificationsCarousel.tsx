@@ -7,6 +7,11 @@ export function CertificationsCarousel({ certifications }: { certifications: any
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Dragging state for PC
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftPos = useRef(0);
+
   // Duplicate the array 15 times to create an "infinite" track (60 items total)
   const numClones = 15;
   const infiniteCerts = Array(numClones).fill(certifications).flat();
@@ -77,16 +82,60 @@ export function CertificationsCarousel({ certifications }: { certifications: any
     }
   };
 
+  // ── Mouse Dragging for PC ──────────────────────────────
+  const onMouseDown = (e: React.MouseEvent) => {
+    isDragging.current = true;
+    if (scrollRef.current) {
+      startX.current = e.pageX - scrollRef.current.offsetLeft;
+      scrollLeftPos.current = scrollRef.current.scrollLeft;
+      // Disable scroll snap and smooth scrolling while dragging for 60fps buttery smoothness
+      scrollRef.current.style.scrollSnapType = 'none';
+      scrollRef.current.style.scrollBehavior = 'auto'; 
+      scrollRef.current.style.cursor = 'grabbing';
+    }
+  };
+
+  const onMouseLeave = () => {
+    if (isDragging.current && scrollRef.current) {
+      isDragging.current = false;
+      scrollRef.current.style.scrollSnapType = 'x mandatory';
+      scrollRef.current.style.scrollBehavior = 'smooth';
+      scrollRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const onMouseUp = () => {
+    if (isDragging.current && scrollRef.current) {
+      isDragging.current = false;
+      scrollRef.current.style.scrollSnapType = 'x mandatory';
+      scrollRef.current.style.scrollBehavior = 'smooth';
+      scrollRef.current.style.cursor = 'grab';
+    }
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeftPos.current - walk;
+  };
+
   return (
     <div className="cert-carousel-wrapper">
       <div 
         className="cert-carousel-track" 
+        style={{ cursor: "grab" }}
         ref={scrollRef}
         onScroll={handleScroll}
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseLeave}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
       >
         {infiniteCerts.map((cert, i) => (
           <div className="cert-carousel-slide" key={i}>
-            <a href={cert.url} target="_blank" rel="noopener noreferrer" className="cert-card">
+            <a href={cert.url} target="_blank" rel="noopener noreferrer" className="cert-card" draggable={false}>
               <div className="cert-link-icon">
                 <ExternalLink size={16} />
               </div>
