@@ -7,6 +7,25 @@ export function CertificationsCarousel({ certifications }: { certifications: any
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Duplicate the array 15 times to create an "infinite" track (60 items total)
+  const numClones = 15;
+  const infiniteCerts = Array(numClones).fill(certifications).flat();
+  // Calculate the starting index of the exact middle group
+  const middleGroupStart = Math.floor(numClones / 2) * certifications.length;
+
+  useEffect(() => {
+    // On mount, jump instantly to the middle group so we can swipe left or right infinitely
+    if (scrollRef.current) {
+      const track = scrollRef.current;
+      const slides = Array.from(track.children) as HTMLElement[];
+      if (slides[middleGroupStart]) {
+        // Jump without smooth scrolling
+        const leftPosition = slides[middleGroupStart].offsetLeft - track.offsetLeft;
+        track.scrollTo({ left: leftPosition, behavior: "instant" as any });
+      }
+    }
+  }, [middleGroupStart]);
+
   const handleScroll = () => {
     if (!scrollRef.current) return;
     const track = scrollRef.current;
@@ -25,21 +44,36 @@ export function CertificationsCarousel({ certifications }: { certifications: any
       }
     });
     
-    setActiveIndex(closestIndex);
+    // Map the absolute infinite index back to the relative index (0 to 3) for the dots
+    setActiveIndex(closestIndex % certifications.length);
   };
 
-  const scrollTo = (index: number) => {
+  const scrollToRelative = (relativeIndex: number) => {
     if (!scrollRef.current) return;
     const track = scrollRef.current;
     const slides = Array.from(track.children) as HTMLElement[];
-    if (slides[index]) {
-      // Calculate the exact left offset relative to the track
-      const leftPosition = slides[index].offsetLeft - track.offsetLeft;
+    
+    // Find the closest slide in the current viewport that matches the relative index
+    let minDiff = Infinity;
+    let targetSlideIndex = 0;
+    
+    slides.forEach((slide, index) => {
+      if (index % certifications.length === relativeIndex) {
+        const diff = Math.abs(slide.offsetLeft - track.scrollLeft - track.offsetLeft);
+        if (diff < minDiff) {
+          minDiff = diff;
+          targetSlideIndex = index;
+        }
+      }
+    });
+
+    if (slides[targetSlideIndex]) {
+      const leftPosition = slides[targetSlideIndex].offsetLeft - track.offsetLeft;
       track.scrollTo({
         left: leftPosition,
         behavior: "smooth",
       });
-      setActiveIndex(index);
+      setActiveIndex(relativeIndex);
     }
   };
 
@@ -50,7 +84,7 @@ export function CertificationsCarousel({ certifications }: { certifications: any
         ref={scrollRef}
         onScroll={handleScroll}
       >
-        {certifications.map((cert, i) => (
+        {infiniteCerts.map((cert, i) => (
           <div className="cert-carousel-slide" key={i}>
             <a href={cert.url} target="_blank" rel="noopener noreferrer" className="cert-card">
               <div className="cert-link-icon">
@@ -75,7 +109,7 @@ export function CertificationsCarousel({ certifications }: { certifications: any
         {certifications.map((_, i) => (
           <button
             key={i}
-            onClick={() => scrollTo(i)}
+            onClick={() => scrollToRelative(i)}
             className={`cert-dot ${activeIndex === i ? "active" : ""}`}
             aria-label={`Go to slide ${i + 1}`}
           />

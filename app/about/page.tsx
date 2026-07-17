@@ -89,7 +89,7 @@ export default function About() {
 
           {/* Interests Section */}
           <div className="mt-12 lg:mt-16 text-center lg:text-left">
-            <h2 className={s.sectionHeading}>Interests</h2>
+            <h2 className={`${s.sectionHeading} font-cinzel text-center lg:text-left`}>Interests</h2>
             <div className={`${s.interestsContainer} justify-center lg:justify-start mt-6`}>
               {interests.map((interest, idx) => (
                 <React.Fragment key={idx}>

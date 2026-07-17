@@ -8,6 +8,11 @@ import { motion } from 'framer-motion';
 export function NavigationDock() {
   const pathname = usePathname();
 
+  // Hide the navigation bar entirely on the showcase page
+  if (pathname === '/showcase') {
+    return null;
+  }
+
   const items = [
     { href: '/', label: 'Home' },
     { href: '/projects', label: 'Projects' },
