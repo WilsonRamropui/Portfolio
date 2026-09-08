@@ -1,13 +1,16 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import React, { useEffect, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useInView } from "motion/react";
 
 interface CinematicBackgroundProps {
   className: string;
 }
 
 export function CinematicBackground({ className }: CinematicBackgroundProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { margin: "200px" });
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -24,6 +27,7 @@ export function CinematicBackground({ className }: CinematicBackgroundProps) {
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isInView) return; // Pause calculation when out of view
       // Normalize mouse coordinates between -1 and 1
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = (e.clientY / window.innerHeight) * 2 - 1;
@@ -37,6 +41,7 @@ export function CinematicBackground({ className }: CinematicBackgroundProps) {
 
   return (
     <motion.div
+      ref={ref}
       className={className}
       style={{
         x: translateX,

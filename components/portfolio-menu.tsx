@@ -243,7 +243,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                 initial="closed"
                 animate={controls}
                 transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                className="relative overflow-hidden flex justify-center items-center bg-black/5 dark:bg-white/5 backdrop-blur-2xl border border-black/10 dark:border-white/10 border-t-black/20 dark:border-t-white/30 border-l-black/10 dark:border-l-white/20 p-3 rounded-[30px] w-[2.5rem] h-[2.5rem] cursor-pointer shadow-[0_16px_32px_-8px_rgba(0,0,0,0.2),0_8px_16px_-4px_rgba(0,0,0,0.1)] dark:shadow-[0_16px_32px_-8px_rgba(0,0,0,0.5),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_0_rgba(0,0,0,0.1)]"
+                className="relative overflow-hidden flex justify-center items-center bg-black/5 dark:bg-white/5 backdrop-blur-2xl border border-black/10 dark:border-white/10 border-t-black/20 dark:border-t-white/30 border-l-black/10 dark:border-l-white/20 p-3 rounded-[30px] w-[2.5rem] h-[2.5rem] cursor-pointer shadow-[0_16px_32px_-8px_rgba(0,0,0,0.2),0_8px_16px_-4px_rgba(0,0,0,0.1)] dark:shadow-[0_16px_32px_-8px_rgba(0,0,0,0.5),0_8px_16px_-4px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.2),inset_0_-1px_0_rgba(0,0,0,0.1)] transform-gpu will-change-[width,height]"
             >
                 <div className="top-1/2 left-[8px] z-[9999] absolute flex justify-center items-center origin-left transition-all -translate-y-1/2 duration-350 ease-out">
                     <motion.div
@@ -252,9 +252,16 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         animate={imageControls}
                         role="button"
                         aria-label="Toggle menu"
+                        tabIndex={0}
                         onClick={() => {
                             if (!isAnimatingRef.current) {
                                 setIsOpen((prev) => !prev);
+                            }
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                if (!isAnimatingRef.current) setIsOpen((prev) => !prev);
                             }
                         }}
                     >
@@ -277,12 +284,19 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                     <div
                         role="button"
                         aria-label="Open bio"
+                        tabIndex={isOpen ? 0 : -1}
                         onClick={() => {
                             if (!isAnimatingRef.current) {
                                 setIsBio(true);
                             }
                         }}
-                        className="flex justify-center items-center gap-[2px] bg-orange-600 rounded-full size-[36px]"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                if (!isAnimatingRef.current) setIsBio(true);
+                            }
+                        }}
+                        className="flex justify-center items-center gap-[2px] bg-orange-600 rounded-full size-[36px] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                         <div className="bg-white rounded-full w-[1.5px] h-[4px]" />
                         <div className="bg-white rounded-full w-[1.5px] h-[8px]" />
@@ -294,6 +308,7 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                     <div
                         role="button"
                         aria-label="Open social links"
+                        tabIndex={isOpen ? 0 : -1}
                         onClick={() => {
                             if (!isAnimatingRef.current) {
                                 setIsMenu(true);
@@ -301,7 +316,17 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                                 setIsOpen(false);
                             }
                         }}
-                        className="flex justify-center items-center gap-[3px] bg-blue-600 rounded-full size-[36px]"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                if (!isAnimatingRef.current) {
+                                    setIsMenu(true);
+                                    setIsBio(false);
+                                    setIsOpen(false);
+                                }
+                            }
+                        }}
+                        className="flex justify-center items-center gap-[3px] bg-blue-600 rounded-full size-[36px] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     >
                         <div className="bg-white rounded-full size-[2.5px]" />
                         <div className="bg-white rounded-full size-[2.5px]" />
@@ -357,13 +382,23 @@ export default function Portfolio({ config = defaultPortfolioConfig }: Props) {
                         <div
                             role="button"
                             aria-label="Go back"
+                            tabIndex={isMenu ? 0 : -1}
                             onClick={() => {
                                 if (!isAnimatingRef.current) {
                                     setIsMenu(false);
                                     setIsOpen(true);
                                 }
                             }}
-                            className="cursor-pointer"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    if (!isAnimatingRef.current) {
+                                        setIsMenu(false);
+                                        setIsOpen(true);
+                                    }
+                                }
+                            }}
+                            className="cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900 dark:focus-visible:ring-white rounded-full p-1"
                         >
                             <ArrowLeftIcon size={16} className="text-zinc-900 dark:text-white" suppressHydrationWarning />
                         </div>

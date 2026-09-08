@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer";
 import Portfolio from "@/components/portfolio-menu";
 import PageTransition from "@/components/PageTransition";
 import PreLoader from "@/components/PreLoader";
-import { Geist, Cormorant_Garamond, Crimson_Text, Cormorant, Cormorant_Upright, Goudy_Bookletter_1911, Cinzel, Saira_Stencil_One, Raleway_Dots, Cormorant_Infant, Rosarivo } from "next/font/google";
+import { Geist, Cormorant_Garamond, Crimson_Text, Goudy_Bookletter_1911, Cinzel, Rosarivo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -20,22 +20,10 @@ const cormorantGaramond = Cormorant_Garamond({
   variable: '--font-cormorant',
   display: 'swap',
 });
-const cormorantBase = Cormorant({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant-base',
-  display: 'swap',
-});
 const crimson = Crimson_Text({
   subsets: ['latin'],
   weight: ['400', '600', '700'],
   variable: '--font-crimson',
-  display: 'swap',
-});
-const cormorantUpright = Cormorant_Upright({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant-upright',
   display: 'swap',
 });
 const goudy = Goudy_Bookletter_1911({
@@ -49,24 +37,7 @@ const cinzel = Cinzel({
   variable: '--font-cinzel',
   display: 'swap',
 });
-const sairaStencil = Saira_Stencil_One({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-saira-stencil',
-  display: 'swap',
-});
-const ralewayDots = Raleway_Dots({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-raleway-dots',
-  display: 'swap',
-});
-const cormorantInfant = Cormorant_Infant({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-cormorant-infant',
-  display: 'swap',
-});
+
 const rosarivo = Rosarivo({
   subsets: ['latin'],
   weight: ['400'],
@@ -120,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning lang="en" className={cn("font-sans", geist.variable, cormorantGaramond.variable, cormorantBase.variable, crimson.variable, cormorantUpright.variable, goudy.variable, cinzel.variable, sairaStencil.variable, ralewayDots.variable, cormorantInfant.variable, rosarivo.variable)}>
+    <html suppressHydrationWarning lang="en" className={cn("font-sans", geist.variable, cormorantGaramond.variable, crimson.variable, goudy.variable, cinzel.variable, rosarivo.variable)}>
       <body className="antialiased transition-colors duration-500 ease-in-out">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <SmoothScroll>

@@ -225,6 +225,7 @@ function DetailOverlay({
               fill
               className="object-contain pointer-events-none"
               priority
+              quality={80}
               sizes="70vw"
             />
           </div>
@@ -334,6 +335,7 @@ export default function CinematicShowcasePage() {
                 fill
                 className="object-contain grayscale opacity-90 pointer-events-none"
                 priority
+                quality={80}
                 sizes="100vw"
               />
             </motion.div>
@@ -418,6 +420,7 @@ export default function CinematicShowcasePage() {
                 fill
                 className="object-contain pointer-events-none"
                 priority
+                quality={80}
                 sizes="60vw"
               />
             </div>

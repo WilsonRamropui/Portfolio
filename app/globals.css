@@ -10,13 +10,8 @@
   --font-sans: var(--font-sans);
   --font-cormorant: var(--font-cormorant);
   --font-crimson: var(--font-crimson);
-  --font-cormorant-base: var(--font-cormorant-base);
-  --font-cormorant-upright: var(--font-cormorant-upright);
   --font-goudy: var(--font-goudy);
   --font-cinzel: var(--font-cinzel);
-  --font-saira-stencil: var(--font-saira-stencil);
-  --font-cormorant-infant: var(--font-cormorant-infant);
-  --font-raleway-dots: var(--font-raleway-dots);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -163,12 +158,8 @@
 @layer utilities {
   .font-cormorant { font-family: var(--font-cormorant), serif !important; }
   .font-crimson { font-family: var(--font-crimson), serif !important; }
-  .font-cormorant-base { font-family: var(--font-cormorant-base), serif !important; }
-  .font-cormorant-upright { font-family: var(--font-cormorant-upright), serif !important; }
   .font-goudy { font-family: var(--font-goudy), serif !important; }
   .font-cinzel { font-family: var(--font-cinzel), serif !important; }
-  .font-saira-stencil { font-family: var(--font-saira-stencil), sans-serif !important; }
-  .font-raleway-dots { font-family: var(--font-raleway-dots), cursive !important; }
 }
 
 /* AI Gradient Card specific mask */

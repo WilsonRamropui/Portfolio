@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect, useCallback } from "react";
 import { Lock, Activity, Fingerprint } from "lucide-react";
-import { motion, useMotionValue, useSpring, useTransform, animate } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, animate, useAnimationFrame, useInView } from "framer-motion";
 
 interface MetallicCardProps {
   name?: string;
@@ -61,6 +61,7 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
   idNumber = "8901-2345-6789",
 }) => {
   const cardWrapperRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardWrapperRef, { margin: "200px" }); // Start pausing slightly after it leaves
 
   // ── Motion values ─────────────────────────────────────────────────────────
   const rotY = useMotionValue(0);
@@ -90,6 +91,15 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
   const lastY       = useRef(0);
   const tLastX      = useRef<number | null>(null);
   const tLastY      = useRef<number | null>(null);
+
+  // ── Auto Rotation ──────────────────────────────────────────────────────────
+  useAnimationFrame((t, delta) => {
+    if (!isDragging.current && isInView) {
+      // Frame-rate independent rotation (approx 15 degrees per second)
+      // Synchronizes perfectly with Framer Motion's internal render loop to eliminate stutter
+      rotY.set(rotY.get() + delta * 0.015); 
+    }
+  });
 
   // Card stays at the angle it was left — no snap-back
 
@@ -145,6 +155,24 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     };
   }, [rotX, rotY]);
 
+  // ── Keyboard handlers (a11y) ───────────────────────────────────────────────
+  const onKeyDown = useCallback((e: React.KeyboardEvent) => {
+    const ROTATION_STEP = 15;
+    if (e.key === "ArrowLeft") {
+      rotY.set(rotY.get() - ROTATION_STEP);
+      e.preventDefault();
+    } else if (e.key === "ArrowRight") {
+      rotY.set(rotY.get() + ROTATION_STEP);
+      e.preventDefault();
+    } else if (e.key === "ArrowUp") {
+      rotX.set(Math.max(-20, Math.min(20, rotX.get() + ROTATION_STEP)));
+      e.preventDefault();
+    } else if (e.key === "ArrowDown") {
+      rotX.set(Math.max(-20, Math.min(20, rotX.get() - ROTATION_STEP)));
+      e.preventDefault();
+    }
+  }, [rotX, rotY]);
+
   // ── Touch handlers (mobile pure touch) ─────────────────────────────────────
   const onTouchStart = useCallback((e: React.TouchEvent) => {
     isDragging.current = true;
@@ -178,7 +206,11 @@ export const MetallicCard: React.FC<MetallicCardProps> = ({
     >
       <div
         ref={cardWrapperRef}
-        className="relative w-full max-w-[360px] aspect-[1/1.58]"
+        className="relative w-full max-w-[360px] aspect-[1/1.58] focus:outline-none focus-visible:ring-4 focus-visible:ring-zinc-500/50 rounded-xl"
+        tabIndex={0}
+        role="group"
+        aria-label={`Interactive 3D Metallic Card for ${name}. Use arrow keys to manually rotate.`}
+        onKeyDown={onKeyDown}
         style={{
           cursor: "grab",
           userSelect: "none",

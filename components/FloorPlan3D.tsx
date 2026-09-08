@@ -78,7 +78,7 @@ export default function FloorPlan3D() {
                   src={BLUEPRINT_DATA.imageSrc}
                   alt="2D Floor Plan Blueprint" 
                   fill
-                  unoptimized={true}
+                  quality={80}
                   priority
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-contain transition-transform duration-500 group-hover:scale-105 transform-gpu"
@@ -131,7 +131,8 @@ export default function FloorPlan3D() {
                     src={BLUEPRINT_DATA.imageSrc}
                     alt="2D Floor Plan Blueprint (Full View)" 
                     fill
-                    unoptimized={true}
+                    quality={80}
+                    sizes="100vw"
                     className="object-contain drop-shadow-xl"
                     priority
                   />
