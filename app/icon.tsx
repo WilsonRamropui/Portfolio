@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
-// Must use the edge runtime for next/og fetch and import.meta.url
-export const runtime = 'edge';
+import fs from 'fs';
+import path from 'path';
 
 // Image metadata
 export const size = {
@@ -11,10 +11,10 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Icon() {
-  // Use fetch and import.meta.url to load the font correctly in Edge runtime
-  const fontData = await fetch(
-    new URL('../public/MagnificChaosPersonalUseRegular-x3J88.ttf', import.meta.url)
-  ).then((res) => res.arrayBuffer());
+  // Use fs.readFileSync to load the font in Node.js runtime
+  const fontData = fs.readFileSync(
+    path.join(process.cwd(), 'public', 'MagnificChaosPersonalUseRegular-x3J88.ttf')
+  );
 
   return new ImageResponse(
     (
