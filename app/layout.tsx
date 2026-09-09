@@ -49,10 +49,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://wilson-portfolio.com'),
   title: "Wilson Portfolio",
   description: "Wilson Ramropui - Founding Engineer & Design Engineer",
-  icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png",
-  },
+  // Icons removed to allow dynamic app/icon.tsx
   openGraph: {
     title: 'Wilson Portfolio',
     description: 'Wilson Ramropui - Founding Engineer & Design Engineer',
